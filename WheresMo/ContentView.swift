@@ -5,17 +5,27 @@
 //  Created by Neil Bassett on 11/11/22.
 //
 
+import MapKit
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var viewModel = ViewModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        ZStack {
+            Map(coordinateRegion: $viewModel.mapRegion, annotationItems: viewModel.locations) { location in
+                MapAnnotation(coordinate: location.coordinate) {
+                    LocationMarkerView()
+                        .onTapGesture {
+                            viewModel.selectedPlace = location
+                        }
+                }
+            }
+            .ignoresSafeArea()
         }
-        .padding()
+        .sheet(item: $viewModel.selectedPlace) { place in
+            LocationDetailView(location: place)
+        }
     }
 }
 
