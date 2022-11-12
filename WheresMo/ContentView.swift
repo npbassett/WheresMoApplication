@@ -15,16 +15,75 @@ struct ContentView: View {
         ZStack {
             Map(coordinateRegion: $viewModel.mapRegion, annotationItems: viewModel.locations) { location in
                 MapAnnotation(coordinate: location.coordinate) {
-                    LocationMarkerView()
-                        .onTapGesture {
-                            viewModel.selectedPlace = location
-                        }
+                    if !viewModel.placingPin {
+                        LocationMarkerView()
+                            .onTapGesture {
+                                viewModel.selectedPlace = location
+                            }
+                    }
                 }
             }
             .ignoresSafeArea()
+            
+            if viewModel.placingPin {
+                ZStack {
+                    Image(systemName: "plus")
+                        .font(.largeTitle)
+                        .foregroundColor(.blue)
+                    
+                    VStack {
+                        Spacer()
+                        
+                        Button {
+                            viewModel.addLocation()
+                        } label: {
+                            Text("Confirm Placement")
+                                .padding()
+                                .background(.black.opacity(0.75))
+                                .foregroundColor(.blue)
+                                .font(.headline)
+                                .clipShape(Capsule())
+                        }
+                        
+                        Button {
+                            viewModel.endPlacingPin()
+                        } label: {
+                            Text("Cancel")
+                                .padding()
+                                .background(.black.opacity(0.75))
+                                .foregroundColor(.white)
+                                .font(.headline)
+                                .clipShape(Capsule())
+                        }
+                    }
+                }
+            } else {
+                VStack {
+                    Spacer()
+                    
+                    HStack {
+                        Spacer()
+                        
+                        Button {
+                            viewModel.startPlacingPin()
+                        } label: {
+                            Image(systemName: "mappin")
+                                .padding()
+                                .background(.black.opacity(0.75))
+                                .foregroundColor(.white)
+                                .font(.title)
+                                .clipShape(Circle())
+                                .padding(.trailing)
+                        }
+                    }
+                }
+            }
         }
         .sheet(item: $viewModel.selectedPlace) { place in
-            LocationDetailView(location: place)
+            LocationEditView(location: place,
+                             onSave: { newLocation in viewModel.updateLocation(location: newLocation)},
+                             onDelete: { newLocation in viewModel.deleteLocation(location: newLocation)}
+            )
         }
     }
 }
