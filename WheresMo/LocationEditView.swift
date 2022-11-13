@@ -5,6 +5,7 @@
 //  Created by Neil Bassett on 11/12/22.
 //
 
+import MapKit
 import SwiftUI
 
 struct LocationEditView: View {
@@ -17,13 +18,16 @@ struct LocationEditView: View {
     @State private var placedBy: String
     @State private var date: Date
     @State private var description: String
+    @State private var coordinateRegion: MKCoordinateRegion
+    @State private var coordinate: CLLocationCoordinate2D
     
     @State private var showingDeleteAlert = false
     
     var body: some View {
         NavigationView {
             Form {
-                Section("Landmark") {
+                Section(header: Text("Landmark"),
+                        footer: Text(Image(systemName: "location.fill")) + Text(" \(coordinate.latitude), \(coordinate.longitude)")) {
                     TextField("Enter landmark", text: $landmark)
                 }
                 
@@ -40,6 +44,18 @@ struct LocationEditView: View {
                     TextEditor(text: $description)
                         .frame(height: 150)
                 }
+                
+                Section {
+                    Map(coordinateRegion: $coordinateRegion,
+                        annotationItems: [Location(latitude: coordinate.latitude,
+                                                   longitude: coordinate.longitude)]) { location in
+                        MapAnnotation(coordinate: location.coordinate) {
+                            LocationMarkerView()
+                        }
+                    }
+                    .frame(width: 350, height: 200)
+                }
+                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
             }
             .navigationTitle("Edit")
             .alert("Delete location?", isPresented: $showingDeleteAlert) {
@@ -89,6 +105,8 @@ struct LocationEditView: View {
         _placedBy = State(initialValue: location.placedBy)
         _date = State(initialValue: location.date)
         _description = State(initialValue: location.description)
+        _coordinateRegion = State(initialValue: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+        _coordinate = State(initialValue: location.coordinate)
     }
 }
 
