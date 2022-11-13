@@ -29,4 +29,12 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
             )
         }
     }
+    
+    func resetMapRegion() {
+        if let currentLocationCoordinate = manager.location?.coordinate {
+            mapRegion = MKCoordinateRegion(center: currentLocationCoordinate, span: mapRegion.span)
+        } else {
+            print("Error getting current location.")
+        }
+    }
 }

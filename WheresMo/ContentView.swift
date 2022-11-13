@@ -71,16 +71,32 @@ struct ContentView: View {
                     HStack {
                         Spacer()
                         
-                        Button {
-                            viewModel.startPlacingPin()
-                        } label: {
-                            Image(systemName: "mappin")
-                                .padding()
-                                .background(.black.opacity(0.75))
-                                .foregroundColor(.white)
-                                .font(.title)
-                                .clipShape(Circle())
-                                .padding(.trailing)
+                        VStack {
+                            Button {
+                                withAnimation {
+                                    locationManager.resetMapRegion()
+                                }
+                            } label: {
+                                Image(systemName: "location.fill")
+                                    .padding()
+                                    .background(.black.opacity(0.75))
+                                    .foregroundColor(.white)
+                                    .font(.title)
+                                    .clipShape(Circle())
+                                    .padding(.trailing)
+                            }
+                            
+                            Button {
+                                viewModel.startPlacingPin()
+                            } label: {
+                                Image(systemName: "mappin")
+                                    .padding()
+                                    .background(.black.opacity(0.75))
+                                    .foregroundColor(.white)
+                                    .font(.title)
+                                    .clipShape(Circle())
+                                    .padding(.trailing)
+                            }
                         }
                     }
                 }
