@@ -102,6 +102,7 @@ struct ContentView: View {
                 }
             }
         }
+        .animation(.easeInOut, value: viewModel.placingPin)
         .sheet(item: $viewModel.selectedPlace) { place in
             LocationEditView(location: place,
                              onSave: { newLocation in viewModel.updateLocation(location: newLocation)},
