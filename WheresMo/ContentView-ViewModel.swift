@@ -45,7 +45,13 @@ extension ContentView {
         }
         
         func addLocation(latitude: Double, longitude: Double) {
-            let newLocation = Location(id: UUID(), landmark: "", placedBy: "", latitude: latitude, longitude: longitude, description: "")
+            let newLocation = Location(id: UUID(),
+                                       landmark: "",
+                                       placedBy: "",
+                                       date: Date(),
+                                       latitude: latitude,
+                                       longitude: longitude,
+                                       description: "")
             locations.append(newLocation)
             save()
             endPlacingPin()

@@ -15,6 +15,7 @@ struct LocationEditView: View {
     
     @State private var landmark: String
     @State private var placedBy: String
+    @State private var date: Date
     @State private var description: String
     
     @State private var showingDeleteAlert = false
@@ -25,9 +26,16 @@ struct LocationEditView: View {
                 Section("Landmark") {
                     TextField("Enter landmark", text: $landmark)
                 }
+                
                 Section("Placed by") {
                     TextField("Enter name", text: $placedBy)
                 }
+                
+                Section("Date placed") {
+                    DatePicker("Enter the date and time when this Mo was placed", selection: $date)
+                        .labelsHidden()
+                }
+                
                 Section("Description") {
                     TextEditor(text: $description)
                         .frame(height: 150)
@@ -79,6 +87,7 @@ struct LocationEditView: View {
         
         _landmark = State(initialValue: location.landmark)
         _placedBy = State(initialValue: location.placedBy)
+        _date = State(initialValue: location.date)
         _description = State(initialValue: location.description)
     }
 }
