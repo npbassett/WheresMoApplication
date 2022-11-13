@@ -34,7 +34,6 @@ struct LocationEditView: View {
                 }
             }
             .navigationTitle("Edit")
-            //.navigationBarTitleDisplayMode(.inline)
             .alert("Delete location?", isPresented: $showingDeleteAlert) {
                 Button("Delete", role: .destructive) {
                     onDelete(location)

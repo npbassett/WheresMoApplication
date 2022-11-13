@@ -9,11 +9,16 @@ import MapKit
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var locationManager = LocationManager()
     @StateObject private var viewModel = ViewModel()
     
     var body: some View {
         ZStack {
-            Map(coordinateRegion: $viewModel.mapRegion, annotationItems: viewModel.locations) { location in
+            Map(coordinateRegion: $locationManager.mapRegion,
+                interactionModes: .all,
+                showsUserLocation: true,
+                userTrackingMode: $viewModel.userTrackingMode,
+                annotationItems: viewModel.locations) { location in
                 MapAnnotation(coordinate: location.coordinate) {
                     if !viewModel.placingPin {
                         LocationMarkerView()
@@ -24,7 +29,7 @@ struct ContentView: View {
                 }
             }
             .ignoresSafeArea()
-            
+                        
             if viewModel.placingPin {
                 ZStack {
                     Image(systemName: "plus")
@@ -35,7 +40,9 @@ struct ContentView: View {
                         Spacer()
                         
                         Button {
-                            viewModel.addLocation()
+                            viewModel.addLocation(latitude: locationManager.mapRegion.center.latitude,
+                                                  longitude: locationManager.mapRegion.center.longitude
+                            )
                         } label: {
                             Text("Confirm Placement")
                                 .padding()

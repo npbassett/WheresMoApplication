@@ -16,6 +16,7 @@
 		512E1633292026F8008094A9 /* LocationMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E1632292026F7008094A9 /* LocationMarkerView.swift */; };
 		512E1637292040E8008094A9 /* LocationEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E1636292040E8008094A9 /* LocationEditView.swift */; };
 		512E163929205A54008094A9 /* FileManager-DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E163829205A54008094A9 /* FileManager-DocumentsDirectory.swift */; };
+		512E163D29216217008094A9 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E163C29216217008094A9 /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		512E1632292026F7008094A9 /* LocationMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMarkerView.swift; sourceTree = "<group>"; };
 		512E1636292040E8008094A9 /* LocationEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEditView.swift; sourceTree = "<group>"; };
 		512E163829205A54008094A9 /* FileManager-DocumentsDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager-DocumentsDirectory.swift"; sourceTree = "<group>"; };
+		512E163C29216217008094A9 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			children = (
 				512E161F291F10AB008094A9 /* WheresMoApp.swift */,
 				512E1621291F10AB008094A9 /* ContentView.swift */,
+				512E163C29216217008094A9 /* LocationManager.swift */,
 				512E162E2920173F008094A9 /* ContentView-ViewModel.swift */,
 				512E1636292040E8008094A9 /* LocationEditView.swift */,
 				512E1632292026F7008094A9 /* LocationMarkerView.swift */,
@@ -158,6 +161,7 @@
 				512E162F2920173F008094A9 /* ContentView-ViewModel.swift in Sources */,
 				512E1637292040E8008094A9 /* LocationEditView.swift in Sources */,
 				512E163129201AA3008094A9 /* Location.swift in Sources */,
+				512E163D29216217008094A9 /* LocationManager.swift in Sources */,
 				512E1620291F10AB008094A9 /* WheresMoApp.swift in Sources */,
 				512E163929205A54008094A9 /* FileManager-DocumentsDirectory.swift in Sources */,
 				512E1633292026F8008094A9 /* LocationMarkerView.swift in Sources */,
@@ -287,6 +291,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"WheresMo/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "View Mo locations near you.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -323,6 +328,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"WheresMo/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "View Mo locations near you.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

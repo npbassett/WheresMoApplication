@@ -7,15 +7,11 @@
 
 import Foundation
 import MapKit
+import SwiftUI
 
 extension ContentView {
     @MainActor class ViewModel: ObservableObject {
-        @Published var mapRegion = MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: 40.0150,
-                                           longitude: -105.2705),
-            span: MKCoordinateSpan(latitudeDelta: 0.07,
-                                   longitudeDelta: 0.07)
-        )
+        @Published var userTrackingMode: MapUserTrackingMode = .follow
         @Published private(set) var locations: [Location]
         @Published var selectedPlace: Location?
         @Published var placingPin = false
@@ -48,8 +44,8 @@ extension ContentView {
             }
         }
         
-        func addLocation() {
-            let newLocation = Location(id: UUID(), landmark: "", placedBy: "", latitude: mapRegion.center.latitude, longitude: mapRegion.center.longitude, description: "")
+        func addLocation(latitude: Double, longitude: Double) {
+            let newLocation = Location(id: UUID(), landmark: "", placedBy: "", latitude: latitude, longitude: longitude, description: "")
             locations.append(newLocation)
             save()
             endPlacingPin()
