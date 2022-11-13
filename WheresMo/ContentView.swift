@@ -37,6 +37,30 @@ struct ContentView: View {
                         .foregroundColor(.blue)
                     
                     VStack {
+                        Button {
+                            if let coordinate = locationManager.getCurrentLocationCoordinate() {
+                                viewModel.addLocation(latitude: coordinate.latitude,
+                                                      longitude: coordinate.longitude
+                                )
+                            } else {
+                                print("Could not access current location.")
+                            }
+                        } label: {
+                            HStack {
+                                Image(systemName: "location.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 15, height: 15)
+                                
+                                Text("Use Current Location")
+                            }
+                            .padding()
+                            .background(.black.opacity(0.75))
+                            .foregroundColor(.blue)
+                            .font(.headline)
+                            .clipShape(Capsule())
+                        }
+                        
                         Spacer()
                         
                         Button {

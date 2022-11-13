@@ -30,6 +30,10 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
         }
     }
     
+    func getCurrentLocationCoordinate() -> CLLocationCoordinate2D? {
+        return manager.location?.coordinate
+    }
+    
     func resetMapRegion() {
         if let currentLocationCoordinate = manager.location?.coordinate {
             mapRegion = MKCoordinateRegion(center: currentLocationCoordinate, span: mapRegion.span)
