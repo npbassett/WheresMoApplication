@@ -1,5 +1,5 @@
 //
-//  ContentView-ViewModel.swift
+//  MapView-ViewModel.swift
 //  WheresMo
 //
 //  Created by Neil Bassett on 11/12/22.
@@ -9,7 +9,7 @@ import Foundation
 import MapKit
 import SwiftUI
 
-extension ContentView {
+extension MapView {
     @MainActor class ViewModel: ObservableObject {
         @Published var userTrackingMode: MapUserTrackingMode = .follow
         @Published private(set) var locations: [Location]

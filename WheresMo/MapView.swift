@@ -1,14 +1,15 @@
 //
-//  ContentView.swift
+//  MapView.swift
 //  WheresMo
 //
 //  Created by Neil Bassett on 11/11/22.
 //
 
+import Firebase
 import MapKit
 import SwiftUI
 
-struct ContentView: View {
+struct MapView: View {
     @StateObject var locationManager = LocationManager()
     @StateObject private var viewModel = ViewModel()
     
@@ -90,6 +91,27 @@ struct ContentView: View {
                 }
             } else {
                 VStack {
+                    HStack {
+                        Spacer()
+                        
+                        Button {
+                            do {
+                                try Auth.auth().signOut()
+                            } catch let signOutError as NSError {
+                                print("Error signing out: %@", signOutError)
+                            }
+
+                        } label: {
+                            Image(systemName: "gearshape.fill")
+                                .padding()
+                                .background(.black.opacity(0.75))
+                                .foregroundColor(.white)
+                                .font(.title)
+                                .clipShape(Circle())
+                                .padding(.trailing)
+                        }
+                    }
+                    
                     Spacer()
                     
                     HStack {
@@ -144,8 +166,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        MapView()
     }
 }

@@ -8,32 +8,41 @@
 
 /* Begin PBXBuildFile section */
 		512E1620291F10AB008094A9 /* WheresMoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E161F291F10AB008094A9 /* WheresMoApp.swift */; };
-		512E1622291F10AB008094A9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E1621291F10AB008094A9 /* ContentView.swift */; };
+		512E1622291F10AB008094A9 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E1621291F10AB008094A9 /* MapView.swift */; };
 		512E1624291F10AC008094A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 512E1623291F10AC008094A9 /* Assets.xcassets */; };
 		512E1628291F10AC008094A9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 512E1627291F10AC008094A9 /* Preview Assets.xcassets */; };
-		512E162F2920173F008094A9 /* ContentView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E162E2920173F008094A9 /* ContentView-ViewModel.swift */; };
+		512E162F2920173F008094A9 /* MapView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E162E2920173F008094A9 /* MapView-ViewModel.swift */; };
 		512E163129201AA3008094A9 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E163029201AA3008094A9 /* Location.swift */; };
 		512E1633292026F8008094A9 /* LocationMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E1632292026F7008094A9 /* LocationMarkerView.swift */; };
 		512E1637292040E8008094A9 /* LocationEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E1636292040E8008094A9 /* LocationEditView.swift */; };
 		512E163929205A54008094A9 /* FileManager-DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E163829205A54008094A9 /* FileManager-DocumentsDirectory.swift */; };
 		512E163D29216217008094A9 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E163C29216217008094A9 /* LocationManager.swift */; };
 		512E16432921EB08008094A9 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E16422921EB08008094A9 /* LocationDetailView.swift */; };
+		512E16472922CAD9008094A9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E16462922CAD9008094A9 /* LoginView.swift */; };
+		512E164A2922D534008094A9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 512E16492922D534008094A9 /* FirebaseAuth */; };
+		512E164C2922D534008094A9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 512E164B2922D534008094A9 /* FirebaseFirestore */; };
+		512E164E2922D5D0008094A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 512E164D2922D5CF008094A9 /* GoogleService-Info.plist */; };
+		512E16512922D6D7008094A9 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 512E16502922D6D7008094A9 /* FirebaseAnalytics */; };
+		512E16532922E558008094A9 /* CreateNewAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E16522922E558008094A9 /* CreateNewAccountView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		512E161C291F10AB008094A9 /* WheresMo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WheresMo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		512E161F291F10AB008094A9 /* WheresMoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheresMoApp.swift; sourceTree = "<group>"; };
-		512E1621291F10AB008094A9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		512E1621291F10AB008094A9 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		512E1623291F10AC008094A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		512E1625291F10AC008094A9 /* WheresMo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WheresMo.entitlements; sourceTree = "<group>"; };
 		512E1627291F10AC008094A9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		512E162E2920173F008094A9 /* ContentView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView-ViewModel.swift"; sourceTree = "<group>"; };
+		512E162E2920173F008094A9 /* MapView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapView-ViewModel.swift"; sourceTree = "<group>"; };
 		512E163029201AA3008094A9 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		512E1632292026F7008094A9 /* LocationMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMarkerView.swift; sourceTree = "<group>"; };
 		512E1636292040E8008094A9 /* LocationEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEditView.swift; sourceTree = "<group>"; };
 		512E163829205A54008094A9 /* FileManager-DocumentsDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager-DocumentsDirectory.swift"; sourceTree = "<group>"; };
 		512E163C29216217008094A9 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		512E16422921EB08008094A9 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
+		512E16462922CAD9008094A9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		512E164D2922D5CF008094A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		512E16522922E558008094A9 /* CreateNewAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewAccountView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +50,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				512E164A2922D534008094A9 /* FirebaseAuth in Frameworks */,
+				512E164C2922D534008094A9 /* FirebaseFirestore in Frameworks */,
+				512E16512922D6D7008094A9 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +64,7 @@
 			children = (
 				512E161E291F10AB008094A9 /* WheresMo */,
 				512E161D291F10AB008094A9 /* Products */,
+				512E164F2922D6D7008094A9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,9 +80,11 @@
 			isa = PBXGroup;
 			children = (
 				512E161F291F10AB008094A9 /* WheresMoApp.swift */,
-				512E1621291F10AB008094A9 /* ContentView.swift */,
+				512E16462922CAD9008094A9 /* LoginView.swift */,
+				512E16522922E558008094A9 /* CreateNewAccountView.swift */,
+				512E1621291F10AB008094A9 /* MapView.swift */,
+				512E162E2920173F008094A9 /* MapView-ViewModel.swift */,
 				512E163C29216217008094A9 /* LocationManager.swift */,
-				512E162E2920173F008094A9 /* ContentView-ViewModel.swift */,
 				512E1636292040E8008094A9 /* LocationEditView.swift */,
 				512E16422921EB08008094A9 /* LocationDetailView.swift */,
 				512E1632292026F7008094A9 /* LocationMarkerView.swift */,
@@ -77,6 +92,7 @@
 				512E163829205A54008094A9 /* FileManager-DocumentsDirectory.swift */,
 				512E1623291F10AC008094A9 /* Assets.xcassets */,
 				512E1625291F10AC008094A9 /* WheresMo.entitlements */,
+				512E164D2922D5CF008094A9 /* GoogleService-Info.plist */,
 				512E1626291F10AC008094A9 /* Preview Content */,
 			);
 			path = WheresMo;
@@ -88,6 +104,13 @@
 				512E1627291F10AC008094A9 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		512E164F2922D6D7008094A9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -106,6 +129,11 @@
 			dependencies = (
 			);
 			name = WheresMo;
+			packageProductDependencies = (
+				512E16492922D534008094A9 /* FirebaseAuth */,
+				512E164B2922D534008094A9 /* FirebaseFirestore */,
+				512E16502922D6D7008094A9 /* FirebaseAnalytics */,
+			);
 			productName = WheresMo;
 			productReference = 512E161C291F10AB008094A9 /* WheresMo.app */;
 			productType = "com.apple.product-type.application";
@@ -134,6 +162,9 @@
 				Base,
 			);
 			mainGroup = 512E1613291F10AB008094A9;
+			packageReferences = (
+				512E16482922D534008094A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 512E161D291F10AB008094A9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -150,6 +181,7 @@
 			files = (
 				512E1628291F10AC008094A9 /* Preview Assets.xcassets in Resources */,
 				512E1624291F10AC008094A9 /* Assets.xcassets in Resources */,
+				512E164E2922D5D0008094A9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,14 +192,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				512E1622291F10AB008094A9 /* ContentView.swift in Sources */,
-				512E162F2920173F008094A9 /* ContentView-ViewModel.swift in Sources */,
+				512E1622291F10AB008094A9 /* MapView.swift in Sources */,
+				512E162F2920173F008094A9 /* MapView-ViewModel.swift in Sources */,
 				512E16432921EB08008094A9 /* LocationDetailView.swift in Sources */,
 				512E1637292040E8008094A9 /* LocationEditView.swift in Sources */,
 				512E163129201AA3008094A9 /* Location.swift in Sources */,
+				512E16532922E558008094A9 /* CreateNewAccountView.swift in Sources */,
 				512E163D29216217008094A9 /* LocationManager.swift in Sources */,
 				512E1620291F10AB008094A9 /* WheresMoApp.swift in Sources */,
 				512E163929205A54008094A9 /* FileManager-DocumentsDirectory.swift in Sources */,
+				512E16472922CAD9008094A9 /* LoginView.swift in Sources */,
 				512E1633292026F8008094A9 /* LocationMarkerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -380,6 +414,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		512E16482922D534008094A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		512E16492922D534008094A9 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 512E16482922D534008094A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		512E164B2922D534008094A9 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 512E16482922D534008094A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		512E16502922D6D7008094A9 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 512E16482922D534008094A9 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 512E1614291F10AB008094A9 /* Project object */;
 }
