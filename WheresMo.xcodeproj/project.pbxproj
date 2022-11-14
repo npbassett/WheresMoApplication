@@ -17,6 +17,7 @@
 		512E1637292040E8008094A9 /* LocationEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E1636292040E8008094A9 /* LocationEditView.swift */; };
 		512E163929205A54008094A9 /* FileManager-DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E163829205A54008094A9 /* FileManager-DocumentsDirectory.swift */; };
 		512E163D29216217008094A9 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E163C29216217008094A9 /* LocationManager.swift */; };
+		512E16432921EB08008094A9 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E16422921EB08008094A9 /* LocationDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		512E1636292040E8008094A9 /* LocationEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEditView.swift; sourceTree = "<group>"; };
 		512E163829205A54008094A9 /* FileManager-DocumentsDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager-DocumentsDirectory.swift"; sourceTree = "<group>"; };
 		512E163C29216217008094A9 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		512E16422921EB08008094A9 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				512E163C29216217008094A9 /* LocationManager.swift */,
 				512E162E2920173F008094A9 /* ContentView-ViewModel.swift */,
 				512E1636292040E8008094A9 /* LocationEditView.swift */,
+				512E16422921EB08008094A9 /* LocationDetailView.swift */,
 				512E1632292026F7008094A9 /* LocationMarkerView.swift */,
 				512E163029201AA3008094A9 /* Location.swift */,
 				512E163829205A54008094A9 /* FileManager-DocumentsDirectory.swift */,
@@ -159,6 +162,7 @@
 			files = (
 				512E1622291F10AB008094A9 /* ContentView.swift in Sources */,
 				512E162F2920173F008094A9 /* ContentView-ViewModel.swift in Sources */,
+				512E16432921EB08008094A9 /* LocationDetailView.swift in Sources */,
 				512E1637292040E8008094A9 /* LocationEditView.swift in Sources */,
 				512E163129201AA3008094A9 /* Location.swift in Sources */,
 				512E163D29216217008094A9 /* LocationManager.swift in Sources */,

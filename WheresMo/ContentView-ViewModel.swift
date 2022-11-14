@@ -13,7 +13,8 @@ extension ContentView {
     @MainActor class ViewModel: ObservableObject {
         @Published var userTrackingMode: MapUserTrackingMode = .follow
         @Published private(set) var locations: [Location]
-        @Published var selectedPlace: Location?
+        @Published var selectedPlaceToDetail: Location?
+        @Published var selectedPlaceToEdit: Location?
         @Published var placingPin = false
         
         let savePath = FileManager.documentsDirectory.appendingPathComponent("SavedMoLocations")
@@ -50,13 +51,13 @@ extension ContentView {
             locations.append(newLocation)
             save()
             endPlacingPin()
-            selectedPlace = newLocation
+            selectedPlaceToEdit = newLocation
         }
         
         func updateLocation(location: Location) {
-            guard let selectedPlace = selectedPlace else { return }
+            guard let selectedPlaceToEdit = selectedPlaceToEdit else { return }
             
-            if let index = locations.firstIndex(of: selectedPlace) {
+            if let index = locations.firstIndex(of: selectedPlaceToEdit) {
                 locations[index] = location
                 save()
             }

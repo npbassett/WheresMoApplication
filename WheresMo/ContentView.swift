@@ -23,7 +23,7 @@ struct ContentView: View {
                     if !viewModel.placingPin {
                         LocationMarkerView()
                             .onTapGesture {
-                                viewModel.selectedPlace = location
+                                viewModel.selectedPlaceToDetail = location
                             }
                     }
                 }
@@ -127,11 +127,19 @@ struct ContentView: View {
             }
         }
         .animation(.easeInOut, value: viewModel.placingPin)
-        .sheet(item: $viewModel.selectedPlace) { place in
-            LocationEditView(location: place,
-                             onSave: { newLocation in viewModel.updateLocation(location: newLocation)},
-                             onDelete: { newLocation in viewModel.deleteLocation(location: newLocation)}
+        .sheet(item: $viewModel.selectedPlaceToDetail) { location in
+            LocationDetailView(location: location,
+                               onSave: { newLocation in viewModel.updateLocation(location: newLocation)},
+                               onDelete: { newLocation in viewModel.deleteLocation(location: newLocation)}
             )
+        }
+        .sheet(item: $viewModel.selectedPlaceToEdit) { location in
+            NavigationView {
+                LocationEditView(location: location,
+                                 onSave: { newLocation in viewModel.updateLocation(location: newLocation)},
+                                 onDelete: { newLocation in viewModel.deleteLocation(location: newLocation)}
+                )
+            }
         }
     }
 }
