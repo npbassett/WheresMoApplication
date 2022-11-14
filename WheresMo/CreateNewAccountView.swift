@@ -9,6 +9,7 @@ import Firebase
 import SwiftUI
 
 struct CreateNewAccountView: View {
+    @Environment(\.dismiss) var dismiss
     @State private var email = ""
     @State private var password = ""
     @State private var passwordReentry = ""
@@ -29,18 +30,24 @@ struct CreateNewAccountView: View {
                 Form {
                     Section {
                         TextField("Enter Email", text: $email)
+                            .autocorrectionDisabled()
+                            .autocapitalization(.none)
                     } header: {
                         Text("Email")
                     }
                     
                     Section {
                         SecureField("Enter Password", text: $password)
+                            .autocorrectionDisabled()
+                            .autocapitalization(.none)
                     } header: {
                         Text("Password")
                     }
                     
                     Section {
                         SecureField("Re-enter Password", text: $passwordReentry)
+                            .autocorrectionDisabled()
+                            .autocapitalization(.none)
                     } header: {
                         Text("Confirm Password")
                     } footer: {
@@ -61,17 +68,23 @@ struct CreateNewAccountView: View {
                     
                     Button {
                         createNewUser()
+                        dismiss()
                     } label: {
                         Text("Create Account")
-                            .frame(width: 350, height: 50)
-                            .foregroundColor(.white)
-                            .background(emailEmpty || passwordTooShort || passwordsDontMatch ? Color.gray : Color.blue)
                     }
                     .disabled(emailEmpty || passwordTooShort || passwordsDontMatch)
-                    .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                 }
             }
             .navigationBarTitle("Create Account")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancel")
+                    }
+                }
+            }
         }
     }
     
