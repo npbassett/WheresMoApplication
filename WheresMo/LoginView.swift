@@ -9,20 +9,10 @@ import Firebase
 import SwiftUI
 
 struct LoginView: View {
-    @State private var email = ""
-    @State private var password = ""
-    @State private var isLoggedIn = false
+    @EnvironmentObject var loginViewModel: LoginViewModel
     @State private var showingCreateNewAccount = false
     
     var body: some View {
-        if isLoggedIn {
-            MapView()
-        } else {
-            loginScreen
-        }
-    }
-    
-    var loginScreen: some View {
         ZStack {
             LinearGradient(colors: [.yellow, .red], startPoint: .topLeading, endPoint: .bottomTrailing)
                 .ignoresSafeArea()
@@ -44,7 +34,8 @@ struct LoginView: View {
                         .shadow(radius: 10)
                     
                     VStack {
-                        TextField("Email", text: $email)
+                        // TODO: change to daker color in dark mode
+                        TextField("Email", text: $loginViewModel.email)
                             .autocorrectionDisabled()
                             .autocapitalization(.none)
                             .padding()
@@ -52,7 +43,7 @@ struct LoginView: View {
                             .cornerRadius(5)
                             .padding(.bottom)
                         
-                        SecureField("Password", text: $password)
+                        SecureField("Password", text: $loginViewModel.password)
                             .autocorrectionDisabled()
                             .autocapitalization(.none)
                             .padding()
@@ -61,7 +52,7 @@ struct LoginView: View {
                             .padding(.bottom)
                         
                         Button {
-                            login()
+                            loginViewModel.login()
                         } label: {
                             Text("Log In")
                                 .bold()
@@ -90,21 +81,14 @@ struct LoginView: View {
             .onAppear {
                 Auth.auth().addStateDidChangeListener { auth, user in
                     if user != nil {
-                        isLoggedIn = true
+                        loginViewModel.isLoggedIn = true
                     }
                 }
             }
         }
         .sheet(isPresented: $showingCreateNewAccount) {
             CreateNewAccountView()
-        }
-    }
-    
-    func login() {
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
-            if error != nil {
-                print(error!.localizedDescription)
-            }
+                .environmentObject(loginViewModel)
         }
     }
 }
@@ -112,5 +96,6 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
+            .environmentObject(LoginViewModel())
     }
 }

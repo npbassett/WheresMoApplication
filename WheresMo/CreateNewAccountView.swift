@@ -10,26 +10,14 @@ import SwiftUI
 
 struct CreateNewAccountView: View {
     @Environment(\.dismiss) var dismiss
-    @State private var email = ""
-    @State private var password = ""
-    @State private var passwordReentry = ""
-    
-    private var passwordsDontMatch: Bool {
-        password != passwordReentry
-    }
-    private var emailEmpty: Bool {
-        email.isEmpty
-    }
-    private var passwordTooShort: Bool {
-        password.count < 8
-    }
+    @EnvironmentObject var loginViewModel: LoginViewModel
     
     var body: some View {
         NavigationView {
             VStack {
                 Form {
                     Section {
-                        TextField("Enter Email", text: $email)
+                        TextField("Enter Email", text: $loginViewModel.email)
                             .autocorrectionDisabled()
                             .autocapitalization(.none)
                     } header: {
@@ -37,7 +25,7 @@ struct CreateNewAccountView: View {
                     }
                     
                     Section {
-                        SecureField("Enter Password", text: $password)
+                        SecureField("Enter Password", text: $loginViewModel.password)
                             .autocorrectionDisabled()
                             .autocapitalization(.none)
                     } header: {
@@ -45,20 +33,20 @@ struct CreateNewAccountView: View {
                     }
                     
                     Section {
-                        SecureField("Re-enter Password", text: $passwordReentry)
+                        SecureField("Re-enter Password", text: $loginViewModel.passwordReentry)
                             .autocorrectionDisabled()
                             .autocapitalization(.none)
                     } header: {
                         Text("Confirm Password")
                     } footer: {
                         VStack(alignment: .leading) {
-                            if passwordsDontMatch {
+                            if loginViewModel.passwordsDontMatch {
                                 (Text(Image(systemName: "x.circle")) + Text(" Passwords do not match")).foregroundColor(.red)
                             } else {
                                 (Text(Image(systemName: "checkmark.circle")) + Text(" Passwords match")).foregroundColor(.green)
                             }
                             
-                            if passwordTooShort {
+                            if loginViewModel.passwordTooShort {
                                 (Text(Image(systemName: "x.circle")) + Text(" Password must be at least 8 characters")).foregroundColor(.red)
                             } else {
                                 (Text(Image(systemName: "checkmark.circle")) + Text(" Password is at least 8 characters")).foregroundColor(.green)
@@ -67,12 +55,12 @@ struct CreateNewAccountView: View {
                     }
                     
                     Button {
-                        createNewUser()
+                        loginViewModel.createNewUser()
                         dismiss()
                     } label: {
                         Text("Create Account")
                     }
-                    .disabled(emailEmpty || passwordTooShort || passwordsDontMatch)
+                    .disabled(loginViewModel.emailEmpty || loginViewModel.passwordTooShort || loginViewModel.passwordsDontMatch)
                 }
             }
             .navigationBarTitle("Create Account")
@@ -87,18 +75,11 @@ struct CreateNewAccountView: View {
             }
         }
     }
-    
-    func createNewUser() {
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
-            if error != nil {
-                print(error!.localizedDescription)
-            }
-        }
-    }
 }
 
 struct CreateNewAccountView_Previews: PreviewProvider {
     static var previews: some View {
         CreateNewAccountView()
+            .environmentObject(LoginViewModel())
     }
 }

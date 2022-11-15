@@ -18,16 +18,29 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   }
 }
 
-
 @main
 struct WheresMoApp: App {
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
+    @StateObject private var loginViewModel = LoginViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            //ContentView()
+            view()
+                .environmentObject(loginViewModel)
+        }
+    }
+}
+
+extension WheresMoApp {
+    @ViewBuilder
+    private func view() -> some View {
+        if loginViewModel.isLoggedIn {
+            MapView()
+        } else {
             LoginView()
+                .environmentObject(loginViewModel)
         }
     }
 }
