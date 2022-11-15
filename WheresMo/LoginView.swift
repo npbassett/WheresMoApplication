@@ -33,9 +33,9 @@ struct LoginView: View {
                     .foregroundColor(.white)
                     .font(.system(size: 40, weight: .bold))
                 
-                Spacer()
-                Spacer()
-                Spacer()
+                Image("Mo_background_removed")
+                    .resizable()
+                    .scaledToFit()
                 
                 ZStack {
                     RoundedRectangle(cornerRadius: 5, style: .continuous)
