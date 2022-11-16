@@ -11,6 +11,7 @@ import SwiftUI
 
 extension MapView {
     @MainActor class ViewModel: ObservableObject {
+        @EnvironmentObject var dataManager: DataManager
         var userLoggedIn: User
         @Published var userTrackingMode: MapUserTrackingMode = .follow
         @Published private(set) var locations: [Location]

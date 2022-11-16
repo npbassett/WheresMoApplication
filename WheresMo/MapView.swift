@@ -10,6 +10,7 @@ import MapKit
 import SwiftUI
 
 struct MapView: View {
+    @EnvironmentObject var dataManager: DataManager
     var userLoggedIn: User
     var onLogout: () -> Void
     
@@ -28,7 +29,8 @@ struct MapView: View {
                 interactionModes: .all,
                 showsUserLocation: true,
                 userTrackingMode: $viewModel.userTrackingMode,
-                annotationItems: viewModel.locations) { location in
+                annotationItems: dataManager.locations
+            ) { location in
                 MapAnnotation(coordinate: location.coordinate) {
                     if !viewModel.placingPin {
                         LocationMarkerView()
@@ -174,5 +176,6 @@ struct MapView: View {
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
         MapView(userLoggedIn: User.exampleUser) { }
+            .environmentObject(DataManager())
     }
 }
