@@ -14,7 +14,13 @@ struct MapView: View {
     var onLogout: () -> Void
     
     @StateObject var locationManager = LocationManager()
-    @StateObject private var viewModel = ViewModel(userLoggedIn: User.exampleUser)
+    @StateObject private var viewModel: ViewModel
+    
+    init(userLoggedIn: User, onLogout: @escaping () -> Void) {
+        self.userLoggedIn = userLoggedIn
+        self.onLogout = onLogout
+        self._viewModel = StateObject(wrappedValue: ViewModel(userLoggedIn: userLoggedIn))
+    }
     
     var body: some View {
         ZStack {
