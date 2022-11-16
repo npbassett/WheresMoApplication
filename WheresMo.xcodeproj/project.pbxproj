@@ -25,6 +25,7 @@
 		512E16512922D6D7008094A9 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 512E16502922D6D7008094A9 /* FirebaseAnalytics */; };
 		512E16532922E558008094A9 /* CreateNewAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E16522922E558008094A9 /* CreateNewAccountView.swift */; };
 		512E165529243BCB008094A9 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E165429243BCB008094A9 /* LoginViewModel.swift */; };
+		51EFEC9B2924510900A83A30 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFEC9A2924510900A83A30 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		512E164D2922D5CF008094A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		512E16522922E558008094A9 /* CreateNewAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewAccountView.swift; sourceTree = "<group>"; };
 		512E165429243BCB008094A9 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		51EFEC9A2924510900A83A30 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				512E16422921EB08008094A9 /* LocationDetailView.swift */,
 				512E1632292026F7008094A9 /* LocationMarkerView.swift */,
 				512E163029201AA3008094A9 /* Location.swift */,
+				51EFEC9A2924510900A83A30 /* User.swift */,
 				512E163829205A54008094A9 /* FileManager-DocumentsDirectory.swift */,
 				512E1623291F10AC008094A9 /* Assets.xcassets */,
 				512E1625291F10AC008094A9 /* WheresMo.entitlements */,
@@ -195,6 +198,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51EFEC9B2924510900A83A30 /* User.swift in Sources */,
 				512E1622291F10AB008094A9 /* MapView.swift in Sources */,
 				512E165529243BCB008094A9 /* LoginViewModel.swift in Sources */,
 				512E162F2920173F008094A9 /* MapView-ViewModel.swift in Sources */,

@@ -78,13 +78,6 @@ struct LoginView: View {
                 
             }
             .padding()
-            .onAppear {
-                Auth.auth().addStateDidChangeListener { auth, user in
-                    if user != nil {
-                        loginViewModel.isLoggedIn = true
-                    }
-                }
-            }
         }
         .sheet(isPresented: $showingCreateNewAccount) {
             CreateNewAccountView()

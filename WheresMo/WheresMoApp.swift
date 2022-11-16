@@ -36,7 +36,7 @@ struct WheresMoApp: App {
 extension WheresMoApp {
     @ViewBuilder
     private func view() -> some View {
-        if loginViewModel.isLoggedIn {
+        if loginViewModel.userLoggedIn != nil {
             MapView()
         } else {
             LoginView()
