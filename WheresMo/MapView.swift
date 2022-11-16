@@ -10,6 +10,8 @@ import MapKit
 import SwiftUI
 
 struct MapView: View {
+    var onLogout: () -> Void
+    
     @StateObject var locationManager = LocationManager()
     @StateObject private var viewModel = ViewModel()
     
@@ -95,19 +97,15 @@ struct MapView: View {
                         Spacer()
                         
                         Button {
-                            do {
-                                try Auth.auth().signOut()
-                            } catch let signOutError as NSError {
-                                print("Error signing out: %@", signOutError)
-                            }
-
+                            onLogout()
                         } label: {
-                            Image(systemName: "gearshape.fill")
+                            Image(systemName: "rectangle.portrait.and.arrow.right")
+                                .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
                                 .padding()
                                 .background(.black.opacity(0.75))
                                 .foregroundColor(.white)
                                 .font(.title)
-                                .clipShape(Circle())
+                                .clipShape(Capsule())
                                 .padding(.trailing)
                         }
                     }
@@ -168,6 +166,6 @@ struct MapView: View {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView()
+        MapView() { }
     }
 }
