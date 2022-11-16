@@ -80,6 +80,11 @@ struct LoginView: View {
             }
             .padding()
         }
+        .alert("Unable to log in.", isPresented: $loginViewModel.showingLoginError) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("Email and/or password is incorrect.")
+        }
         .sheet(isPresented: $showingCreateNewAccount) {
             CreateNewAccountView()
                 .environmentObject(loginViewModel)
