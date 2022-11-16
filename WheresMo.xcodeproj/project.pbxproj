@@ -11,7 +11,7 @@
 		512E1622291F10AB008094A9 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E1621291F10AB008094A9 /* MapView.swift */; };
 		512E1624291F10AC008094A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 512E1623291F10AC008094A9 /* Assets.xcassets */; };
 		512E1628291F10AC008094A9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 512E1627291F10AC008094A9 /* Preview Assets.xcassets */; };
-		512E162F2920173F008094A9 /* MapView-ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E162E2920173F008094A9 /* MapView-ViewModel.swift */; };
+		512E162F2920173F008094A9 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E162E2920173F008094A9 /* MapViewModel.swift */; };
 		512E163129201AA3008094A9 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E163029201AA3008094A9 /* Location.swift */; };
 		512E1633292026F8008094A9 /* LocationMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E1632292026F7008094A9 /* LocationMarkerView.swift */; };
 		512E1637292040E8008094A9 /* LocationEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E1636292040E8008094A9 /* LocationEditView.swift */; };
@@ -35,7 +35,7 @@
 		512E1623291F10AC008094A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		512E1625291F10AC008094A9 /* WheresMo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WheresMo.entitlements; sourceTree = "<group>"; };
 		512E1627291F10AC008094A9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		512E162E2920173F008094A9 /* MapView-ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapView-ViewModel.swift"; sourceTree = "<group>"; };
+		512E162E2920173F008094A9 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		512E163029201AA3008094A9 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		512E1632292026F7008094A9 /* LocationMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMarkerView.swift; sourceTree = "<group>"; };
 		512E1636292040E8008094A9 /* LocationEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEditView.swift; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 				512E165429243BCB008094A9 /* LoginViewModel.swift */,
 				512E16522922E558008094A9 /* CreateNewAccountView.swift */,
 				512E1621291F10AB008094A9 /* MapView.swift */,
-				512E162E2920173F008094A9 /* MapView-ViewModel.swift */,
+				512E162E2920173F008094A9 /* MapViewModel.swift */,
 				512E163C29216217008094A9 /* LocationManager.swift */,
 				512E1636292040E8008094A9 /* LocationEditView.swift */,
 				512E16422921EB08008094A9 /* LocationDetailView.swift */,
@@ -201,7 +201,7 @@
 				51EFEC9B2924510900A83A30 /* User.swift in Sources */,
 				512E1622291F10AB008094A9 /* MapView.swift in Sources */,
 				512E165529243BCB008094A9 /* LoginViewModel.swift in Sources */,
-				512E162F2920173F008094A9 /* MapView-ViewModel.swift in Sources */,
+				512E162F2920173F008094A9 /* MapViewModel.swift in Sources */,
 				512E16432921EB08008094A9 /* LocationDetailView.swift in Sources */,
 				512E1637292040E8008094A9 /* LocationEditView.swift in Sources */,
 				512E163129201AA3008094A9 /* Location.swift in Sources */,
