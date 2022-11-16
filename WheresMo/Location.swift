@@ -10,10 +10,10 @@ import CoreLocation
 
 struct Location: Identifiable, Codable, Equatable {
     var id = UUID()
+    var placedBy: User
     var latitude: Double
     var longitude: Double
     var landmark = ""
-    var placedBy = ""
     var date = Date()
     var description = ""
     
@@ -22,10 +22,10 @@ struct Location: Identifiable, Codable, Equatable {
     }
     
     static let exampleLocation = Location(id: UUID(),
+                                          placedBy: User.exampleUser,
                                           latitude: 40.02628625601256,
                                           longitude: -105.24369218832722,
                                           landmark: "Vision Quest Brewery",
-                                          placedBy: "Susan Cassada",
                                           date: Date(),
                                           description: "Located on bottom left of refrigerator door behind the bar.")
     

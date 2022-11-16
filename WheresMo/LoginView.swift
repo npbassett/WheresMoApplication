@@ -72,6 +72,7 @@ struct LoginView: View {
                 } label: {
                     Text("Don't have an account? Click here.")
                         .foregroundColor(.white)
+                        .underline()
                 }
                 
                 Spacer()

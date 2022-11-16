@@ -10,4 +10,6 @@ import Foundation
 
 struct User: Codable {
     var email: String
+    
+    static let exampleUser = User(email: "test@test.com")
 }

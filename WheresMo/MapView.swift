@@ -10,10 +10,11 @@ import MapKit
 import SwiftUI
 
 struct MapView: View {
+    var userLoggedIn: User
     var onLogout: () -> Void
     
     @StateObject var locationManager = LocationManager()
-    @StateObject private var viewModel = ViewModel()
+    @StateObject private var viewModel = ViewModel(userLoggedIn: User.exampleUser)
     
     var body: some View {
         ZStack {
@@ -166,6 +167,6 @@ struct MapView: View {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView() { }
+        MapView(userLoggedIn: User.exampleUser) { }
     }
 }

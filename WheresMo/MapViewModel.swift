@@ -11,6 +11,7 @@ import SwiftUI
 
 extension MapView {
     @MainActor class ViewModel: ObservableObject {
+        var userLoggedIn: User
         @Published var userTrackingMode: MapUserTrackingMode = .follow
         @Published private(set) var locations: [Location]
         @Published var selectedPlaceToDetail: Location?
@@ -19,13 +20,14 @@ extension MapView {
         
         let savePath = FileManager.documentsDirectory.appendingPathComponent("SavedMoLocations")
         
-        init() {
+        init(userLoggedIn: User) {
             do {
                 let data = try Data(contentsOf: savePath)
                 locations = try JSONDecoder().decode([Location].self, from: data)
             } catch {
                 locations = []
             }
+            self.userLoggedIn = userLoggedIn
         }
         
         func startPlacingPin() {
@@ -46,7 +48,8 @@ extension MapView {
         }
         
         func addLocation(latitude: Double, longitude: Double) {
-            let newLocation = Location(latitude: latitude,
+            let newLocation = Location(placedBy: userLoggedIn,
+                                       latitude: latitude,
                                        longitude: longitude)
             locations.append(newLocation)
             save()

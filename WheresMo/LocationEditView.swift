@@ -15,7 +15,6 @@ struct LocationEditView: View {
     var onDelete: (Location) -> Void
     
     @State private var landmark: String
-    @State private var placedBy: String
     @State private var date: Date
     @State private var description: String
     @State private var coordinateRegion: MKCoordinateRegion
@@ -28,10 +27,6 @@ struct LocationEditView: View {
             Section(header: Text("Landmark"),
                     footer: Text(Image(systemName: "location.fill")) + Text(" \(coordinate.latitude), \(coordinate.longitude)")) {
                 TextField("Enter landmark", text: $landmark)
-            }
-            
-            Section("Placed by") {
-                TextField("Enter name", text: $placedBy)
             }
             
             Section("Date placed") {
@@ -69,7 +64,6 @@ struct LocationEditView: View {
                     var newLocation = location
                     newLocation.id = UUID()
                     newLocation.landmark = landmark
-                    newLocation.placedBy = placedBy
                     newLocation.description = description
                     
                     onSave(newLocation)
@@ -87,7 +81,6 @@ struct LocationEditView: View {
         self.onDelete = onDelete
         
         _landmark = State(initialValue: location.landmark)
-        _placedBy = State(initialValue: location.placedBy)
         _date = State(initialValue: location.date)
         _description = State(initialValue: location.description)
         _coordinateRegion = State(initialValue: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))

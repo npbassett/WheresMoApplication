@@ -25,7 +25,7 @@ struct LocationDetailView: View {
                 }
                 
                 Section("Placed by") {
-                    Text(location.placedBy)
+                    Text(location.placedBy.email)
                 }
                 
                 Section("Date placed") {
@@ -38,7 +38,8 @@ struct LocationDetailView: View {
                 
                 Section {
                     Map(coordinateRegion: $coordinateRegion,
-                        annotationItems: [Location(latitude: location.coordinate.latitude,
+                        annotationItems: [Location(placedBy: User.exampleUser,
+                                                   latitude: location.coordinate.latitude,
                                                    longitude: location.coordinate.longitude)]) { location in
                         MapAnnotation(coordinate: location.coordinate) {
                             LocationMarkerView()
