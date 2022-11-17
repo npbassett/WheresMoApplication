@@ -34,8 +34,8 @@ class DataManager: ObservableObject {
                     let latitude = data["latitude"] as? Double ?? 0.0
                     let longitude = data["longitude"] as? Double ?? 0.0
                     let landmark = data["landmark"] as? String ?? ""
-                    let timestamp = data["timestamp"] as? Timestamp
-                    let date = timestamp?.dateValue() ?? Date.now
+                    let timestamp = data["timestamp"] as? Double ?? Date.now.timeIntervalSince1970
+                    let date = Date(timeIntervalSince1970: timestamp)
                     let description = data["description"] as? String ?? ""
                     
                     let location = Location(id: UUID(uuidString: id) ?? UUID(),
