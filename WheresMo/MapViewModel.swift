@@ -37,16 +37,12 @@ extension MapView {
         }
         
         func saveLocation(location: Location) {
-            dataManager.addLocation(location: location)
+            dataManager.saveLocation(location: location)
             dataManager.fetchLocations()
         }
         
-        func updateLocation(location: Location) {
-            // TODO
-        }
-        
         func deleteLocation(location: Location) {
-            // TODO
+            dataManager.deleteLocation(location: location)
         }
     }
 }

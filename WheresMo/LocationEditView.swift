@@ -62,7 +62,6 @@ struct LocationEditView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     var newLocation = location
-                    newLocation.id = UUID()
                     newLocation.landmark = landmark
                     newLocation.description = description
                     

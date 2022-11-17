@@ -160,16 +160,14 @@ struct MapView: View {
         .sheet(item: $viewModel.selectedPlaceToDetail) { location in
             LocationDetailView(location: location,
                                onSave: { locationToSave in viewModel.saveLocation(location: locationToSave) },
-                               // TODO: update deleteLocation function
-                               onDelete: { _ in }
+                               onDelete: { locationToDelete in viewModel.deleteLocation(location: locationToDelete) }
             )
         }
         .sheet(item: $viewModel.selectedPlaceToEdit) { location in
             NavigationView {
                 LocationEditView(location: location,
                                  onSave: { locationToSave in viewModel.saveLocation(location: locationToSave) },
-                                 // TODO: update deleteLocation function
-                                 onDelete: { _ in }
+                                 onDelete: { locationToDelete in viewModel.deleteLocation(location: locationToDelete) }
                 )
             }
         }
