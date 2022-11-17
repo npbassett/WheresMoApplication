@@ -10,9 +10,8 @@ import SwiftUI
 
 struct LocationEditView: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var viewModel: MapViewModel
     var location: Location
-    var onSave: (Location) -> Void
-    var onDelete: (Location) -> Void
     
     @State private var landmark: String
     @State private var date: Date
@@ -50,7 +49,7 @@ struct LocationEditView: View {
         .navigationBarTitleDisplayMode(.inline)
         .alert("Delete location?", isPresented: $showingDeleteAlert) {
             Button("Delete", role: .destructive) {
-                onDelete(location)
+                viewModel.saveLocation(location: location)
                 // TODO: dismiss parent DetailView after deleting location
                 dismiss()
             }
@@ -63,9 +62,10 @@ struct LocationEditView: View {
                 Button {
                     var newLocation = location
                     newLocation.landmark = landmark
+                    newLocation.date = date
                     newLocation.description = description
                     
-                    onSave(newLocation)
+                    viewModel.saveLocation(location: newLocation)
                     dismiss()
                 } label: {
                     Text("Save")
@@ -74,10 +74,8 @@ struct LocationEditView: View {
         }
     }
     
-    init(location: Location, onSave: @escaping (Location) -> Void, onDelete: @escaping (Location) -> Void) {
+    init(location: Location) {
         self.location = location
-        self.onSave = onSave
-        self.onDelete = onDelete
         
         _landmark = State(initialValue: location.landmark)
         _date = State(initialValue: location.date)
@@ -89,6 +87,7 @@ struct LocationEditView: View {
 
 struct LocationEditView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationEditView(location: Location.exampleLocation, onSave: { _ in }, onDelete: { _ in })
+        LocationEditView(location: Location.exampleLocation)
+            .environmentObject(MapViewModel(dataManager: DataManager(), userLoggedIn: User.exampleUser))
     }
 }

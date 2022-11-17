@@ -10,9 +10,8 @@ import SwiftUI
 
 struct LocationDetailView: View {
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var viewModel: MapViewModel
     var location: Location
-    var onSave: (Location) -> Void
-    var onDelete: (Location) -> Void
     
     @State private var coordinateRegion: MKCoordinateRegion
     
@@ -61,20 +60,21 @@ struct LocationDetailView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        LocationEditView(location: location, onSave: onSave, onDelete: onDelete)
-                    } label: {
+                    if viewModel.ableToEdit {
+                        NavigationLink {
+                            LocationEditView(location: location)
+                                .environmentObject(viewModel)
+                        } label: {
                             Text("Edit")
+                        }
                     }
                 }
             }
         }
     }
     
-    init(location: Location, onSave: @escaping (Location) -> Void, onDelete: @escaping (Location) -> Void) {
+    init(location: Location) {
         self.location = location
-        self.onSave = onSave
-        self.onDelete = onDelete
         
         _coordinateRegion = State(initialValue: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
     }
@@ -82,6 +82,7 @@ struct LocationDetailView: View {
 
 struct LocationDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationDetailView(location: Location.exampleLocation, onSave: { _ in }, onDelete: { _ in })
+        LocationDetailView(location: Location.exampleLocation)
+            .environmentObject(MapViewModel(dataManager: DataManager(), userLoggedIn: User.exampleUser))
     }
 }

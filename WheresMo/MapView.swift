@@ -15,13 +15,13 @@ struct MapView: View {
     var onLogout: () -> Void
     
     @StateObject var locationManager = LocationManager()
-    @StateObject private var viewModel: ViewModel
+    @StateObject private var viewModel: MapViewModel
     
     init(dataManager: DataManager, userLoggedIn: User, onLogout: @escaping () -> Void) {
         self.dataManager = dataManager
         self.userLoggedIn = userLoggedIn
         self.onLogout = onLogout
-        self._viewModel = StateObject(wrappedValue: ViewModel(dataManager: dataManager, userLoggedIn: userLoggedIn))
+        self._viewModel = StateObject(wrappedValue: MapViewModel(dataManager: dataManager, userLoggedIn: userLoggedIn))
     }
     
     var body: some View {
@@ -158,17 +158,13 @@ struct MapView: View {
         }
         .animation(.easeInOut, value: viewModel.placingPin)
         .sheet(item: $viewModel.selectedPlaceToDetail) { location in
-            LocationDetailView(location: location,
-                               onSave: { locationToSave in viewModel.saveLocation(location: locationToSave) },
-                               onDelete: { locationToDelete in viewModel.deleteLocation(location: locationToDelete) }
-            )
+            LocationDetailView(location: location)
+                .environmentObject(viewModel)
         }
         .sheet(item: $viewModel.selectedPlaceToEdit) { location in
             NavigationView {
-                LocationEditView(location: location,
-                                 onSave: { locationToSave in viewModel.saveLocation(location: locationToSave) },
-                                 onDelete: { locationToDelete in viewModel.deleteLocation(location: locationToDelete) }
-                )
+                LocationEditView(location: location)
+                    .environmentObject(viewModel)
             }
         }
     }
