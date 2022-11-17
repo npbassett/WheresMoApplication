@@ -11,23 +11,15 @@ import SwiftUI
 
 extension MapView {
     @MainActor class ViewModel: ObservableObject {
-        @EnvironmentObject var dataManager: DataManager
+        var dataManager: DataManager
         var userLoggedIn: User
         @Published var userTrackingMode: MapUserTrackingMode = .follow
-        @Published private(set) var locations: [Location]
         @Published var selectedPlaceToDetail: Location?
         @Published var selectedPlaceToEdit: Location?
         @Published var placingPin = false
-        
-        let savePath = FileManager.documentsDirectory.appendingPathComponent("SavedMoLocations")
-        
-        init(userLoggedIn: User) {
-            do {
-                let data = try Data(contentsOf: savePath)
-                locations = try JSONDecoder().decode([Location].self, from: data)
-            } catch {
-                locations = []
-            }
+                
+        init(dataManager: DataManager, userLoggedIn: User) {
+            self.dataManager = dataManager
             self.userLoggedIn = userLoggedIn
         }
         
@@ -39,39 +31,22 @@ extension MapView {
             placingPin = false
         }
         
-        func save() {
-            do {
-                let data = try JSONEncoder().encode(locations)
-                try data.write(to: savePath, options: [.atomicWrite, .completeFileProtection])
-            } catch {
-                print("Unable to save data.")
-            }
+        func startEditingLocation(location: Location) {
+            endPlacingPin()
+            selectedPlaceToEdit = location
         }
         
-        func addLocation(latitude: Double, longitude: Double) {
-            let newLocation = Location(placedBy: userLoggedIn,
-                                       latitude: latitude,
-                                       longitude: longitude)
-            locations.append(newLocation)
-            save()
-            endPlacingPin()
-            selectedPlaceToEdit = newLocation
+        func saveLocation(location: Location) {
+            dataManager.addLocation(location: location)
+            dataManager.fetchLocations()
         }
         
         func updateLocation(location: Location) {
-            guard let selectedPlaceToEdit = selectedPlaceToEdit else { return }
-            
-            if let index = locations.firstIndex(of: selectedPlaceToEdit) {
-                locations[index] = location
-                save()
-            }
+            // TODO
         }
         
         func deleteLocation(location: Location) {
-            if let index = locations.firstIndex(of: location) {
-                locations.remove(at: index)
-                save()
-            }
+            // TODO
         }
     }
 }

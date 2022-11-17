@@ -10,17 +10,18 @@ import MapKit
 import SwiftUI
 
 struct MapView: View {
-    @EnvironmentObject var dataManager: DataManager
+    var dataManager: DataManager
     var userLoggedIn: User
     var onLogout: () -> Void
     
     @StateObject var locationManager = LocationManager()
     @StateObject private var viewModel: ViewModel
     
-    init(userLoggedIn: User, onLogout: @escaping () -> Void) {
+    init(dataManager: DataManager, userLoggedIn: User, onLogout: @escaping () -> Void) {
+        self.dataManager = dataManager
         self.userLoggedIn = userLoggedIn
         self.onLogout = onLogout
-        self._viewModel = StateObject(wrappedValue: ViewModel(userLoggedIn: userLoggedIn))
+        self._viewModel = StateObject(wrappedValue: ViewModel(dataManager: dataManager, userLoggedIn: userLoggedIn))
     }
     
     var body: some View {
@@ -29,7 +30,7 @@ struct MapView: View {
                 interactionModes: .all,
                 showsUserLocation: true,
                 userTrackingMode: $viewModel.userTrackingMode,
-                annotationItems: dataManager.locations
+                annotationItems: viewModel.dataManager.locations
             ) { location in
                 MapAnnotation(coordinate: location.coordinate) {
                     if !viewModel.placingPin {
@@ -51,9 +52,9 @@ struct MapView: View {
                     VStack {
                         Button {
                             if let coordinate = locationManager.getCurrentLocationCoordinate() {
-                                viewModel.addLocation(latitude: coordinate.latitude,
-                                                      longitude: coordinate.longitude
-                                )
+                                viewModel.startEditingLocation(location: Location(placedBy: userLoggedIn,
+                                                                                  latitude: coordinate.latitude,
+                                                                                  longitude: coordinate.longitude))
                             } else {
                                 print("Could not access current location.")
                             }
@@ -76,9 +77,9 @@ struct MapView: View {
                         Spacer()
                         
                         Button {
-                            viewModel.addLocation(latitude: locationManager.mapRegion.center.latitude,
-                                                  longitude: locationManager.mapRegion.center.longitude
-                            )
+                            viewModel.startEditingLocation(location: Location(placedBy: userLoggedIn,
+                                                                              latitude: locationManager.mapRegion.center.latitude,
+                                                                              longitude: locationManager.mapRegion.center.longitude))
                         } label: {
                             Text("Confirm Placement")
                                 .padding()
@@ -158,15 +159,17 @@ struct MapView: View {
         .animation(.easeInOut, value: viewModel.placingPin)
         .sheet(item: $viewModel.selectedPlaceToDetail) { location in
             LocationDetailView(location: location,
-                               onSave: { newLocation in viewModel.updateLocation(location: newLocation)},
-                               onDelete: { newLocation in viewModel.deleteLocation(location: newLocation)}
+                               onSave: { locationToSave in viewModel.saveLocation(location: locationToSave) },
+                               // TODO: update deleteLocation function
+                               onDelete: { _ in }
             )
         }
         .sheet(item: $viewModel.selectedPlaceToEdit) { location in
             NavigationView {
                 LocationEditView(location: location,
-                                 onSave: { newLocation in viewModel.updateLocation(location: newLocation)},
-                                 onDelete: { newLocation in viewModel.deleteLocation(location: newLocation)}
+                                 onSave: { locationToSave in viewModel.saveLocation(location: locationToSave) },
+                                 // TODO: update deleteLocation function
+                                 onDelete: { _ in }
                 )
             }
         }
@@ -175,7 +178,6 @@ struct MapView: View {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(userLoggedIn: User.exampleUser) { }
-            .environmentObject(DataManager())
+        MapView(dataManager: DataManager(), userLoggedIn: User.exampleUser) { }
     }
 }

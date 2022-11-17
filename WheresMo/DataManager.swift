@@ -52,4 +52,22 @@ class DataManager: ObservableObject {
             }
         }
     }
+    
+    func addLocation(location: Location) {
+        let db = Firestore.firestore()
+        let ref = db.collection("Locations").document()
+        ref.setData(["id": location.id.uuidString,
+                     "placedByEmail": location.placedBy.email,
+                     "latitude": location.latitude,
+                     "longitude": location.longitude,
+                     "landmark": location.landmark,
+                     "timestamp": location.date.timeIntervalSince1970,
+                     "description": location.description
+                    ]
+        ) { error in
+            if let error {
+                print(error.localizedDescription)
+            }
+        }
+    }
 }

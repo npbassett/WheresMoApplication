@@ -24,7 +24,6 @@ struct WheresMoApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     @StateObject private var loginViewModel = LoginViewModel()
-    @StateObject private var dataManager = DataManager()
     
     var body: some Scene {
         WindowGroup {
@@ -38,8 +37,7 @@ extension WheresMoApp {
     @ViewBuilder
     private func view() -> some View {
         if loginViewModel.userLoggedIn != nil {
-            MapView(userLoggedIn: loginViewModel.userLoggedIn!) { loginViewModel.logout() }
-                .environmentObject(dataManager)
+            MapView(dataManager: DataManager(), userLoggedIn: loginViewModel.userLoggedIn!) { loginViewModel.logout() }
         } else {
             LoginView()
                 .environmentObject(loginViewModel)
