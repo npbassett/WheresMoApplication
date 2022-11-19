@@ -12,7 +12,7 @@ class LoginViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""
     @Published var passwordReentry = ""
-    @Published var userLoggedIn: User? = nil
+    @Published var userLoggedInEmail: String? = nil
     @Published var showingLoginError = false
     
     var passwordsDontMatch: Bool {
@@ -28,7 +28,7 @@ class LoginViewModel: ObservableObject {
     func login() {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if error == nil {
-                self.userLoggedIn = User(email: self.email)
+                self.userLoggedInEmail = self.email
                 self.email = ""
                 self.password = ""
                 self.passwordReentry = ""
@@ -55,7 +55,7 @@ class LoginViewModel: ObservableObject {
         do {
             try Auth.auth().signOut()
             print("logging out")
-            userLoggedIn = nil
+            userLoggedInEmail = nil
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }

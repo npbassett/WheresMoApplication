@@ -9,10 +9,37 @@ import Firebase
 import Foundation
 
 class DataManager: ObservableObject {
+    @Published var userTable = [String: User]()
     @Published var locations = [Location]()
     
     init() {
+        fetchUsers()
         fetchLocations()
+    }
+    
+    func fetchUsers() {
+        userTable.removeAll()
+        let db = Firestore.firestore()
+        let ref = db.collection("Users")
+        ref.getDocuments { snapshot, error in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            
+            if let snapshot {
+                for document in snapshot.documents {
+                    let data = document.data()
+                    
+                    let email = data["email"] as? String ?? "Unknown Email"
+                    let displayName = data["displayName"] as? String ?? "Unknown User"
+                    
+                    let user = User(email: email, displayName: displayName)
+                    
+                    self.userTable[email] = user
+                }
+            }
+        }
     }
     
     func fetchLocations() {
@@ -39,7 +66,7 @@ class DataManager: ObservableObject {
                     let description = data["description"] as? String ?? ""
                     
                     let location = Location(id: UUID(uuidString: id) ?? UUID(),
-                                            placedBy: User(email: placedByEmail),
+                                            placedByEmail: placedByEmail,
                                             latitude: latitude,
                                             longitude: longitude,
                                             landmark: landmark,
@@ -57,7 +84,7 @@ class DataManager: ObservableObject {
         let db = Firestore.firestore()
         let ref = db.collection("Locations").document(location.id.uuidString)
         ref.setData(["id": location.id.uuidString,
-                     "placedByEmail": location.placedBy.email,
+                     "placedByEmail": location.placedByEmail,
                      "latitude": location.latitude,
                      "longitude": location.longitude,
                      "landmark": location.landmark,

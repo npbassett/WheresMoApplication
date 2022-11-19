@@ -24,7 +24,7 @@ struct LocationDetailView: View {
                 }
                 
                 Section("Placed by") {
-                    Text(location.placedBy.email)
+                    Text(viewModel.dataManager.userTable[location.placedByEmail]?.displayName ?? "xyz")
                 }
                 
                 Section("Date placed") {
@@ -37,7 +37,7 @@ struct LocationDetailView: View {
                 
                 Section {
                     Map(coordinateRegion: $coordinateRegion,
-                        annotationItems: [Location(placedBy: User.exampleUser,
+                        annotationItems: [Location(placedByEmail: User.exampleUser.email,
                                                    latitude: location.coordinate.latitude,
                                                    longitude: location.coordinate.longitude)]) { location in
                         MapAnnotation(coordinate: location.coordinate) {
@@ -83,6 +83,7 @@ struct LocationDetailView: View {
 struct LocationDetailView_Previews: PreviewProvider {
     static var previews: some View {
         LocationDetailView(location: Location.exampleLocation)
-            .environmentObject(MapViewModel(dataManager: DataManager(), userLoggedIn: User.exampleUser))
+            .environmentObject(MapViewModel(dataManager: DataManager(),
+                                            userLoggedInEmail: User.exampleUser.email))
     }
 }

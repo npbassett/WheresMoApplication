@@ -10,7 +10,7 @@ import CoreLocation
 
 struct Location: Identifiable, Codable, Equatable {
     var id = UUID()
-    var placedBy: User
+    var placedByEmail: String
     var latitude: Double
     var longitude: Double
     var landmark = ""
@@ -22,7 +22,7 @@ struct Location: Identifiable, Codable, Equatable {
     }
     
     static let exampleLocation = Location(id: UUID(),
-                                          placedBy: User.exampleUser,
+                                          placedByEmail: User.exampleUser.email,
                                           latitude: 40.02628625601256,
                                           longitude: -105.24369218832722,
                                           landmark: "Vision Quest Brewery",

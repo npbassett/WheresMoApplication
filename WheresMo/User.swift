@@ -10,10 +10,13 @@ import Foundation
 
 struct User: Codable {
     var email: String
+    var displayName: String
     
     static func ==(lhs: User, rhs: User) -> Bool {
         lhs.email == rhs.email
     }
     
-    static let exampleUser = User(email: "test@test.com")
+    static let exampleUser = User(email: "test@test.com", displayName: "Test Testington")
+    
+    static let unknownUser = User(email: "Unknown Email", displayName: "Unknown User")
 }

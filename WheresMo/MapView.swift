@@ -11,17 +11,17 @@ import SwiftUI
 
 struct MapView: View {
     var dataManager: DataManager
-    var userLoggedIn: User
+    var userLoggedInEmail: String
     var onLogout: () -> Void
     
     @StateObject var locationManager = LocationManager()
     @StateObject private var viewModel: MapViewModel
     
-    init(dataManager: DataManager, userLoggedIn: User, onLogout: @escaping () -> Void) {
+    init(dataManager: DataManager, userLoggedInEmail: String, onLogout: @escaping () -> Void) {
         self.dataManager = dataManager
-        self.userLoggedIn = userLoggedIn
+        self.userLoggedInEmail = userLoggedInEmail
         self.onLogout = onLogout
-        self._viewModel = StateObject(wrappedValue: MapViewModel(dataManager: dataManager, userLoggedIn: userLoggedIn))
+        self._viewModel = StateObject(wrappedValue: MapViewModel(dataManager: dataManager, userLoggedInEmail: userLoggedInEmail))
     }
     
     var body: some View {
@@ -52,7 +52,8 @@ struct MapView: View {
                     VStack {
                         Button {
                             if let coordinate = locationManager.getCurrentLocationCoordinate() {
-                                viewModel.startEditingLocation(location: Location(placedBy: userLoggedIn,
+                                
+                                viewModel.startEditingLocation(location: Location(placedByEmail: userLoggedInEmail,
                                                                                   latitude: coordinate.latitude,
                                                                                   longitude: coordinate.longitude))
                             } else {
@@ -77,9 +78,12 @@ struct MapView: View {
                         Spacer()
                         
                         Button {
-                            viewModel.startEditingLocation(location: Location(placedBy: userLoggedIn,
-                                                                              latitude: locationManager.mapRegion.center.latitude,
-                                                                              longitude: locationManager.mapRegion.center.longitude))
+                            viewModel.startEditingLocation(
+                                location: Location(placedByEmail: userLoggedInEmail,
+                                                   latitude: locationManager.mapRegion.center.latitude,
+                                                   longitude: locationManager.mapRegion.center.longitude
+                                                  )
+                            )
                         } label: {
                             Text("Confirm Placement")
                                 .padding()
@@ -172,6 +176,6 @@ struct MapView: View {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(dataManager: DataManager(), userLoggedIn: User.exampleUser) { }
+        MapView(dataManager: DataManager(), userLoggedInEmail: User.exampleUser.email) { }
     }
 }

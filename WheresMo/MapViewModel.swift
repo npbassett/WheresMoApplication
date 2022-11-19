@@ -12,20 +12,20 @@ import SwiftUI
 
 @MainActor class MapViewModel: ObservableObject {
     var dataManager: DataManager
-    var userLoggedIn: User
+    var userLoggedInEmail: String
     @Published var userTrackingMode: MapUserTrackingMode = .follow
     @Published var selectedPlaceToDetail: Location?
     @Published var selectedPlaceToEdit: Location?
     @Published var placingPin = false
             
-    init(dataManager: DataManager, userLoggedIn: User) {
+    init(dataManager: DataManager, userLoggedInEmail: String) {
         self.dataManager = dataManager
-        self.userLoggedIn = userLoggedIn
+        self.userLoggedInEmail = userLoggedInEmail
     }
     
     var ableToEdit: Bool {
         if selectedPlaceToDetail != nil {
-            return userLoggedIn == selectedPlaceToDetail!.placedBy
+            return userLoggedInEmail == selectedPlaceToDetail!.placedByEmail
         } else {
             return false
         }
