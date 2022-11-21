@@ -8,25 +8,13 @@
 import FirebaseCore
 import SwiftUI
 
-// Firebase initialization code
-class AppDelegate: NSObject, UIApplicationDelegate {
-    
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    FirebaseApp.configure()
-    return true
-  }
-}
-
 @main
 struct WheresMoApp: App {
-    // register app delegate for Firebase setup
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    
     @StateObject private var dataManager: DataManager
     @StateObject private var loginViewModel: LoginViewModel
     
     init() {
+        FirebaseApp.configure()
         let dataManager = DataManager()
         self._dataManager = StateObject(wrappedValue: dataManager)
         self._loginViewModel = StateObject(wrappedValue: LoginViewModel(dataManager: dataManager))
