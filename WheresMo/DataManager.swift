@@ -117,13 +117,14 @@ class DataManager: ObservableObject {
     
     func deleteLocation(location: Location) {
         let db = Firestore.firestore()
-        print(location.id.uuidString)
-        print(location.id.uuidString)
         db.collection("Locations").document(location.id.uuidString).delete() { error in
             print("Deleting location...")
             if let error {
                 print("Error removing document: \(error)")
             } else {
+                if let indexToRemove = self.locations.firstIndex(of: location) {
+                    self.locations.remove(at: indexToRemove)
+                }
                 print("Location successfully deleted!")
             }
         }

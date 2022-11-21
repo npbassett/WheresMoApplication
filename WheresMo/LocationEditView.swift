@@ -49,7 +49,8 @@ struct LocationEditView: View {
         .navigationBarTitleDisplayMode(.inline)
         .alert("Delete location?", isPresented: $showingDeleteAlert) {
             Button("Delete", role: .destructive) {
-                viewModel.saveLocation(location: location)
+                viewModel.deleteLocation(location: location)
+                viewModel.selectedPlaceToEdit = nil
                 viewModel.selectedPlaceToDetail = nil
                 dismiss()
             }

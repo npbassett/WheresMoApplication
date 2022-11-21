@@ -46,7 +46,7 @@ import SwiftUI
     
     func saveLocation(location: Location) {
         dataManager.saveLocation(location: location)
-        dataManager.fetchLocations()
+//        dataManager.fetchLocations()
     }
     
     func deleteLocation(location: Location) {
