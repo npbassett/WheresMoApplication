@@ -22,6 +22,26 @@ struct CreateNewAccountView: View {
                             .autocapitalization(.none)
                     } header: {
                         Text("Email")
+                    } footer: {
+                        if loginViewModel.emailInvalid {
+                            (Text(Image(systemName: "x.circle")) + Text(" Please enter a valid email address")).foregroundColor(.red)
+                        } else {
+                            (Text(Image(systemName: "checkmark.circle")) + Text(" Valid email address")).foregroundColor(.green)
+                        }
+                    }
+                    
+                    Section {
+                        TextField("Enter Display Name", text: $loginViewModel.displayName)
+                    } header: {
+                        Text("Display Name")
+                    } footer: {
+                        if loginViewModel.displayNameEmpty {
+                            (Text(Image(systemName: "x.circle")) + Text(" Please enter a display name")).foregroundColor(.red)
+                        } else if loginViewModel.displayNameTooLong {
+                            (Text(Image(systemName: "x.circle")) + Text(" Display name must be less than 20 characters")).foregroundColor(.red)
+                        } else {
+                            (Text(Image(systemName: "checkmark.circle")) + Text(" Valid display name")).foregroundColor(.green)
+                        }
                     }
                     
                     Section {
@@ -60,7 +80,7 @@ struct CreateNewAccountView: View {
                     } label: {
                         Text("Create Account")
                     }
-                    .disabled(loginViewModel.emailEmpty || loginViewModel.passwordTooShort || loginViewModel.passwordsDontMatch)
+                    .disabled(loginViewModel.emailInvalid || loginViewModel.displayNameEmpty || loginViewModel.displayNameTooLong || loginViewModel.passwordTooShort || loginViewModel.passwordsDontMatch)
                 }
             }
             .navigationBarTitle("Create Account")

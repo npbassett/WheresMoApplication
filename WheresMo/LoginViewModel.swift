@@ -10,17 +10,30 @@ import SwiftUI
 
 class LoginViewModel: ObservableObject {
     @Published var email = ""
+    @Published var displayName = ""
     @Published var password = ""
     @Published var passwordReentry = ""
     @Published var userLoggedInEmail: String? = nil
     @Published var showingLoginError = false
     
+    var emailInvalid: Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return !emailPredicate.evaluate(with: email)
+    }
+    
+    var displayNameEmpty: Bool {
+        displayName.isEmpty
+    }
+    
+    var displayNameTooLong: Bool {
+        displayName.count > 20
+    }
+    
     var passwordsDontMatch: Bool {
         password != passwordReentry
     }
-    var emailEmpty: Bool {
-        email.isEmpty
-    }
+    
     var passwordTooShort: Bool {
         password.count < 8
     }
@@ -39,10 +52,26 @@ class LoginViewModel: ObservableObject {
         }
     }
     
+    func addUserToDatabase(user: User) {
+        let db = Firestore.firestore()
+        let ref = db.collection("Users").document(user.email)
+        ref.setData(["email": user.email,
+                     "displayName": user.displayName
+                    ]
+        ) { error in
+            if let error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     func createNewUser() {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if error == nil {
+                self.addUserToDatabase(user: User(email: self.email, displayName: self.displayName))
+                
                 self.email = ""
+                self.displayName = ""
                 self.password = ""
                 self.passwordReentry = ""
             } else {

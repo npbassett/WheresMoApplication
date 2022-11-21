@@ -24,7 +24,7 @@ struct LocationDetailView: View {
                 }
                 
                 Section("Placed by") {
-                    Text(viewModel.dataManager.userTable[location.placedByEmail]?.displayName ?? "xyz")
+                    Text(viewModel.dataManager.userTable[location.placedByEmail]?.displayName ?? "Unknown User")
                 }
                 
                 Section("Date placed") {
