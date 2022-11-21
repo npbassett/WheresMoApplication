@@ -100,6 +100,6 @@ struct CreateNewAccountView: View {
 struct CreateNewAccountView_Previews: PreviewProvider {
     static var previews: some View {
         CreateNewAccountView()
-            .environmentObject(LoginViewModel())
+            .environmentObject(LoginViewModel(dataManager: DataManager()))
     }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 
 
 @MainActor class MapViewModel: ObservableObject {
-    var dataManager: DataManager
+    @ObservedObject var dataManager: DataManager
     var userLoggedInEmail: String
     @Published var userTrackingMode: MapUserTrackingMode = .follow
     @Published var selectedPlaceToDetail: Location?

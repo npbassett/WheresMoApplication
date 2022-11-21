@@ -23,14 +23,20 @@ struct WheresMoApp: App {
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
-    @StateObject private var loginViewModel = LoginViewModel()
-    @StateObject private var dataManager = DataManager()
+    @StateObject private var dataManager: DataManager
+    @StateObject private var loginViewModel: LoginViewModel
+    
+    init() {
+        let dataManager = DataManager()
+        self._dataManager = StateObject(wrappedValue: dataManager)
+        self._loginViewModel = StateObject(wrappedValue: LoginViewModel(dataManager: dataManager))
+    }
     
     var body: some Scene {
         WindowGroup {
             view()
-                .environmentObject(loginViewModel)
                 .environmentObject(dataManager)
+                .environmentObject(loginViewModel)
         }
     }
 }
@@ -39,7 +45,7 @@ extension WheresMoApp {
     @ViewBuilder
     private func view() -> some View {
         if loginViewModel.userLoggedInEmail != nil {
-            MapView(dataManager: dataManager, userLoggedInEmail: loginViewModel.userLoggedInEmail!) { loginViewModel.logout() }
+            MapView(dataManager: DataManager(), userLoggedInEmail: loginViewModel.userLoggedInEmail!) { loginViewModel.logout() }
         } else {
             LoginView()
                 .environmentObject(loginViewModel)

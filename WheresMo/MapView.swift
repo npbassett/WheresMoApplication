@@ -10,7 +10,7 @@ import MapKit
 import SwiftUI
 
 struct MapView: View {
-    var dataManager: DataManager
+    @ObservedObject var dataManager: DataManager
     var userLoggedInEmail: String
     var onLogout: () -> Void
     

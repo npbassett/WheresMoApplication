@@ -42,6 +42,21 @@ class DataManager: ObservableObject {
         }
     }
     
+    func addUser(user: User) {
+        let db = Firestore.firestore()
+        let ref = db.collection("Users").document(user.email)
+        ref.setData(["email": user.email,
+                     "displayName": user.displayName
+                    ]
+        ) { error in
+            if let error {
+                print(error.localizedDescription)
+            } else {
+                self.userTable[user.email] = user
+            }
+        }
+    }
+    
     func fetchLocations() {
         locations.removeAll()
         let db = Firestore.firestore()
@@ -94,6 +109,8 @@ class DataManager: ObservableObject {
         ) { error in
             if let error {
                 print(error.localizedDescription)
+            } else {
+                self.locations.append(location)
             }
         }
     }
