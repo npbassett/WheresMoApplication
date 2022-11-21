@@ -50,7 +50,7 @@ struct LocationEditView: View {
         .alert("Delete location?", isPresented: $showingDeleteAlert) {
             Button("Delete", role: .destructive) {
                 viewModel.saveLocation(location: location)
-                // TODO: dismiss parent DetailView after deleting location
+                viewModel.selectedPlaceToDetail = nil
                 dismiss()
             }
             Button("Cancel", role: .cancel) { }
