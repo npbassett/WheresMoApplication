@@ -18,6 +18,12 @@ struct LocationDetailView: View {
     var body: some View {
         NavigationView {
             Form {
+                Section {
+                    FirebaseImage(id: location.id)
+                        .frame(width: 350, height: 350)
+                }
+                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                
                 Section(header: Text("Landmark"),
                         footer: Text(Image(systemName: "location.fill")) + Text(" \(location.coordinate.latitude), \(location.coordinate.longitude)")) {
                     Text(location.landmark)

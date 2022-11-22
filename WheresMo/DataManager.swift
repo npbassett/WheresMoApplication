@@ -6,6 +6,7 @@
 //
 
 import Firebase
+import FirebaseStorage
 import Foundation
 
 class DataManager: ObservableObject {
