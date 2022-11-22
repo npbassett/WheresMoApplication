@@ -20,8 +20,11 @@ struct LocationMarkerView: View {
                     .frame(width: 44, height: 44)
                     .font(.headline)
                 
-                Text("🐈")
-                    .font(.title)
+                Image("Mo_background_removed")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 35, height: 35)
+                    .padding(.top, 3)
             }
             
             Image(systemName: "triangle.fill")
