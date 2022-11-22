@@ -20,7 +20,7 @@ struct LoginView: View {
             VStack(spacing: 20) {
                 
                 Text("Where's Mo?")
-                    .foregroundColor(.white)
+                    .foregroundColor(Color(UIColor.systemBackground))
                     .font(.system(size: 40, weight: .bold))
                 
                 Image("Mo_background_removed")
@@ -39,7 +39,7 @@ struct LoginView: View {
                             .autocorrectionDisabled()
                             .autocapitalization(.none)
                             .padding()
-                            .background(.white)
+                            .background(Color(UIColor.tertiarySystemBackground))
                             .cornerRadius(5)
                             .padding(.bottom)
                         
@@ -47,7 +47,7 @@ struct LoginView: View {
                             .autocorrectionDisabled()
                             .autocapitalization(.none)
                             .padding()
-                            .background(.white)
+                            .background(Color(UIColor.tertiarySystemBackground))
                             .cornerRadius(5)
                             .padding(.bottom)
                         
@@ -71,7 +71,7 @@ struct LoginView: View {
                     showingCreateNewAccount = true
                 } label: {
                     Text("Don't have an account? Click here.")
-                        .foregroundColor(.white)
+                        .foregroundColor(Color(UIColor.systemBackground))
                         .underline()
                 }
                 
