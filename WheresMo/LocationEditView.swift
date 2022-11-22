@@ -18,11 +18,41 @@ struct LocationEditView: View {
     @State private var description: String
     @State private var coordinateRegion: MKCoordinateRegion
     @State private var coordinate: CLLocationCoordinate2D
+    @State private var selectedPhotoData: Data? = nil
     
     @State private var showingDeleteAlert = false
     
     var body: some View {
         Form {
+            
+            //TODO: when navigating to edit view from detail view, fetch saved image from firebase storage if it exists
+            Section {
+                if let selectedPhotoData {
+                    let image = UIImage(data: selectedPhotoData)
+                    
+                    Image(uiImage: image!)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 350, height: .infinity)
+                } else {
+                    VStack {
+                        Image("Mo_background_removed")
+                            .resizable()
+                            .scaledToFit()
+                            .padding(.bottom, -50)
+                        HStack {
+                            Image(systemName: "x.circle.fill")
+                                .foregroundColor(.red)
+                            Text("Photo not found.")
+                        }
+                    }
+                    .frame(width: 350, height: 350)
+                }
+            }
+            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+            
+            PhotoSelector(selectedPhotoData: $selectedPhotoData)
+            
             Section(header: Text("Landmark"),
                     footer: Text(Image(systemName: "location.fill")) + Text(" \(coordinate.latitude), \(coordinate.longitude)")) {
                 TextField("Enter landmark", text: $landmark)
@@ -67,6 +97,9 @@ struct LocationEditView: View {
                     newLocation.description = description
                     
                     viewModel.saveLocation(location: newLocation)
+                    if selectedPhotoData != nil {
+                        viewModel.dataManager.savePhoto(data: selectedPhotoData!, id: newLocation.id)
+                    }
                     dismiss()
                 } label: {
                     Text("Save")

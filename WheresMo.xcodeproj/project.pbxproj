@@ -29,6 +29,7 @@
 		51EFEC9D292594DC00A83A30 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFEC9C292594DC00A83A30 /* DataManager.swift */; };
 		51EFEC9F292C689C00A83A30 /* FirebaseImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFEC9E292C689C00A83A30 /* FirebaseImage.swift */; };
 		51EFECA1292C6FD800A83A30 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 51EFECA0292C6FD800A83A30 /* FirebaseStorage */; };
+		51EFECA3292D603D00A83A30 /* PhotoSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFECA2292D603D00A83A30 /* PhotoSelector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		51EFEC9A2924510900A83A30 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		51EFEC9C292594DC00A83A30 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		51EFEC9E292C689C00A83A30 /* FirebaseImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseImage.swift; sourceTree = "<group>"; };
+		51EFECA2292D603D00A83A30 /* PhotoSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				512E163C29216217008094A9 /* LocationManager.swift */,
 				512E16422921EB08008094A9 /* LocationDetailView.swift */,
 				512E1636292040E8008094A9 /* LocationEditView.swift */,
+				51EFECA2292D603D00A83A30 /* PhotoSelector.swift */,
 				512E163029201AA3008094A9 /* Location.swift */,
 				51EFEC9A2924510900A83A30 /* User.swift */,
 				512E1623291F10AC008094A9 /* Assets.xcassets */,
@@ -216,6 +219,7 @@
 				512E16432921EB08008094A9 /* LocationDetailView.swift in Sources */,
 				512E1637292040E8008094A9 /* LocationEditView.swift in Sources */,
 				512E163129201AA3008094A9 /* Location.swift in Sources */,
+				51EFECA3292D603D00A83A30 /* PhotoSelector.swift in Sources */,
 				512E16532922E558008094A9 /* CreateNewAccountView.swift in Sources */,
 				512E163D29216217008094A9 /* LocationManager.swift in Sources */,
 				512E1620291F10AB008094A9 /* WheresMoApp.swift in Sources */,

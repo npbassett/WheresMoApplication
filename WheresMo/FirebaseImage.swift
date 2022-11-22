@@ -27,10 +27,11 @@ struct FirebaseImage: View {
                 Image("Mo_background_removed")
                     .resizable()
                     .scaledToFit()
-                VStack {
+                    .padding(.bottom, -50)
+                HStack {
                     Image(systemName: "x.circle.fill")
                         .foregroundColor(.red)
-                    Text("Fetching image failed.")
+                    Text("Photo not found.")
                 }
                 .padding()
                 
@@ -44,7 +45,7 @@ struct FirebaseImage: View {
     func fetchImage(id: UUID) async {
         let url = "gs://wheresmo-415ab.appspot.com/images/\(id.uuidString).jpg"
         let gsReference = Storage.storage().reference(forURL: url)
-        gsReference.getData(maxSize: 1 * 1024 * 1024) { data, error in
+        gsReference.getData(maxSize: 5 * 1024 * 1024) { data, error in
             if let error = error {
                 print("Error fetching image: \(error.localizedDescription)")
                 loadingState = .failed

@@ -130,4 +130,15 @@ class DataManager: ObservableObject {
             }
         }
     }
+    
+    func savePhoto(data: Data, id: UUID) {
+        let url = "gs://wheresmo-415ab.appspot.com/images/\(id.uuidString).jpg"
+        let gsReference = Storage.storage().reference(forURL: url)
+        gsReference.putData(data, metadata: nil) { metadata, error in
+            guard metadata != nil else {
+                print("Error saving image to Firebase.")
+                return
+            }
+        }
+    }
 }
