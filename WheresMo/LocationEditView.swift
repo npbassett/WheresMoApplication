@@ -24,8 +24,6 @@ struct LocationEditView: View {
     
     var body: some View {
         Form {
-            
-            //TODO: when navigating to edit view from detail view, fetch saved image from firebase storage if it exists
             Section {
                 if let selectedPhotoData {
                     let image = UIImage(data: selectedPhotoData)
@@ -35,18 +33,8 @@ struct LocationEditView: View {
                         .scaledToFill()
                         .frame(width: 350, height: .infinity)
                 } else {
-                    VStack {
-                        Image("Mo_background_removed")
-                            .resizable()
-                            .scaledToFit()
-                            .padding(.bottom, -50)
-                        HStack {
-                            Image(systemName: "x.circle.fill")
-                                .foregroundColor(.red)
-                            Text("Photo not found.")
-                        }
-                    }
-                    .frame(width: 350, height: 350)
+                    FirebaseImage(id: location.id)
+                        .frame(width: 350, height: .infinity)
                 }
             }
             .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
