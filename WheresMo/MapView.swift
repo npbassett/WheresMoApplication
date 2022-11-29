@@ -167,7 +167,7 @@ struct MapView: View {
         }
         .sheet(item: $viewModel.selectedPlaceToEdit) { location in
             NavigationView {
-                LocationEditView(location: location)
+                LocationEditView(location: location, navigatedFromDetailView: false)
                     .environmentObject(viewModel)
             }
         }

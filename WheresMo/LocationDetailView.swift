@@ -68,7 +68,7 @@ struct LocationDetailView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if viewModel.ableToEdit {
                         NavigationLink {
-                            LocationEditView(location: location)
+                            LocationEditView(location: location, navigatedFromDetailView: true)
                                 .environmentObject(viewModel)
                         } label: {
                             Text("Edit")

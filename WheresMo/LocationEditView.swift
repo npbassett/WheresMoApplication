@@ -12,6 +12,7 @@ struct LocationEditView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: MapViewModel
     var location: Location
+    var navigatedFromDetailView: Bool
     
     @State private var landmark: String
     @State private var date: Date
@@ -21,6 +22,14 @@ struct LocationEditView: View {
     @State private var selectedPhotoData: Data? = nil
     
     @State private var showingDeleteAlert = false
+    
+    var photoSelectionRequired: Bool {
+        return selectedPhotoData == nil && !navigatedFromDetailView
+    }
+    
+    var landmarkIsEmpty: Bool {
+        return landmark.isEmpty
+    }
     
     var body: some View {
         Form {
@@ -39,11 +48,28 @@ struct LocationEditView: View {
             }
             .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
             
-            PhotoSelector(selectedPhotoData: $selectedPhotoData)
+            Section {
+                PhotoSelector(selectedPhotoData: $selectedPhotoData)
+            } footer: {
+                if photoSelectionRequired {
+                    (Text(Image(systemName: "exclamationmark.circle")) + Text(" Please select a photo"))
+                        .foregroundColor(.red)
+                }
+            }
             
-            Section(header: Text("Landmark"),
-                    footer: Text(Image(systemName: "location.fill")) + Text(" \(coordinate.latitude), \(coordinate.longitude)")) {
+            Section {
                 TextField("Enter landmark", text: $landmark)
+            } header: {
+                Text("Landmark")
+            } footer: {
+                VStack {
+                    if landmarkIsEmpty {
+                        (Text(Image(systemName: "exclamationmark.circle")) + Text(" Please enter a landmark"))
+                            .foregroundColor(.red)
+                    } else {
+                        Text(Image(systemName: "location.fill")) + Text(" \(coordinate.latitude), \(coordinate.longitude)")
+                    }
+                }
             }
             
             Section("Date placed") {
@@ -77,6 +103,15 @@ struct LocationEditView: View {
             Text("Are you sure?")
         }
         .toolbar {
+            if !navigatedFromDetailView {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancel")
+                    }
+                }
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     var newLocation = location
@@ -92,12 +127,14 @@ struct LocationEditView: View {
                 } label: {
                     Text("Save")
                 }
+                .disabled(photoSelectionRequired || landmarkIsEmpty)
             }
         }
     }
     
-    init(location: Location) {
+    init(location: Location, navigatedFromDetailView: Bool) {
         self.location = location
+        self.navigatedFromDetailView = navigatedFromDetailView
         
         _landmark = State(initialValue: location.landmark)
         _date = State(initialValue: location.date)
@@ -109,7 +146,7 @@ struct LocationEditView: View {
 
 struct LocationEditView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationEditView(location: Location.exampleLocation)
+        LocationEditView(location: Location.exampleLocation, navigatedFromDetailView: false)
             .environmentObject(MapViewModel(dataManager: DataManager(),
                                             userLoggedInEmail: User.exampleUser.email))
     }
