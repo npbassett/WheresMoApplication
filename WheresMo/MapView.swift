@@ -12,15 +12,13 @@ import SwiftUI
 struct MapView: View {
     @ObservedObject var dataManager: DataManager
     var userLoggedInEmail: String
-    var onLogout: () -> Void
     
     @StateObject var locationManager = LocationManager()
     @StateObject private var viewModel: MapViewModel
     
-    init(dataManager: DataManager, userLoggedInEmail: String, onLogout: @escaping () -> Void) {
+    init(dataManager: DataManager, userLoggedInEmail: String) {
         self.dataManager = dataManager
         self.userLoggedInEmail = userLoggedInEmail
-        self.onLogout = onLogout
         self._viewModel = StateObject(wrappedValue: MapViewModel(dataManager: dataManager, userLoggedInEmail: userLoggedInEmail))
     }
     
@@ -102,27 +100,28 @@ struct MapView: View {
                                 .foregroundColor(.white)
                                 .font(.headline)
                                 .clipShape(Capsule())
+                                .padding(.bottom)
                         }
                     }
                 }
             } else {
                 VStack {
-                    HStack {
-                        Spacer()
-                        
-                        Button {
-                            onLogout()
-                        } label: {
-                            Image(systemName: "rectangle.portrait.and.arrow.right")
-                                .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
-                                .padding()
-                                .background(.black.opacity(0.75))
-                                .foregroundColor(.white)
-                                .font(.title)
-                                .clipShape(Capsule())
-                                .padding(.trailing)
-                        }
-                    }
+//                    HStack {
+//                        Spacer()
+//
+//                        Button {
+//                            onLogout()
+//                        } label: {
+//                            Image(systemName: "rectangle.portrait.and.arrow.right")
+//                                .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
+//                                .padding()
+//                                .background(.black.opacity(0.75))
+//                                .foregroundColor(.white)
+//                                .font(.title)
+//                                .clipShape(Capsule())
+//                                .padding(.trailing)
+//                        }
+//                    }
                     
                     Spacer()
                     
@@ -155,6 +154,7 @@ struct MapView: View {
                                     .clipShape(Circle())
                                     .padding(.trailing)
                             }
+                            .padding(.bottom)
                         }
                     }
                 }
@@ -176,6 +176,6 @@ struct MapView: View {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(dataManager: DataManager(), userLoggedInEmail: User.exampleUser.email) { }
+        MapView(dataManager: DataManager(), userLoggedInEmail: User.exampleUser.email)
     }
 }

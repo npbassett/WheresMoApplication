@@ -33,7 +33,7 @@ extension WheresMoApp {
     @ViewBuilder
     private func view() -> some View {
         if loginViewModel.userLoggedInEmail != nil {
-            MapView(dataManager: DataManager(), userLoggedInEmail: loginViewModel.userLoggedInEmail!) { loginViewModel.logout() }
+            MainView(dataManager: DataManager(), userLoggedInEmail: loginViewModel.userLoggedInEmail!) { loginViewModel.logout() }
         } else {
             LoginView()
                 .environmentObject(loginViewModel)

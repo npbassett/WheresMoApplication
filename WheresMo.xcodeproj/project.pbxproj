@@ -25,6 +25,8 @@
 		512E16512922D6D7008094A9 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 512E16502922D6D7008094A9 /* FirebaseAnalytics */; };
 		512E16532922E558008094A9 /* CreateNewAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E16522922E558008094A9 /* CreateNewAccountView.swift */; };
 		512E165529243BCB008094A9 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E165429243BCB008094A9 /* LoginViewModel.swift */; };
+		512F7C382935AAF600DD0188 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512F7C372935AAF600DD0188 /* MainView.swift */; };
+		512F7C3A2935B04D00DD0188 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512F7C392935B04D00DD0188 /* SettingsView.swift */; };
 		51EFEC9B2924510900A83A30 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFEC9A2924510900A83A30 /* User.swift */; };
 		51EFEC9D292594DC00A83A30 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFEC9C292594DC00A83A30 /* DataManager.swift */; };
 		51EFEC9F292C689C00A83A30 /* FirebaseImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFEC9E292C689C00A83A30 /* FirebaseImage.swift */; };
@@ -50,6 +52,8 @@
 		512E164D2922D5CF008094A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		512E16522922E558008094A9 /* CreateNewAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewAccountView.swift; sourceTree = "<group>"; };
 		512E165429243BCB008094A9 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		512F7C372935AAF600DD0188 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		512F7C392935B04D00DD0188 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		51EFEC9A2924510900A83A30 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		51EFEC9C292594DC00A83A30 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		51EFEC9E292C689C00A83A30 /* FirebaseImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseImage.swift; sourceTree = "<group>"; };
@@ -92,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				512E161F291F10AB008094A9 /* WheresMoApp.swift */,
+				512F7C372935AAF600DD0188 /* MainView.swift */,
 				51EFEC9C292594DC00A83A30 /* DataManager.swift */,
 				51EFEC9E292C689C00A83A30 /* FirebaseImage.swift */,
 				512E163829205A54008094A9 /* FileManager-DocumentsDirectory.swift */,
@@ -99,6 +104,7 @@
 				512E165429243BCB008094A9 /* LoginViewModel.swift */,
 				512E16522922E558008094A9 /* CreateNewAccountView.swift */,
 				512E1621291F10AB008094A9 /* MapView.swift */,
+				512F7C392935B04D00DD0188 /* SettingsView.swift */,
 				512E1632292026F7008094A9 /* LocationMarkerView.swift */,
 				512E162E2920173F008094A9 /* MapViewModel.swift */,
 				512E163C29216217008094A9 /* LocationManager.swift */,
@@ -213,6 +219,7 @@
 				51EFEC9B2924510900A83A30 /* User.swift in Sources */,
 				512E1622291F10AB008094A9 /* MapView.swift in Sources */,
 				512E165529243BCB008094A9 /* LoginViewModel.swift in Sources */,
+				512F7C3A2935B04D00DD0188 /* SettingsView.swift in Sources */,
 				51EFEC9D292594DC00A83A30 /* DataManager.swift in Sources */,
 				512E162F2920173F008094A9 /* MapViewModel.swift in Sources */,
 				51EFEC9F292C689C00A83A30 /* FirebaseImage.swift in Sources */,
@@ -221,6 +228,7 @@
 				512E163129201AA3008094A9 /* Location.swift in Sources */,
 				51EFECA3292D603D00A83A30 /* PhotoSelector.swift in Sources */,
 				512E16532922E558008094A9 /* CreateNewAccountView.swift in Sources */,
+				512F7C382935AAF600DD0188 /* MainView.swift in Sources */,
 				512E163D29216217008094A9 /* LocationManager.swift in Sources */,
 				512E1620291F10AB008094A9 /* WheresMoApp.swift in Sources */,
 				512E163929205A54008094A9 /* FileManager-DocumentsDirectory.swift in Sources */,
