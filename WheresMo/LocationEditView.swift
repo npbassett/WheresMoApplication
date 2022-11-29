@@ -93,6 +93,7 @@ struct LocationEditView: View {
         .navigationBarTitleDisplayMode(.inline)
         .alert("Delete location?", isPresented: $showingDeleteAlert) {
             Button("Delete", role: .destructive) {
+                viewModel.deletePhoto(id: location.id)
                 viewModel.deleteLocation(location: location)
                 viewModel.selectedPlaceToEdit = nil
                 viewModel.selectedPlaceToDetail = nil

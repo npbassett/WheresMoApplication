@@ -141,4 +141,16 @@ class DataManager: ObservableObject {
             }
         }
     }
+    
+    func deletePhoto(id: UUID) {
+        let url = "gs://wheresmo-415ab.appspot.com/images/\(id.uuidString).jpg"
+        let gsReference = Storage.storage().reference(forURL: url)
+        gsReference.delete { error in
+            if let error {
+                print("Unable to delete photo: \(error.localizedDescription)")
+            } else {
+                print("Photo deleted successfully!")
+            }
+        }
+    }
 }

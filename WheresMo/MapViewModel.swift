@@ -51,4 +51,8 @@ import SwiftUI
     func deleteLocation(location: Location) {
         dataManager.deleteLocation(location: location)
     }
+    
+    func deletePhoto(id: UUID){
+        dataManager.deletePhoto(id: id)
+    }
 }
