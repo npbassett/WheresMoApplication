@@ -27,14 +27,7 @@ struct FirebaseImage: View {
                 Image("Mo_background_removed")
                     .resizable()
                     .scaledToFit()
-                    .padding(.bottom, -50)
-                HStack {
-                    Image(systemName: "x.circle.fill")
-                        .foregroundColor(.red)
-                    Text("Photo not found.")
-                }
-                .padding()
-                
+                    .background(LinearGradient(colors: [.yellow, .red], startPoint: .topLeading, endPoint: .bottomTrailing))
             }
         }
         .task {

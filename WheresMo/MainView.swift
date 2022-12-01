@@ -14,6 +14,11 @@ struct MainView: View {
     
     var body: some View {
         TabView {
+            FeedView(dataManager: dataManager, userLoggedInEmail: userLoggedInEmail)
+                .tabItem {
+                    Label("Feed", systemImage: "list.dash")
+                }
+            
             MapView(dataManager: dataManager, userLoggedInEmail: userLoggedInEmail)
                 .tabItem {
                     Label("Map", systemImage: "map")

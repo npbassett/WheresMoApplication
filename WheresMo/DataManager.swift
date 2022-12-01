@@ -61,7 +61,7 @@ class DataManager: ObservableObject {
     func fetchLocations() {
         locations.removeAll()
         let db = Firestore.firestore()
-        let ref = db.collection("Locations")
+        let ref = db.collection("Locations").order(by: "timestamp", descending: true)
         ref.getDocuments { snapshot, error in
             guard error == nil else {
                 print(error!.localizedDescription)
