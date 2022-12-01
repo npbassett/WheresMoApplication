@@ -34,7 +34,6 @@ struct LoginView: View {
                         .shadow(radius: 10)
                     
                     VStack {
-                        // TODO: change to daker color in dark mode
                         TextField("Email", text: $loginViewModel.email)
                             .autocorrectionDisabled()
                             .autocapitalization(.none)
