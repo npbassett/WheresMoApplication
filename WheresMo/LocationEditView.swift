@@ -40,10 +40,11 @@ struct LocationEditView: View {
                     Image(uiImage: image!)
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 350)
+                        .frame(width: 350, height: 350)
                 } else {
                     FirebaseImage(id: location.id)
-                        .frame(width: 350)
+                        .scaledToFill()
+                        .frame(width: 350, height: 350)
                 }
             }
             .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
