@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LocationDetailView: View {
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var viewModel: MapViewModel
+    @EnvironmentObject var viewModel: MainViewModel
     var location: Location
     
     @State private var coordinateRegion: MKCoordinateRegion
@@ -90,7 +90,6 @@ struct LocationDetailView: View {
 struct LocationDetailView_Previews: PreviewProvider {
     static var previews: some View {
         LocationDetailView(location: Location.exampleLocation)
-            .environmentObject(MapViewModel(dataManager: DataManager(),
-                                            userLoggedIn: User.exampleUser))
+            .environmentObject(MainViewModel(userLoggedIn: User.exampleUser))
     }
 }

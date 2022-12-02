@@ -8,16 +8,7 @@
 import SwiftUI
 
 struct FeedView: View {
-    @ObservedObject var dataManager: DataManager
-    var userLoggedIn: User
-    
-    @StateObject private var viewModel: FeedViewModel
-    
-    init(dataManager: DataManager, userLoggedIn: User) {
-        self.dataManager = dataManager
-        self.userLoggedIn = userLoggedIn
-        self._viewModel = StateObject(wrappedValue: FeedViewModel(dataManager: dataManager, userLoggedIn: userLoggedIn))
-    }
+    @EnvironmentObject var viewModel: MainViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -46,9 +37,9 @@ struct FeedView: View {
             .foregroundColor(.primary.opacity(0.5))
             
             Form {
-                ForEach(dataManager.locations) { location in
+                ForEach(viewModel.locations) { location in
                     Section {
-                        FeedPostView(viewModel: viewModel, location: location)
+                        FeedPostView(location: location)
                     }
                 }
             }
@@ -58,6 +49,7 @@ struct FeedView: View {
 
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
-        FeedView(dataManager: DataManager(), userLoggedIn: User.exampleUser)
+        FeedView()
+            .environmentObject(MainViewModel(userLoggedIn: User.exampleUser))
     }
 }

@@ -8,18 +8,27 @@
 import SwiftUI
 
 struct MainView: View {
-    @ObservedObject var dataManager: DataManager
     var userLoggedIn: User
     var onLogout: () -> Void
     
+    @StateObject private var viewModel: MainViewModel
+    
+    init(userLoggedIn: User, onLogout: @escaping () -> Void) {
+        self.userLoggedIn = userLoggedIn
+        self.onLogout = onLogout
+        self._viewModel = StateObject(wrappedValue: MainViewModel(userLoggedIn: userLoggedIn))
+    }
+    
     var body: some View {
         TabView {
-            FeedView(dataManager: dataManager, userLoggedIn: userLoggedIn)
+            FeedView()
+                .environmentObject(viewModel)
                 .tabItem {
                     Label("Feed", systemImage: "list.dash")
                 }
             
-            MapView(dataManager: dataManager, userLoggedIn: userLoggedIn)
+            MapView()
+                .environmentObject(viewModel)
                 .tabItem {
                     Label("Map", systemImage: "map")
                 }
@@ -30,6 +39,8 @@ struct MainView: View {
                 }
         }
         .onAppear {
+            viewModel.fetchLocations()
+            
             UITabBar.appearance().backgroundColor = UIColor.systemBackground
         }
     }
@@ -37,6 +48,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(dataManager: DataManager(), userLoggedIn: User.exampleUser, onLogout: { })
+        MainView(userLoggedIn: User.exampleUser, onLogout: { })
     }
 }

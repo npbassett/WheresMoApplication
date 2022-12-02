@@ -1,19 +1,48 @@
 //
-//  DataManager.swift
+//  MapView-ViewModel.swift
 //  WheresMo
 //
-//  Created by Neil Bassett on 11/16/22.
+//  Created by Neil Bassett on 11/12/22.
 //
 
 import Firebase
 import FirebaseStorage
 import Foundation
+import MapKit
+import SwiftUI
 
-class DataManager: ObservableObject {
-    @Published var locations = [Location]()
+@MainActor class MainViewModel: ObservableObject {
+    var userLoggedIn: User
     
-    init() {
-        fetchLocations()
+    @Published var locations = [Location]()
+    @Published var userTrackingMode: MapUserTrackingMode = .follow
+    @Published var selectedPlaceToDetail: Location?
+    @Published var selectedPlaceToEdit: Location?
+    @Published var placingPin = false
+            
+    init(userLoggedIn: User) {
+        self.userLoggedIn = userLoggedIn
+    }
+    
+    var ableToEdit: Bool {
+        if selectedPlaceToDetail != nil {
+            return userLoggedIn.email == selectedPlaceToDetail!.placedByUser.email
+        } else {
+            return false
+        }
+    }
+    
+    func startPlacingPin() {
+        placingPin = true
+    }
+    
+    func endPlacingPin() {
+        placingPin = false
+    }
+    
+    func startEditingLocation(location: Location) {
+        endPlacingPin()
+        selectedPlaceToEdit = location
     }
     
     func fetchLocations() {

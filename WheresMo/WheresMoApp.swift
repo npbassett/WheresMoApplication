@@ -28,7 +28,7 @@ extension WheresMoApp {
     @ViewBuilder
     private func view() -> some View {
         if loginViewModel.userLoggedIn != nil {
-            MainView(dataManager: DataManager(), userLoggedIn: loginViewModel.userLoggedIn!) { loginViewModel.logout() }
+            MainView(userLoggedIn: loginViewModel.userLoggedIn!) { loginViewModel.logout() }
         } else {
             LoginView()
                 .environmentObject(loginViewModel)

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct FeedPostView: View {
-    @ObservedObject var viewModel: FeedViewModel
     var location: Location
     
     @State private var isLiked = false
@@ -62,6 +61,6 @@ struct FeedPostView: View {
 
 struct FeedPostView_Previews: PreviewProvider {
     static var previews: some View {
-        FeedPostView(viewModel: FeedViewModel(dataManager: DataManager(), userLoggedIn: User.exampleUser), location: Location.exampleLocation)
+        FeedPostView(location: Location.exampleLocation)
     }
 }

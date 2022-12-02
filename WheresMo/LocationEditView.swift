@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LocationEditView: View {
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var viewModel: MapViewModel
+    @EnvironmentObject var viewModel: MainViewModel
     var location: Location
     var navigatedFromDetailView: Bool
     
@@ -123,7 +123,7 @@ struct LocationEditView: View {
                     
                     viewModel.saveLocation(location: newLocation)
                     if selectedPhotoData != nil {
-                        viewModel.dataManager.savePhoto(data: selectedPhotoData!, id: newLocation.id)
+                        viewModel.savePhoto(data: selectedPhotoData!, id: newLocation.id)
                     }
                     dismiss()
                 } label: {
@@ -149,6 +149,6 @@ struct LocationEditView: View {
 struct LocationEditView_Previews: PreviewProvider {
     static var previews: some View {
         LocationEditView(location: Location.exampleLocation, navigatedFromDetailView: false)
-            .environmentObject(MapViewModel(dataManager: DataManager(), userLoggedIn: User.exampleUser))
+            .environmentObject(MainViewModel(userLoggedIn: User.exampleUser))
     }
 }

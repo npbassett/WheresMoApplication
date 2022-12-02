@@ -10,17 +10,9 @@ import MapKit
 import SwiftUI
 
 struct MapView: View {
-    @ObservedObject var dataManager: DataManager
-    var userLoggedIn: User
+    @EnvironmentObject var viewModel: MainViewModel
     
     @StateObject var locationManager = LocationManager()
-    @StateObject private var viewModel: MapViewModel
-    
-    init(dataManager: DataManager, userLoggedIn: User) {
-        self.dataManager = dataManager
-        self.userLoggedIn = userLoggedIn
-        self._viewModel = StateObject(wrappedValue: MapViewModel(dataManager: dataManager, userLoggedIn: userLoggedIn))
-    }
     
     var body: some View {
         ZStack {
@@ -28,7 +20,7 @@ struct MapView: View {
                 interactionModes: .all,
                 showsUserLocation: true,
                 userTrackingMode: $viewModel.userTrackingMode,
-                annotationItems: viewModel.dataManager.locations
+                annotationItems: viewModel.locations
             ) { location in
                 MapAnnotation(coordinate: location.coordinate) {
                     if !viewModel.placingPin {
@@ -51,7 +43,7 @@ struct MapView: View {
                         Button {
                             if let coordinate = locationManager.getCurrentLocationCoordinate() {
                                 
-                                viewModel.startEditingLocation(location: Location(placedByUser: userLoggedIn,
+                                viewModel.startEditingLocation(location: Location(placedByUser: viewModel.userLoggedIn,
                                                                                   latitude: coordinate.latitude,
                                                                                   longitude: coordinate.longitude))
                             } else {
@@ -77,7 +69,7 @@ struct MapView: View {
                         
                         Button {
                             viewModel.startEditingLocation(
-                                location: Location(placedByUser: userLoggedIn,
+                                location: Location(placedByUser: viewModel.userLoggedIn,
                                                    latitude: locationManager.mapRegion.center.latitude,
                                                    longitude: locationManager.mapRegion.center.longitude
                                                   )
@@ -176,6 +168,7 @@ struct MapView: View {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(dataManager: DataManager(), userLoggedIn: User.exampleUser)
+        MapView()
+            .environmentObject(MainViewModel(userLoggedIn: User.exampleUser))
     }
 }
