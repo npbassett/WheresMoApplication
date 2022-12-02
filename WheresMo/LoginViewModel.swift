@@ -9,17 +9,12 @@ import Firebase
 import SwiftUI
 
 class LoginViewModel: ObservableObject {
-    @ObservedObject var dataManager: DataManager
     @Published var email = ""
     @Published var displayName = ""
     @Published var password = ""
     @Published var passwordReentry = ""
     @Published var userLoggedIn: User? = nil
     @Published var showingLoginError = false
-    
-    init(dataManager: DataManager) {
-        self.dataManager = dataManager
-    }
     
     var emailInvalid: Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
@@ -89,9 +84,7 @@ class LoginViewModel: ObservableObject {
                         }
                     }
                 }
-                
-                self.dataManager.addUser(user: User(email: self.email, displayName: self.displayName))
-                
+                                
                 self.email = ""
                 self.displayName = ""
                 self.password = ""
