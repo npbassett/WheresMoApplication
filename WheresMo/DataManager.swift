@@ -104,7 +104,7 @@ class DataManager: ObservableObject {
         let ref = db.collection("Locations").document(location.id.uuidString)
         ref.setData(["id": location.id.uuidString,
                      "placedByEmail": location.placedByUser.email,
-                     "placedByDisplayname": location.placedByUser.displayName,
+                     "placedByDisplayName": location.placedByUser.displayName,
                      "latitude": location.latitude,
                      "longitude": location.longitude,
                      "landmark": location.landmark,
@@ -115,7 +115,7 @@ class DataManager: ObservableObject {
             if let error {
                 print(error.localizedDescription)
             } else {
-                self.locations.append(location)
+                self.locations.insert(location, at: 0)
             }
         }
     }
