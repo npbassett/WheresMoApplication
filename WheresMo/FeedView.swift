@@ -40,9 +40,16 @@ struct FeedView: View {
                 ForEach(viewModel.locations) { location in
                     Section {
                         FeedPostView(location: location)
+                            .onTapGesture {
+                                viewModel.selectedPlaceToDetail = location
+                            }
                     }
                 }
             }
+        }
+        .sheet(item: $viewModel.selectedPlaceToDetail) { location in
+            LocationDetailView(location: location)
+                .environmentObject(viewModel)
         }
     }
 }
