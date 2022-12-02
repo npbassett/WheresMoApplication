@@ -22,11 +22,9 @@ struct FirebaseImage: View {
             case .loaded:
                 Image(uiImage: imageToShow!)
                     .resizable()
-                    .scaledToFit()
             case .failed:
                 Image("Mo_background_removed")
                     .resizable()
-                    .scaledToFit()
                     .background(LinearGradient(colors: [.yellow, .red], startPoint: .topLeading, endPoint: .bottomTrailing))
             }
         }

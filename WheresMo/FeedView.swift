@@ -42,7 +42,6 @@ struct FeedView: View {
             }
             .padding(.leading)
             .padding(.trailing)
-            .padding(.bottom)
             .background(Color(UIColor.secondarySystemBackground))
             .foregroundColor(.primary.opacity(0.5))
             

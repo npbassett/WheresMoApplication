@@ -20,6 +20,7 @@ struct LocationDetailView: View {
             Form {
                 Section {
                     FirebaseImage(id: location.id)
+                        .scaledToFit()
                         .frame(width: 350)
                 }
                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
