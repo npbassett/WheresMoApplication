@@ -11,15 +11,15 @@ import SwiftUI
 
 struct MapView: View {
     @ObservedObject var dataManager: DataManager
-    var userLoggedInEmail: String
+    var userLoggedIn: User
     
     @StateObject var locationManager = LocationManager()
     @StateObject private var viewModel: MapViewModel
     
-    init(dataManager: DataManager, userLoggedInEmail: String) {
+    init(dataManager: DataManager, userLoggedIn: User) {
         self.dataManager = dataManager
-        self.userLoggedInEmail = userLoggedInEmail
-        self._viewModel = StateObject(wrappedValue: MapViewModel(dataManager: dataManager, userLoggedInEmail: userLoggedInEmail))
+        self.userLoggedIn = userLoggedIn
+        self._viewModel = StateObject(wrappedValue: MapViewModel(dataManager: dataManager, userLoggedIn: userLoggedIn))
     }
     
     var body: some View {
@@ -51,7 +51,7 @@ struct MapView: View {
                         Button {
                             if let coordinate = locationManager.getCurrentLocationCoordinate() {
                                 
-                                viewModel.startEditingLocation(location: Location(placedByEmail: userLoggedInEmail,
+                                viewModel.startEditingLocation(location: Location(placedByUser: userLoggedIn,
                                                                                   latitude: coordinate.latitude,
                                                                                   longitude: coordinate.longitude))
                             } else {
@@ -77,7 +77,7 @@ struct MapView: View {
                         
                         Button {
                             viewModel.startEditingLocation(
-                                location: Location(placedByEmail: userLoggedInEmail,
+                                location: Location(placedByUser: userLoggedIn,
                                                    latitude: locationManager.mapRegion.center.latitude,
                                                    longitude: locationManager.mapRegion.center.longitude
                                                   )
@@ -176,6 +176,6 @@ struct MapView: View {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(dataManager: DataManager(), userLoggedInEmail: User.exampleUser.email)
+        MapView(dataManager: DataManager(), userLoggedIn: User.exampleUser)
     }
 }

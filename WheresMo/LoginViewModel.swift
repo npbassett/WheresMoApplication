@@ -14,7 +14,7 @@ class LoginViewModel: ObservableObject {
     @Published var displayName = ""
     @Published var password = ""
     @Published var passwordReentry = ""
-    @Published var userLoggedInEmail: String? = nil
+    @Published var userLoggedIn: User? = nil
     @Published var showingLoginError = false
     
     init(dataManager: DataManager) {
@@ -46,12 +46,28 @@ class LoginViewModel: ObservableObject {
     func login() {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if error == nil {
-                self.userLoggedInEmail = self.email
+                print("Successfully authenticated user!")
+                
+                let currentUser = Auth.auth().currentUser
+                if currentUser != nil {
+                    if currentUser!.displayName != nil {
+                        print("Found displayName for \(self.email)!")
+                        
+                        self.userLoggedIn = User(email: self.email, displayName: currentUser!.displayName!)
+                    } else {
+                        print("Could not find displayName for \(self.email)!")
+                        
+                        self.userLoggedIn = User(email: self.email, displayName: "Unknown Name")
+                    }
+                } else {
+                    print("Something went wrong! Firebase was able to authenticate user, but no user is currently logged in.")
+                }
+                
                 self.email = ""
                 self.password = ""
                 self.passwordReentry = ""
             } else {
-                print(error!.localizedDescription)
+                print("Could not authenticate user: \(error!.localizedDescription)")
                 self.showingLoginError = true
             }
         }
@@ -60,6 +76,20 @@ class LoginViewModel: ObservableObject {
     func createNewUser() {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if error == nil {
+                print("Successfully created new user!")
+                
+                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                if let changeRequest {
+                    changeRequest.displayName = self.displayName
+                    changeRequest.commitChanges { error in
+                        if error == nil {
+                            print("Sucessfully saved displayName!")
+                        } else {
+                            print("Error saving displayName: \(error!.localizedDescription)")
+                        }
+                    }
+                }
+                
                 self.dataManager.addUser(user: User(email: self.email, displayName: self.displayName))
                 
                 self.email = ""
@@ -67,7 +97,7 @@ class LoginViewModel: ObservableObject {
                 self.password = ""
                 self.passwordReentry = ""
             } else {
-                print(error!.localizedDescription)
+                print("Error creating user: \(error!.localizedDescription)")
             }
         }
     }
@@ -76,7 +106,7 @@ class LoginViewModel: ObservableObject {
         do {
             try Auth.auth().signOut()
             print("logging out")
-            userLoggedInEmail = nil
+            userLoggedIn = nil
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }

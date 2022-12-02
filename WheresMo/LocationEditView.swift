@@ -148,7 +148,6 @@ struct LocationEditView: View {
 struct LocationEditView_Previews: PreviewProvider {
     static var previews: some View {
         LocationEditView(location: Location.exampleLocation, navigatedFromDetailView: false)
-            .environmentObject(MapViewModel(dataManager: DataManager(),
-                                            userLoggedInEmail: User.exampleUser.email))
+            .environmentObject(MapViewModel(dataManager: DataManager(), userLoggedIn: User.exampleUser))
     }
 }

@@ -21,10 +21,10 @@ struct FeedPostView: View {
                     .frame(width: 150, height: 150)
                 
                 VStack(alignment: .leading, spacing: 10) {
-                    (Text(Image(systemName: "person.fill")) + Text(" ") + Text(viewModel.dataManager.userTable[location.placedByEmail]?.displayName ?? "Unknown User").font(.headline))
+                    (Text(Image(systemName: "person.fill")) + Text(" ") + Text(location.placedByUser.displayName).font(.headline))
                         .lineLimit(1)
                     
-                    (Text(Image(systemName: "mappin")) + Text("  \(location.landmark)"))
+                    (Text(Image(systemName: "mappin")) + Text(" ") + Text(location.landmark))
                         .lineLimit(1)
                     
                     (Text(Image(systemName: "calendar")) + Text(" ") + Text(location.date.formatted(date: .abbreviated, time: .omitted)))
@@ -62,6 +62,6 @@ struct FeedPostView: View {
 
 struct FeedPostView_Previews: PreviewProvider {
     static var previews: some View {
-        FeedPostView(viewModel: FeedViewModel(dataManager: DataManager(), userLoggedInEmail: User.exampleUser.email), location: Location.exampleLocation)
+        FeedPostView(viewModel: FeedViewModel(dataManager: DataManager(), userLoggedIn: User.exampleUser), location: Location.exampleLocation)
     }
 }

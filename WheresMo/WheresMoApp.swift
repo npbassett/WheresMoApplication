@@ -32,8 +32,8 @@ struct WheresMoApp: App {
 extension WheresMoApp {
     @ViewBuilder
     private func view() -> some View {
-        if loginViewModel.userLoggedInEmail != nil {
-            MainView(dataManager: DataManager(), userLoggedInEmail: loginViewModel.userLoggedInEmail!) { loginViewModel.logout() }
+        if loginViewModel.userLoggedIn != nil {
+            MainView(dataManager: DataManager(), userLoggedIn: loginViewModel.userLoggedIn!) { loginViewModel.logout() }
         } else {
             LoginView()
                 .environmentObject(loginViewModel)

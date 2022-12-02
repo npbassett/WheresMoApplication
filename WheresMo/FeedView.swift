@@ -9,14 +9,14 @@ import SwiftUI
 
 struct FeedView: View {
     @ObservedObject var dataManager: DataManager
-    var userLoggedInEmail: String
+    var userLoggedIn: User
     
     @StateObject private var viewModel: FeedViewModel
     
-    init(dataManager: DataManager, userLoggedInEmail: String) {
+    init(dataManager: DataManager, userLoggedIn: User) {
         self.dataManager = dataManager
-        self.userLoggedInEmail = userLoggedInEmail
-        self._viewModel = StateObject(wrappedValue: FeedViewModel(dataManager: dataManager, userLoggedInEmail: userLoggedInEmail))
+        self.userLoggedIn = userLoggedIn
+        self._viewModel = StateObject(wrappedValue: FeedViewModel(dataManager: dataManager, userLoggedIn: userLoggedIn))
     }
     
     var body: some View {
@@ -58,6 +58,6 @@ struct FeedView: View {
 
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
-        FeedView(dataManager: DataManager(), userLoggedInEmail: User.exampleUser.email)
+        FeedView(dataManager: DataManager(), userLoggedIn: User.exampleUser)
     }
 }

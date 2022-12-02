@@ -10,10 +10,10 @@ import SwiftUI
 
 @MainActor class FeedViewModel: ObservableObject {
     @ObservedObject var dataManager: DataManager
-    var userLoggedInEmail: String
+    var userLoggedIn: User
     
-    init(dataManager: DataManager, userLoggedInEmail: String) {
+    init(dataManager: DataManager, userLoggedIn: User) {
         self.dataManager = dataManager
-        self.userLoggedInEmail = userLoggedInEmail
+        self.userLoggedIn = userLoggedIn
     }
 }

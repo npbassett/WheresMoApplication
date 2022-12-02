@@ -73,7 +73,8 @@ class DataManager: ObservableObject {
                     let data = document.data()
                     
                     let id = data["id"] as? String ?? UUID().uuidString
-                    let placedByEmail = data["placedByEmail"] as? String ?? ""
+                    let placedByEmail = data["placedByEmail"] as? String ?? "Unknown Email"
+                    let placedByDisplayName = data["placedByDisplayName"] as? String ?? "Unknown Name"
                     let latitude = data["latitude"] as? Double ?? 0.0
                     let longitude = data["longitude"] as? Double ?? 0.0
                     let landmark = data["landmark"] as? String ?? ""
@@ -81,8 +82,10 @@ class DataManager: ObservableObject {
                     let date = Date(timeIntervalSince1970: timestamp)
                     let description = data["description"] as? String ?? ""
                     
+                    let placedByUser = User(email: placedByEmail, displayName: placedByDisplayName)
+                    
                     let location = Location(id: UUID(uuidString: id) ?? UUID(),
-                                            placedByEmail: placedByEmail,
+                                            placedByUser: placedByUser,
                                             latitude: latitude,
                                             longitude: longitude,
                                             landmark: landmark,
@@ -100,7 +103,8 @@ class DataManager: ObservableObject {
         let db = Firestore.firestore()
         let ref = db.collection("Locations").document(location.id.uuidString)
         ref.setData(["id": location.id.uuidString,
-                     "placedByEmail": location.placedByEmail,
+                     "placedByEmail": location.placedByUser.email,
+                     "placedByDisplayname": location.placedByUser.displayName,
                      "latitude": location.latitude,
                      "longitude": location.longitude,
                      "landmark": location.landmark,

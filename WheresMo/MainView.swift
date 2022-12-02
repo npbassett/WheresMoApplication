@@ -9,17 +9,17 @@ import SwiftUI
 
 struct MainView: View {
     @ObservedObject var dataManager: DataManager
-    var userLoggedInEmail: String
+    var userLoggedIn: User
     var onLogout: () -> Void
     
     var body: some View {
         TabView {
-            FeedView(dataManager: dataManager, userLoggedInEmail: userLoggedInEmail)
+            FeedView(dataManager: dataManager, userLoggedIn: userLoggedIn)
                 .tabItem {
                     Label("Feed", systemImage: "list.dash")
                 }
             
-            MapView(dataManager: dataManager, userLoggedInEmail: userLoggedInEmail)
+            MapView(dataManager: dataManager, userLoggedIn: userLoggedIn)
                 .tabItem {
                     Label("Map", systemImage: "map")
                 }
@@ -37,6 +37,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(dataManager: DataManager(), userLoggedInEmail: User.exampleUser.email, onLogout: { })
+        MainView(dataManager: DataManager(), userLoggedIn: User.exampleUser, onLogout: { })
     }
 }

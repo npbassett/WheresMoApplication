@@ -16,7 +16,7 @@ struct User: Codable {
         lhs.email == rhs.email
     }
     
-    static let exampleUser = User(email: "test@test.com", displayName: "Test Testington")
+    static let exampleUser = User(email: "test@test.com", displayName: "Test User")
     
     static let unknownUser = User(email: "Unknown Email", displayName: "Unknown User")
 }
