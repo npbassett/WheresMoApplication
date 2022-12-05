@@ -43,6 +43,11 @@ struct FeedView: View {
                             .onTapGesture {
                                 viewModel.selectedPlaceToDetail = location
                             }
+                            .onAppear {
+                                if location == viewModel.locations.last {
+                                    viewModel.fetchLocations()
+                                }
+                            }
                     }
                 }
             }

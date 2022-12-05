@@ -19,6 +19,9 @@ import SwiftUI
     @Published var selectedPlaceToDetail: Location?
     @Published var selectedPlaceToEdit: Location?
     @Published var placingPin = false
+    @Published var isLoadingLocations = false
+    
+    private var lastDocumentSnapshot: DocumentSnapshot?
             
     init(userLoggedIn: User) {
         self.userLoggedIn = userLoggedIn
@@ -46,10 +49,20 @@ import SwiftUI
     }
     
     func fetchLocations() {
-        locations.removeAll()
+        var query: Query
+        
+        guard !isLoadingLocations else { return }
+        
+        isLoadingLocations = true
         let db = Firestore.firestore()
-        let ref = db.collection("Locations").order(by: "timestamp", descending: true)
-        ref.getDocuments { snapshot, error in
+        let locationsCollectionRef = db.collection("Locations")
+        if let nextStartingSnapshot = self.lastDocumentSnapshot {
+            query = locationsCollectionRef.order(by: "timestamp", descending: true).start(afterDocument: nextStartingSnapshot).limit(to: 4)
+        } else {
+            query = locationsCollectionRef.order(by: "timestamp", descending: true).limit(to: 4)
+        }
+        
+        query.getDocuments { snapshot, error in
             guard error == nil else {
                 print(error!.localizedDescription)
                 return
@@ -81,7 +94,10 @@ import SwiftUI
                     )
                     
                     self.locations.append(location)
+                    self.isLoadingLocations = false
                 }
+                
+                self.lastDocumentSnapshot = snapshot.documents.last
             }
         }
     }
