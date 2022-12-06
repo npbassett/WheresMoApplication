@@ -33,9 +33,10 @@ struct MainView: View {
                     Label("Map", systemImage: "map")
                 }
             
-            SettingsView(onLogout: onLogout)
+            ProfileView(userToShow: userLoggedIn, onLogout: onLogout)
+                .environmentObject(viewModel)
                 .tabItem {
-                    Label("Settings", systemImage: "gearshape")
+                    Label("Profile", systemImage: "person.fill")
                 }
         }
         .onAppear {
