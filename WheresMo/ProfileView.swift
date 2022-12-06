@@ -19,33 +19,60 @@ struct ProfileView: View {
     }
     
     var body: some View {
-        VStack {
-            Image("Mo_background_removed")
-                .resizable()
-                .padding(.top, 5)
-                .background(LinearGradient(colors: [.yellow, .red], startPoint: .topLeading, endPoint: .bottomTrailing))
-                .frame(width: 150, height: 150)
-                .clipShape(Circle())
-            
-            Text(userToShow.displayName)
-                .padding()
-                .font(.title)
-                .bold()
-            
-            if showingLogoutButton {
-                Button {
-                    onLogout()
-                } label: {
-                    (Text(Image(systemName: "rectangle.portrait.and.arrow.right")) + Text(" Log Out"))
-                        .font(.title3)
+        ScrollView {
+            VStack {
+                Image("Mo_background_removed")
+                    .resizable()
+                    .padding(.top, 5)
+                    .background(LinearGradient(colors: [.yellow, .red], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .frame(width: 150, height: 150)
+                    .clipShape(Circle())
+                
+                Text(userToShow.displayName)
+                    .padding()
+                    .font(.title)
+                    .bold()
+                
+                if showingLogoutButton {
+                    Button {
+                        onLogout()
+                    } label: {
+                        (Text(Image(systemName: "rectangle.portrait.and.arrow.right")) + Text(" Log Out"))
+                            .font(.title3)
+                    }
+                    .buttonStyle(.bordered)
+                    .padding(.bottom)
                 }
-                .buttonStyle(.bordered)
+                
+                HStack {
+                    Text("Recent Locations")
+                    
+                    Rectangle()
+                        .foregroundColor(.primary.opacity(0.5))
+                        .frame(height: 0.5)
+                }
+                .padding(.leading)
+                .padding(.trailing)
+                .foregroundColor(.primary.opacity(0.5))
+                
+                LazyVGrid(columns: [GridItem(.flexible(), alignment: .trailing), GridItem(.flexible(), alignment: .leading)]) {
+                    
+                    ForEach(viewModel.locationsPlacedByUser) { location in
+                        FirebaseImage(id: location.id)
+                            .frame(width: 170, height: 170)
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                    }
+                }
+                .padding(0)
+                
+                Spacer()
             }
-            
-            Spacer()
         }
         .navigationTitle("Placed By")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            viewModel.fetchLocationsByUser(user: userToShow)
+        }
     }
 }
 

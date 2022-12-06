@@ -15,6 +15,7 @@ import SwiftUI
     var userLoggedIn: User
     
     @Published var locations = [Location]()
+    @Published var locationsPlacedByUser = [Location]()
     @Published var userTrackingMode: MapUserTrackingMode = .follow
     @Published var selectedPlaceToDetail: Location?
     @Published var selectedPlaceToEdit: Location?
@@ -98,6 +99,50 @@ import SwiftUI
                 }
                 
                 self.lastDocumentSnapshot = snapshot.documents.last
+            }
+        }
+    }
+    
+    func fetchLocationsByUser(user: User) {
+        locationsPlacedByUser.removeAll(keepingCapacity: false)
+        
+        let db = Firestore.firestore()
+        let locationsCollectionRef = db.collection("Locations")
+        let query = locationsCollectionRef.whereField("placedByEmail", isEqualTo: user.email).limit(to: 5)
+        
+        query.getDocuments { snapshot, error in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            
+            if let snapshot {
+                for document in snapshot.documents {
+                    let data = document.data()
+                    
+                    let id = data["id"] as? String ?? UUID().uuidString
+                    let placedByEmail = data["placedByEmail"] as? String ?? "Unknown Email"
+                    let placedByDisplayName = data["placedByDisplayName"] as? String ?? "Unknown Name"
+                    let latitude = data["latitude"] as? Double ?? 0.0
+                    let longitude = data["longitude"] as? Double ?? 0.0
+                    let landmark = data["landmark"] as? String ?? ""
+                    let timestamp = data["timestamp"] as? Double ?? Date.now.timeIntervalSince1970
+                    let date = Date(timeIntervalSince1970: timestamp)
+                    let description = data["description"] as? String ?? ""
+                    
+                    let placedByUser = User(email: placedByEmail, displayName: placedByDisplayName)
+                    
+                    let location = Location(id: UUID(uuidString: id) ?? UUID(),
+                                            placedByUser: placedByUser,
+                                            latitude: latitude,
+                                            longitude: longitude,
+                                            landmark: landmark,
+                                            date: date,
+                                            description: description
+                    )
+                    
+                    self.locationsPlacedByUser.append(location)
+                }
             }
         }
     }
