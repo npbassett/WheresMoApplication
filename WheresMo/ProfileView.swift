@@ -9,12 +9,13 @@ import SwiftUI
 
 struct ProfileView: View {
     var userToShow: User
-    var onLogout: () -> Void
+    var navigatedFromMainView: Bool
+    var onLogout: () -> Void = { }
     
     @EnvironmentObject var viewModel: MainViewModel
     
     var showingLogoutButton: Bool {
-        return userToShow == viewModel.userLoggedIn
+        return userToShow == viewModel.userLoggedIn && navigatedFromMainView
     }
     
     var body: some View {
@@ -43,12 +44,14 @@ struct ProfileView: View {
             
             Spacer()
         }
+        .navigationTitle("Placed By")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView(userToShow: User.exampleUser, onLogout: { })
+        ProfileView(userToShow: User.exampleUser, navigatedFromMainView: true)
             .environmentObject(MainViewModel(userLoggedIn: User.exampleUser))
     }
 }

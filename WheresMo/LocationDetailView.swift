@@ -31,7 +31,11 @@ struct LocationDetailView: View {
                 }
                 
                 Section("Placed by") {
-                    Text(location.placedByUser.displayName)
+                    NavigationLink {
+                        ProfileView(userToShow: location.placedByUser, navigatedFromMainView: false)
+                    } label: {
+                        Text(location.placedByUser.displayName)
+                    }
                 }
                 
                 Section("Date placed") {
