@@ -9,12 +9,13 @@ import PhotosUI
 import SwiftUI
 
 struct PhotoSelector: View {
+    var label: AnyView
     @Binding var selectedPhotoData: Data?
     @State private var selectedItem: PhotosPickerItem? = nil
     
     var body: some View {
         PhotosPicker(selection: $selectedItem, matching: .images) {
-            Label("Select a photo", systemImage: "photo")
+            label
         }
         .onChange(of: selectedItem) { newItem in
             Task {
@@ -41,6 +42,6 @@ struct PhotoSelector: View {
 
 struct PhotoSelector_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoSelector(selectedPhotoData: .constant(nil))
+        PhotoSelector(label: AnyView(Label("Select a photo", systemImage: "photo")), selectedPhotoData: .constant(nil))
     }
 }

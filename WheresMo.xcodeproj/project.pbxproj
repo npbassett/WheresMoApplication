@@ -30,6 +30,7 @@
 		513A4288293835090060BE74 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513A4287293835090060BE74 /* FeedView.swift */; };
 		513A428C29392CEA0060BE74 /* FeedPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513A428B29392CEA0060BE74 /* FeedPostView.swift */; };
 		51633C0829425A96005B23C4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 51633C0729425A96005B23C4 /* Kingfisher */; };
+		51633C0C29428FF2005B23C4 /* FirebaseProfilePhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51633C0B29428FF2005B23C4 /* FirebaseProfilePhoto.swift */; };
 		51EFEC9B2924510900A83A30 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFEC9A2924510900A83A30 /* User.swift */; };
 		51EFEC9F292C689C00A83A30 /* FirebaseImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFEC9E292C689C00A83A30 /* FirebaseImage.swift */; };
 		51EFECA1292C6FD800A83A30 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 51EFECA0292C6FD800A83A30 /* FirebaseStorage */; };
@@ -58,6 +59,7 @@
 		512F7C392935B04D00DD0188 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		513A4287293835090060BE74 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		513A428B29392CEA0060BE74 /* FeedPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPostView.swift; sourceTree = "<group>"; };
+		51633C0B29428FF2005B23C4 /* FirebaseProfilePhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseProfilePhoto.swift; sourceTree = "<group>"; };
 		51EFEC9A2924510900A83A30 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		51EFEC9E292C689C00A83A30 /* FirebaseImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseImage.swift; sourceTree = "<group>"; };
 		51EFECA2292D603D00A83A30 /* PhotoSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelector.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				513A4287293835090060BE74 /* FeedView.swift */,
 				513A428B29392CEA0060BE74 /* FeedPostView.swift */,
 				51EFEC9E292C689C00A83A30 /* FirebaseImage.swift */,
+				51633C0B29428FF2005B23C4 /* FirebaseProfilePhoto.swift */,
 				512E163829205A54008094A9 /* FileManager-DocumentsDirectory.swift */,
 				512E16462922CAD9008094A9 /* LoginView.swift */,
 				512E165429243BCB008094A9 /* LoginViewModel.swift */,
@@ -237,6 +240,7 @@
 				51EFECA3292D603D00A83A30 /* PhotoSelector.swift in Sources */,
 				512E16532922E558008094A9 /* CreateNewAccountView.swift in Sources */,
 				512F7C382935AAF600DD0188 /* MainView.swift in Sources */,
+				51633C0C29428FF2005B23C4 /* FirebaseProfilePhoto.swift in Sources */,
 				512E163D29216217008094A9 /* LocationManager.swift in Sources */,
 				512E1620291F10AB008094A9 /* WheresMoApp.swift in Sources */,
 				512E163929205A54008094A9 /* FileManager-DocumentsDirectory.swift in Sources */,

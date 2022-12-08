@@ -1,10 +1,11 @@
 //
-//  MapView-ViewModel.swift
+//  MainViewModel.swift
 //  WheresMo
 //
 //  Created by Neil Bassett on 11/12/22.
 //
 
+import CryptoKit
 import Firebase
 import FirebaseStorage
 import Foundation
@@ -202,6 +203,19 @@ import SwiftUI
                 print("Unable to delete photo: \(error.localizedDescription)")
             } else {
                 print("Photo deleted successfully!")
+            }
+        }
+    }
+    
+    func saveProfilePhoto(data: Data, email: String) async {
+        let emailHash = SHA256.hash(data: Data(email.utf8)).description
+        
+        let url = "gs://wheresmo-415ab.appspot.com/profilePhotos/\(emailHash).jpg"
+        let gsReference = Storage.storage().reference(forURL: url)
+        gsReference.putData(data, metadata: nil) { metadata, error in
+            guard metadata != nil else {
+                print("Error saving image to Firebase.")
+                return
             }
         }
     }

@@ -50,7 +50,7 @@ struct LocationEditView: View {
             .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
             
             Section {
-                PhotoSelector(selectedPhotoData: $selectedPhotoData)
+                PhotoSelector(label: AnyView(Label("Select a photo", systemImage: "photo")), selectedPhotoData: $selectedPhotoData)
             } footer: {
                 if photoSelectionRequired {
                     (Text(Image(systemName: "exclamationmark.circle")) + Text(" Please select a photo"))
