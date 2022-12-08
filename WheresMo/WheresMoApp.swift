@@ -6,6 +6,7 @@
 //
 
 import FirebaseCore
+import Kingfisher
 import SwiftUI
 
 @main
@@ -14,6 +15,9 @@ struct WheresMoApp: App {
     
     init() {
         FirebaseApp.configure()
+        
+        // Limit Kingfisher image cache disk space to 500 MB
+        ImageCache.default.diskStorage.config.sizeLimit = 500 * 1024 * 1024
     }
     
     var body: some Scene {
