@@ -19,7 +19,20 @@ struct PhotoSelector: View {
         .onChange(of: selectedItem) { newItem in
             Task {
                 if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                    selectedPhotoData = data
+                    print(data.count)
+                    let image = UIImage(data: data)
+                    guard image != nil else {
+                        print("Error selecting image. Data could not be converted to a UIImage.")
+                        return
+                    }
+                    let compressedImageData = image!.jpegData(compressionQuality: 0.0)
+                    guard compressedImageData != nil else {
+                        print("Error compressing image.")
+                        return
+                    }
+                    print(compressedImageData!.count)
+                    
+                    selectedPhotoData = compressedImageData
                 }
             }
         }
