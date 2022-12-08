@@ -33,11 +33,13 @@ struct MainView: View {
                     Label("Map", systemImage: "map")
                 }
             
-            ProfileView(userToShow: userLoggedIn, navigatedFromMainView: true, onLogout: onLogout)
-                .environmentObject(viewModel)
-                .tabItem {
-                    Label("Profile", systemImage: "person.fill")
-                }
+            NavigationView {
+                ProfileView(userToShow: userLoggedIn, navigatedFromMainView: true, onLogout: onLogout)
+                    .environmentObject(viewModel)
+            }
+            .tabItem {
+                Label("Profile", systemImage: "person.fill")
+            }
         }
         .onAppear {
             viewModel.fetchLocations()

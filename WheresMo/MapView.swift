@@ -154,8 +154,10 @@ struct MapView: View {
         }
         .animation(.easeInOut, value: viewModel.placingPin)
         .sheet(item: $viewModel.selectedPlaceToDetail) { location in
-            LocationDetailView(location: location)
-                .environmentObject(viewModel)
+            NavigationView {
+                LocationDetailView(location: location)
+                    .environmentObject(viewModel)
+            }
         }
         .sheet(item: $viewModel.selectedPlaceToEdit) { location in
             NavigationView {
