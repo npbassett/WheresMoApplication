@@ -13,16 +13,16 @@ import SwiftUI
 
 struct FirebaseProfilePhoto: View {
     var email: String
-    @State private var loadingState = LoadingState.loading
-    @State private var imageToShow: KFImage? = nil
+    
+    @EnvironmentObject var viewModel: ProfileViewModel
     
     var body: some View {
         VStack {
-            switch loadingState {
+            switch viewModel.profilePhotoLoadingState {
             case .loading:
                 ProgressView()
             case .loaded:
-                imageToShow!
+                viewModel.profilePhotoToShow!
                     .resizable()
             case .failed:
                 Image("Mo_background_removed")
@@ -31,23 +31,7 @@ struct FirebaseProfilePhoto: View {
             }
         }
         .task {
-            await fetchProfilePhoto(email: email)
-        }
-    }
-    
-    func fetchProfilePhoto(email: String) async {
-        loadingState = .loading
-        
-        let emailHash = SHA256.hash(data: Data(email.utf8)).description
-        let ref = Storage.storage().reference(withPath: "profilePhotos/\(emailHash).jpg")
-        ref.downloadURL { url, error in
-            if let error {
-                print("Error fetching image: \(error.localizedDescription)")
-                loadingState = .failed
-            } else {
-                imageToShow = KFImage(url!)
-                loadingState = .loaded
-            }
+            await viewModel.fetchProfilePhoto(email: email)
         }
     }
 }

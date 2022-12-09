@@ -98,22 +98,6 @@ struct MapView: View {
                 }
             } else {
                 VStack {
-//                    HStack {
-//                        Spacer()
-//
-//                        Button {
-//                            onLogout()
-//                        } label: {
-//                            Image(systemName: "rectangle.portrait.and.arrow.right")
-//                                .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
-//                                .padding()
-//                                .background(.black.opacity(0.75))
-//                                .foregroundColor(.white)
-//                                .font(.title)
-//                                .clipShape(Capsule())
-//                                .padding(.trailing)
-//                        }
-//                    }
                     
                     Spacer()
                     

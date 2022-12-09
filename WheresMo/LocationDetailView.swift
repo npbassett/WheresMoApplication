@@ -31,8 +31,9 @@ struct LocationDetailView: View {
             
             Section("Placed by") {
                 NavigationLink {
-                    ProfileView(userToShow: location.placedByUser, navigatedFromMainView: false)
-                        .environmentObject(viewModel)
+                    ProfileView(userToShow: location.placedByUser, userLoggedIn: User.unknownUser, navigatedFromMainView: false, onLogout: { })
+                        .navigationTitle("Placed By")
+                        .navigationBarTitleDisplayMode(.inline)
                 } label: {
                     Text(location.placedByUser.displayName)
                 }
@@ -60,15 +61,6 @@ struct LocationDetailView: View {
             .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
         }
         .navigationTitle("Details")
-//            .toolbar {
-//                ToolbarItem(placement: .navigationBarLeading) {
-//                    Button {
-//                        dismiss()
-//                    } label: {
-//                        Text("Done")
-//                    }
-//                }
-//            }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 if viewModel.ableToEdit {

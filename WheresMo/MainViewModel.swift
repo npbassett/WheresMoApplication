@@ -16,7 +16,7 @@ import SwiftUI
     var userLoggedIn: User
     
     @Published var locations = [Location]()
-    @Published var locationsPlacedByUser = [Location]()
+//    @Published var locationsPlacedByUser = [Location]()
     @Published var userTrackingMode: MapUserTrackingMode = .follow
     @Published var selectedPlaceToDetail: Location?
     @Published var selectedPlaceToEdit: Location?
@@ -104,49 +104,49 @@ import SwiftUI
         }
     }
     
-    func fetchLocationsByUser(user: User) async {
-        locationsPlacedByUser.removeAll(keepingCapacity: false)
-        
-        let db = Firestore.firestore()
-        let locationsCollectionRef = db.collection("Locations")
-        let query = locationsCollectionRef.whereField("placedByEmail", isEqualTo: user.email).limit(to: 5)
-        
-        let _ = query.getDocuments { snapshot, error in
-            guard error == nil else {
-                print(error!.localizedDescription)
-                return
-            }
-            
-            if let snapshot {
-                for document in snapshot.documents {
-                    let data = document.data()
-                    
-                    let id = data["id"] as? String ?? UUID().uuidString
-                    let placedByEmail = data["placedByEmail"] as? String ?? "Unknown Email"
-                    let placedByDisplayName = data["placedByDisplayName"] as? String ?? "Unknown Name"
-                    let latitude = data["latitude"] as? Double ?? 0.0
-                    let longitude = data["longitude"] as? Double ?? 0.0
-                    let landmark = data["landmark"] as? String ?? ""
-                    let timestamp = data["timestamp"] as? Double ?? Date.now.timeIntervalSince1970
-                    let date = Date(timeIntervalSince1970: timestamp)
-                    let description = data["description"] as? String ?? ""
-                    
-                    let placedByUser = User(email: placedByEmail, displayName: placedByDisplayName)
-                    
-                    let location = Location(id: UUID(uuidString: id) ?? UUID(),
-                                            placedByUser: placedByUser,
-                                            latitude: latitude,
-                                            longitude: longitude,
-                                            landmark: landmark,
-                                            date: date,
-                                            description: description
-                    )
-                    
-                    self.locationsPlacedByUser.append(location)
-                }
-            }
-        }
-    }
+//    func fetchLocationsByUser(user: User) async {
+//        locationsPlacedByUser.removeAll(keepingCapacity: false)
+//        
+//        let db = Firestore.firestore()
+//        let locationsCollectionRef = db.collection("Locations")
+//        let query = locationsCollectionRef.whereField("placedByEmail", isEqualTo: user.email).limit(to: 5)
+//        
+//        let _ = query.getDocuments { snapshot, error in
+//            guard error == nil else {
+//                print(error!.localizedDescription)
+//                return
+//            }
+//            
+//            if let snapshot {
+//                for document in snapshot.documents {
+//                    let data = document.data()
+//                    
+//                    let id = data["id"] as? String ?? UUID().uuidString
+//                    let placedByEmail = data["placedByEmail"] as? String ?? "Unknown Email"
+//                    let placedByDisplayName = data["placedByDisplayName"] as? String ?? "Unknown Name"
+//                    let latitude = data["latitude"] as? Double ?? 0.0
+//                    let longitude = data["longitude"] as? Double ?? 0.0
+//                    let landmark = data["landmark"] as? String ?? ""
+//                    let timestamp = data["timestamp"] as? Double ?? Date.now.timeIntervalSince1970
+//                    let date = Date(timeIntervalSince1970: timestamp)
+//                    let description = data["description"] as? String ?? ""
+//                    
+//                    let placedByUser = User(email: placedByEmail, displayName: placedByDisplayName)
+//                    
+//                    let location = Location(id: UUID(uuidString: id) ?? UUID(),
+//                                            placedByUser: placedByUser,
+//                                            latitude: latitude,
+//                                            longitude: longitude,
+//                                            landmark: landmark,
+//                                            date: date,
+//                                            description: description
+//                    )
+//                    
+//                    self.locationsPlacedByUser.append(location)
+//                }
+//            }
+//        }
+//    }
     
     func saveLocation(location: Location) async {
         let db = Firestore.firestore()
@@ -207,16 +207,16 @@ import SwiftUI
         }
     }
     
-    func saveProfilePhoto(data: Data, email: String) async {
-        let emailHash = SHA256.hash(data: Data(email.utf8)).description
-        
-        let url = "gs://wheresmo-415ab.appspot.com/profilePhotos/\(emailHash).jpg"
-        let gsReference = Storage.storage().reference(forURL: url)
-        gsReference.putData(data, metadata: nil) { metadata, error in
-            guard metadata != nil else {
-                print("Error saving image to Firebase.")
-                return
-            }
-        }
-    }
+//    func saveProfilePhoto(data: Data, email: String) async {
+//        let emailHash = SHA256.hash(data: Data(email.utf8)).description
+//        
+//        let url = "gs://wheresmo-415ab.appspot.com/profilePhotos/\(emailHash).jpg"
+//        let gsReference = Storage.storage().reference(forURL: url)
+//        gsReference.putData(data, metadata: nil) { metadata, error in
+//            guard metadata != nil else {
+//                print("Error saving image to Firebase.")
+//                return
+//            }
+//        }
+//    }
 }

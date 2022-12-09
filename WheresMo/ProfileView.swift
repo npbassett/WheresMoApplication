@@ -9,16 +9,23 @@ import SwiftUI
 
 struct ProfileView: View {
     var userToShow: User
+    var userLoggedIn: User
     var navigatedFromMainView: Bool
     var onLogout: () -> Void = { }
     
-    @EnvironmentObject var viewModel: MainViewModel
+    @StateObject private var viewModel: ProfileViewModel
     
     @State private var selectedProfilePhotoData: Data? = nil
     @State private var showingNewProfilePhotoAlert = false
     
-    var userLoggedInProfile: Bool {
-        return userToShow == viewModel.userLoggedIn && navigatedFromMainView
+    init(userToShow: User, userLoggedIn: User, navigatedFromMainView: Bool, onLogout: @escaping () -> Void) {
+        self.userToShow = userToShow
+        self.userLoggedIn = userLoggedIn
+        self.navigatedFromMainView = navigatedFromMainView
+        self.onLogout = onLogout
+        self._viewModel = StateObject(wrappedValue: ProfileViewModel(userToShow: userToShow,
+                                                                     userLoggedIn: userLoggedIn,
+                                                                     navigatedFromMainView: navigatedFromMainView))
     }
     
     var selectProfilePhotoLabel: AnyView {
@@ -41,8 +48,9 @@ struct ProfileView: View {
                     FirebaseProfilePhoto(email: userToShow.email)
                         .frame(width: 150, height: 150)
                         .clipShape(Circle())
+                        .environmentObject(viewModel)
                     
-                    if userLoggedInProfile {
+                    if viewModel.userLoggedInProfile {
                         HStack {
                             Spacer()
                             Spacer()
@@ -62,11 +70,10 @@ struct ProfileView: View {
                 }
                 
                 Text(userToShow.displayName)
-                    .padding()
                     .font(.title)
                     .bold()
                 
-                if userLoggedInProfile {
+                if viewModel.userLoggedInProfile {
                     Button {
                         onLogout()
                     } label: {
@@ -91,9 +98,13 @@ struct ProfileView: View {
                 LazyVGrid(columns: [GridItem(.flexible(), alignment: .trailing), GridItem(.flexible(), alignment: .leading)]) {
                     
                     ForEach(viewModel.locationsPlacedByUser) { location in
-                        FirebaseImage(id: location.id)
-                            .frame(width: 170, height: 170)
-                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                        NavigationLink {
+                            LocationDetailView(location: location)
+                        } label: {
+                            FirebaseImage(id: location.id)
+                                .frame(width: 170, height: 170)
+                                .clipShape(RoundedRectangle(cornerRadius: 5))
+                        }
                     }
                 }
                 .padding(0)
@@ -101,8 +112,6 @@ struct ProfileView: View {
                 Spacer()
             }
         }
-        .navigationTitle("Placed By")
-        .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             Task {
                 await viewModel.fetchLocationsByUser(user: userToShow)
@@ -111,7 +120,7 @@ struct ProfileView: View {
         .alert("Set new profile photo?", isPresented: $showingNewProfilePhotoAlert) {
             Button("Confirm") {
                 Task {
-                    await profilePhotoChanged()
+                    try await profilePhotoChanged()
                 }
             }
             Button("Cancel", role: .cancel) { }
@@ -120,18 +129,20 @@ struct ProfileView: View {
         }
     }
     
-    func profilePhotoChanged() async {
+    func profilePhotoChanged() async throws {
         guard selectedProfilePhotoData != nil else {
             return
         }
         print("Setting new profile photo.")
         await viewModel.saveProfilePhoto(data: selectedProfilePhotoData!, email: viewModel.userLoggedIn.email)
+        await viewModel.clearProfilePhotoCache(email: userToShow.email)
+        try await Task.sleep(for: .seconds(0.5))
+        await viewModel.fetchProfilePhoto(email: userToShow.email)
     }
 }
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView(userToShow: User.exampleUser, navigatedFromMainView: true)
-            .environmentObject(MainViewModel(userLoggedIn: User.exampleUser))
+        ProfileView(userToShow: User.exampleUser, userLoggedIn: User.exampleUser, navigatedFromMainView: true, onLogout: { })
     }
 }

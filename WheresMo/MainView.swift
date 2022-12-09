@@ -34,8 +34,7 @@ struct MainView: View {
                 }
             
             NavigationView {
-                ProfileView(userToShow: userLoggedIn, navigatedFromMainView: true, onLogout: onLogout)
-                    .environmentObject(viewModel)
+                ProfileView(userToShow: userLoggedIn, userLoggedIn: userLoggedIn, navigatedFromMainView: true, onLogout: onLogout)
             }
             .tabItem {
                 Label("Profile", systemImage: "person.fill")
