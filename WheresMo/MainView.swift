@@ -42,9 +42,10 @@ struct MainView: View {
             }
         }
         .onAppear {
-            viewModel.fetchLocations()
-            
             UITabBar.appearance().backgroundColor = UIColor.systemBackground
+            Task {
+                await viewModel.fetchLocations()
+            }
         }
     }
 }

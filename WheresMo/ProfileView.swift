@@ -104,7 +104,9 @@ struct ProfileView: View {
         .navigationTitle("Placed By")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            viewModel.fetchLocationsByUser(user: userToShow)
+            Task {
+                await viewModel.fetchLocationsByUser(user: userToShow)
+            }
         }
         .alert("Set new profile photo?", isPresented: $showingNewProfilePhotoAlert) {
             Button("Confirm") {

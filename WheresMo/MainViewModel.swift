@@ -50,7 +50,7 @@ import SwiftUI
         selectedPlaceToEdit = location
     }
     
-    func fetchLocations() {
+    func fetchLocations() async {
         var query: Query
         
         guard !isLoadingLocations else { return }
@@ -64,7 +64,7 @@ import SwiftUI
             query = locationsCollectionRef.order(by: "timestamp", descending: true).limit(to: 4)
         }
         
-        query.getDocuments { snapshot, error in
+        let _ = query.getDocuments { snapshot, error in
             guard error == nil else {
                 print(error!.localizedDescription)
                 return
@@ -104,14 +104,14 @@ import SwiftUI
         }
     }
     
-    func fetchLocationsByUser(user: User) {
+    func fetchLocationsByUser(user: User) async {
         locationsPlacedByUser.removeAll(keepingCapacity: false)
         
         let db = Firestore.firestore()
         let locationsCollectionRef = db.collection("Locations")
         let query = locationsCollectionRef.whereField("placedByEmail", isEqualTo: user.email).limit(to: 5)
         
-        query.getDocuments { snapshot, error in
+        let _ = query.getDocuments { snapshot, error in
             guard error == nil else {
                 print(error!.localizedDescription)
                 return
@@ -148,10 +148,10 @@ import SwiftUI
         }
     }
     
-    func saveLocation(location: Location) {
+    func saveLocation(location: Location) async {
         let db = Firestore.firestore()
         let ref = db.collection("Locations").document(location.id.uuidString)
-        ref.setData(["id": location.id.uuidString,
+        let _ = ref.setData(["id": location.id.uuidString,
                      "placedByEmail": location.placedByUser.email,
                      "placedByDisplayName": location.placedByUser.displayName,
                      "latitude": location.latitude,
@@ -169,9 +169,9 @@ import SwiftUI
         }
     }
     
-    func deleteLocation(location: Location) {
+    func deleteLocation(location: Location) async {
         let db = Firestore.firestore()
-        db.collection("Locations").document(location.id.uuidString).delete() { error in
+        let _ = db.collection("Locations").document(location.id.uuidString).delete() { error in
             print("Deleting location...")
             if let error {
                 print("Error removing document: \(error)")
@@ -184,7 +184,7 @@ import SwiftUI
         }
     }
     
-    func savePhoto(data: Data, id: UUID) {
+    func savePhoto(data: Data, id: UUID) async {
         let url = "gs://wheresmo-415ab.appspot.com/images/\(id.uuidString).jpg"
         let gsReference = Storage.storage().reference(forURL: url)
         gsReference.putData(data, metadata: nil) { metadata, error in
@@ -195,7 +195,7 @@ import SwiftUI
         }
     }
     
-    func deletePhoto(id: UUID) {
+    func deletePhoto(id: UUID) async {
         let url = "gs://wheresmo-415ab.appspot.com/images/\(id.uuidString).jpg"
         let gsReference = Storage.storage().reference(forURL: url)
         gsReference.delete { error in

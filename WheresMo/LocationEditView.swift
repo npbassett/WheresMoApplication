@@ -94,8 +94,10 @@ struct LocationEditView: View {
         .navigationBarTitleDisplayMode(.inline)
         .alert("Delete location?", isPresented: $showingDeleteAlert) {
             Button("Delete", role: .destructive) {
-                viewModel.deletePhoto(id: location.id)
-                viewModel.deleteLocation(location: location)
+                Task {
+                    await viewModel.deletePhoto(id: location.id)
+                    await viewModel.deleteLocation(location: location)
+                }
                 viewModel.selectedPlaceToEdit = nil
                 viewModel.selectedPlaceToDetail = nil
                 dismiss()
@@ -121,9 +123,11 @@ struct LocationEditView: View {
                     newLocation.date = date
                     newLocation.description = description
                     
-                    viewModel.saveLocation(location: newLocation)
-                    if selectedPhotoData != nil {
-                        viewModel.savePhoto(data: selectedPhotoData!, id: newLocation.id)
+                    Task {
+                        await viewModel.saveLocation(location: newLocation)
+                        if selectedPhotoData != nil {
+                            await viewModel.savePhoto(data: selectedPhotoData!, id: newLocation.id)
+                        }
                     }
                     dismiss()
                 } label: {

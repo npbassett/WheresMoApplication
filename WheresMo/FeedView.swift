@@ -47,7 +47,9 @@ struct FeedView: View {
                                 FeedPostView(location: location)
                                     .onAppear {
                                         if location == viewModel.locations.last {
-                                            viewModel.fetchLocations()
+                                            Task {
+                                                await viewModel.fetchLocations()
+                                            }
                                         }
                                     }
                             }
