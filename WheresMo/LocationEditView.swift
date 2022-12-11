@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LocationEditView: View {
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var viewModel: MainViewModel
+    @EnvironmentObject var viewModel: LocationViewModel
     var location: Location
     var navigatedFromDetailView: Bool
     
@@ -42,7 +42,7 @@ struct LocationEditView: View {
                         .scaledToFill()
                         .frame(width: 350, height: 350)
                 } else {
-                    FirebaseImage(id: location.id)
+                    LocationPhoto(id: location.id)
                         .scaledToFill()
                         .frame(width: 350, height: 350)
                 }
@@ -95,11 +95,9 @@ struct LocationEditView: View {
         .alert("Delete location?", isPresented: $showingDeleteAlert) {
             Button("Delete", role: .destructive) {
                 Task {
-                    await viewModel.deletePhoto(id: location.id)
+                    await viewModel.deleteLocationPhoto(id: location.id)
                     await viewModel.deleteLocation(location: location)
                 }
-                viewModel.selectedPlaceToEdit = nil
-                viewModel.selectedPlaceToDetail = nil
                 dismiss()
             }
             Button("Cancel", role: .cancel) { }
@@ -126,7 +124,7 @@ struct LocationEditView: View {
                     Task {
                         await viewModel.saveLocation(location: newLocation)
                         if selectedPhotoData != nil {
-                            await viewModel.savePhoto(data: selectedPhotoData!, id: newLocation.id)
+                            await viewModel.saveLocationPhoto(data: selectedPhotoData!, id: newLocation.id)
                         }
                     }
                     dismiss()

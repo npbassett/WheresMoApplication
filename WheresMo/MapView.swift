@@ -23,7 +23,7 @@ struct MapView: View {
                 annotationItems: viewModel.locations
             ) { location in
                 MapAnnotation(coordinate: location.coordinate) {
-                    if !viewModel.placingPin {
+                    if !viewModel.isPlacingPin {
                         LocationMarkerView()
                             .onTapGesture {
                                 viewModel.selectedPlaceToDetail = location
@@ -33,7 +33,7 @@ struct MapView: View {
             }
             .ignoresSafeArea()
                         
-            if viewModel.placingPin {
+            if viewModel.isPlacingPin {
                 ZStack {
                     Image(systemName: "plus")
                         .font(.largeTitle)
@@ -136,17 +136,27 @@ struct MapView: View {
                 }
             }
         }
-        .animation(.easeInOut, value: viewModel.placingPin)
+        .animation(.easeInOut, value: viewModel.isPlacingPin)
         .sheet(item: $viewModel.selectedPlaceToDetail) { location in
             NavigationView {
-                LocationDetailView(location: location)
-                    .environmentObject(viewModel)
+                LocationDetailView(location: location,
+                                   userLoggedIn: viewModel.userLoggedIn,
+                                   onDeleteLocation: { viewModel.removeLocationFromList(location: location) },
+                                   onSaveLocation: { location in viewModel.updateLocationList(location: location) }
+                )
             }
         }
         .sheet(item: $viewModel.selectedPlaceToEdit) { location in
             NavigationView {
                 LocationEditView(location: location, navigatedFromDetailView: false)
-                    .environmentObject(viewModel)
+                    .environmentObject(LocationViewModel(location: location,
+                                                         userLoggedIn: viewModel.userLoggedIn,
+                                                         // Passing empty closure because new location is not in self.locations, so it does
+                                                         // not need to be removed if deleted.
+                                                         onDeleteLocation: { },
+                                                         onSaveLocation: { location in viewModel.updateLocationList(location: location) }
+                                                        )
+                    )
             }
         }
     }

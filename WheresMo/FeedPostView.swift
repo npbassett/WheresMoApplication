@@ -15,7 +15,7 @@ struct FeedPostView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack() {
-                FirebaseImage(id: location.id)
+                LocationPhoto(id: location.id)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .frame(width: 150, height: 150)
                 

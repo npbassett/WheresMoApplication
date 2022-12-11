@@ -10,15 +10,30 @@ import SwiftUI
 
 struct LocationDetailView: View {
     @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var viewModel: MainViewModel
-    var location: Location
+    let location: Location
+    let userLoggedIn: User
+    let onDeleteLocation: () -> Void
+    let onSaveLocation: (Location) -> Void
     
+    @StateObject private var viewModel: LocationViewModel
     @State private var coordinateRegion: MKCoordinateRegion
+    
+    init(location: Location, userLoggedIn: User, onDeleteLocation: @escaping () -> Void, onSaveLocation: @escaping (Location) -> Void) {
+        self.location = location
+        self.userLoggedIn = userLoggedIn
+        self.onDeleteLocation = onDeleteLocation
+        self.onSaveLocation = onSaveLocation
+        self._viewModel = StateObject(wrappedValue: LocationViewModel(location: location,
+                                                                      userLoggedIn: userLoggedIn,
+                                                                      onDeleteLocation: onDeleteLocation,
+                                                                      onSaveLocation: onSaveLocation))
+        self._coordinateRegion = State(initialValue: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+    }
     
     var body: some View {
         Form {
             Section {
-                FirebaseImage(id: location.id)
+                LocationPhoto(id: location.id)
                     .scaledToFill()
                     .frame(width: 350, height: 350)
             }
@@ -74,17 +89,10 @@ struct LocationDetailView: View {
             }
         }
     }
-    
-    init(location: Location) {
-        self.location = location
-        
-        _coordinateRegion = State(initialValue: MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
-    }
 }
 
 struct LocationDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationDetailView(location: Location.exampleLocation)
-            .environmentObject(MainViewModel(userLoggedIn: User.exampleUser))
+        LocationDetailView(location: Location.exampleLocation, userLoggedIn: User.exampleUser, onDeleteLocation: { }, onSaveLocation: { _ in })
     }
 }

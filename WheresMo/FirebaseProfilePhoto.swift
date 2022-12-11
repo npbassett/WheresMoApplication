@@ -38,6 +38,6 @@ struct FirebaseProfilePhoto: View {
 
 struct FirebaseProfilePhoto_Previews: PreviewProvider {
     static var previews: some View {
-        FirebaseImage(id: UUID(uuidString: "383401B4-675B-4A04-B73B-BC1FEFB8997E")!)
+        FirebaseProfilePhoto(email: User.exampleUser.email)
     }
 }

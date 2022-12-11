@@ -32,8 +32,10 @@
 		51633C0829425A96005B23C4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 51633C0729425A96005B23C4 /* Kingfisher */; };
 		51633C0C29428FF2005B23C4 /* FirebaseProfilePhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51633C0B29428FF2005B23C4 /* FirebaseProfilePhoto.swift */; };
 		51633C0E2943CF4E005B23C4 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51633C0D2943CF4E005B23C4 /* ProfileViewModel.swift */; };
+		51633C1029464455005B23C4 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51633C0F29464455005B23C4 /* LocationViewModel.swift */; };
+		51633C1229465F6B005B23C4 /* LocationPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51633C1129465F6B005B23C4 /* LocationPhotoViewModel.swift */; };
 		51EFEC9B2924510900A83A30 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFEC9A2924510900A83A30 /* User.swift */; };
-		51EFEC9F292C689C00A83A30 /* FirebaseImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFEC9E292C689C00A83A30 /* FirebaseImage.swift */; };
+		51EFEC9F292C689C00A83A30 /* LocationPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFEC9E292C689C00A83A30 /* LocationPhoto.swift */; };
 		51EFECA1292C6FD800A83A30 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 51EFECA0292C6FD800A83A30 /* FirebaseStorage */; };
 		51EFECA3292D603D00A83A30 /* PhotoSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFECA2292D603D00A83A30 /* PhotoSelector.swift */; };
 /* End PBXBuildFile section */
@@ -62,8 +64,10 @@
 		513A428B29392CEA0060BE74 /* FeedPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPostView.swift; sourceTree = "<group>"; };
 		51633C0B29428FF2005B23C4 /* FirebaseProfilePhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseProfilePhoto.swift; sourceTree = "<group>"; };
 		51633C0D2943CF4E005B23C4 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		51633C0F29464455005B23C4 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
+		51633C1129465F6B005B23C4 /* LocationPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPhotoViewModel.swift; sourceTree = "<group>"; };
 		51EFEC9A2924510900A83A30 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		51EFEC9E292C689C00A83A30 /* FirebaseImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseImage.swift; sourceTree = "<group>"; };
+		51EFEC9E292C689C00A83A30 /* LocationPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPhoto.swift; sourceTree = "<group>"; };
 		51EFECA2292D603D00A83A30 /* PhotoSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,7 +111,9 @@
 				512F7C372935AAF600DD0188 /* MainView.swift */,
 				513A4287293835090060BE74 /* FeedView.swift */,
 				513A428B29392CEA0060BE74 /* FeedPostView.swift */,
-				51EFEC9E292C689C00A83A30 /* FirebaseImage.swift */,
+				51EFEC9E292C689C00A83A30 /* LocationPhoto.swift */,
+				51633C1129465F6B005B23C4 /* LocationPhotoViewModel.swift */,
+				51633C0F29464455005B23C4 /* LocationViewModel.swift */,
 				51633C0B29428FF2005B23C4 /* FirebaseProfilePhoto.swift */,
 				512E163829205A54008094A9 /* FileManager-DocumentsDirectory.swift */,
 				512E16462922CAD9008094A9 /* LoginView.swift */,
@@ -234,9 +240,10 @@
 				512E1622291F10AB008094A9 /* MapView.swift in Sources */,
 				512E165529243BCB008094A9 /* LoginViewModel.swift in Sources */,
 				512F7C3A2935B04D00DD0188 /* ProfileView.swift in Sources */,
+				51633C1029464455005B23C4 /* LocationViewModel.swift in Sources */,
 				512E162F2920173F008094A9 /* MainViewModel.swift in Sources */,
 				51633C0E2943CF4E005B23C4 /* ProfileViewModel.swift in Sources */,
-				51EFEC9F292C689C00A83A30 /* FirebaseImage.swift in Sources */,
+				51EFEC9F292C689C00A83A30 /* LocationPhoto.swift in Sources */,
 				512E16432921EB08008094A9 /* LocationDetailView.swift in Sources */,
 				513A4288293835090060BE74 /* FeedView.swift in Sources */,
 				512E1637292040E8008094A9 /* LocationEditView.swift in Sources */,
@@ -244,6 +251,7 @@
 				51EFECA3292D603D00A83A30 /* PhotoSelector.swift in Sources */,
 				512E16532922E558008094A9 /* CreateNewAccountView.swift in Sources */,
 				512F7C382935AAF600DD0188 /* MainView.swift in Sources */,
+				51633C1229465F6B005B23C4 /* LocationPhotoViewModel.swift in Sources */,
 				51633C0C29428FF2005B23C4 /* FirebaseProfilePhoto.swift in Sources */,
 				512E163D29216217008094A9 /* LocationManager.swift in Sources */,
 				512E1620291F10AB008094A9 /* WheresMoApp.swift in Sources */,

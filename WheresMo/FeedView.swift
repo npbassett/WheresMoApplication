@@ -41,8 +41,11 @@ struct FeedView: View {
                     ForEach(viewModel.locations, id: \.self.id) { location in
                         Section {
                             NavigationLink {
-                                LocationDetailView(location: location)
-                                    .environmentObject(viewModel)
+                                LocationDetailView(location: location,
+                                                   userLoggedIn: viewModel.userLoggedIn,
+                                                   onDeleteLocation: { viewModel.removeLocationFromList(location: location) },
+                                                   onSaveLocation: { location in viewModel.updateLocationList(location: location) }
+                                )
                             } label: {
                                 FeedPostView(location: location)
                                     .onAppear {

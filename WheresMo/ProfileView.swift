@@ -44,7 +44,6 @@ struct ProfileView: View {
         ScrollView {
             VStack {
                 ZStack {
-                    // TODO: reload after changing profile photo
                     FirebaseProfilePhoto(email: userToShow.email)
                         .frame(width: 150, height: 150)
                         .clipShape(Circle())
@@ -99,9 +98,12 @@ struct ProfileView: View {
                     
                     ForEach(viewModel.locationsPlacedByUser) { location in
                         NavigationLink {
-                            LocationDetailView(location: location)
+                            LocationDetailView(location: location,
+                                               userLoggedIn: viewModel.userLoggedIn,
+                                               onDeleteLocation: { viewModel.removeLocationFromList(location: location)},
+                                               onSaveLocation: { location in viewModel.updateLocationList(location: location) })
                         } label: {
-                            FirebaseImage(id: location.id)
+                            LocationPhoto(id: location.id)
                                 .frame(width: 170, height: 170)
                                 .clipShape(RoundedRectangle(cornerRadius: 5))
                         }
@@ -114,30 +116,23 @@ struct ProfileView: View {
         }
         .onAppear {
             Task {
-                await viewModel.fetchLocationsByUser(user: userToShow)
+                await viewModel.fetchLocationsPlacedByUser()
             }
         }
         .alert("Set new profile photo?", isPresented: $showingNewProfilePhotoAlert) {
             Button("Confirm") {
                 Task {
-                    try await profilePhotoChanged()
+                    guard self.selectedProfilePhotoData != nil else {
+                        print("Could not save new profile photo, photo data was nil.")
+                        return
+                    }
+                    try await viewModel.onProfilePhotoChange(newProfilePhotoData: self.selectedProfilePhotoData!)
                 }
             }
             Button("Cancel", role: .cancel) { }
         } message: {
             Text("Previous profile photo will be overwritten.")
         }
-    }
-    
-    func profilePhotoChanged() async throws {
-        guard selectedProfilePhotoData != nil else {
-            return
-        }
-        print("Setting new profile photo.")
-        await viewModel.saveProfilePhoto(data: selectedProfilePhotoData!, email: viewModel.userLoggedIn.email)
-        await viewModel.clearProfilePhotoCache(email: userToShow.email)
-        try await Task.sleep(for: .seconds(0.5))
-        await viewModel.fetchProfilePhoto(email: userToShow.email)
     }
 }
 
