@@ -15,9 +15,6 @@ struct ProfileView: View {
     
     @StateObject private var viewModel: ProfileViewModel
     
-    @State private var selectedProfilePhotoData: Data? = nil
-    @State private var showingNewProfilePhotoAlert = false
-    
     init(userToShow: User, userLoggedIn: User, navigatedFromMainView: Bool, onLogout: @escaping () -> Void) {
         self.userToShow = userToShow
         self.userLoggedIn = userLoggedIn
@@ -28,45 +25,11 @@ struct ProfileView: View {
                                                                      navigatedFromMainView: navigatedFromMainView))
     }
     
-    var selectProfilePhotoLabel: AnyView {
-        return AnyView(
-            Image(systemName: "plus")
-                .font(.title)
-                .padding(5)
-                .background(.blue)
-                .foregroundColor(.white)
-                .clipShape(Circle())
-                .padding(.trailing)
-        )
-    }
-    
     var body: some View {
         ScrollView {
             VStack {
-                ZStack {
-                    FirebaseProfilePhoto(email: userToShow.email)
-                        .frame(width: 150, height: 150)
-                        .clipShape(Circle())
-                        .environmentObject(viewModel)
-                    
-                    if viewModel.userLoggedInProfile {
-                        HStack {
-                            Spacer()
-                            Spacer()
-                            
-                            VStack {
-                                Spacer()
-                                
-                                PhotoSelector(label: selectProfilePhotoLabel, selectedPhotoData: $selectedProfilePhotoData)
-                                    .onChange(of: selectedProfilePhotoData) { item in
-                                        showingNewProfilePhotoAlert = true
-                                    }
-                            }
-                            
-                            Spacer()
-                        }
-                    }
-                }
+                ProfilePhoto(email: userToShow.email, showUpdateProfilePhotoButton: viewModel.userLoggedInProfile)
+                    .frame(width: 150, height: 150)
                 
                 Text(userToShow.displayName)
                     .font(.title)
@@ -118,20 +81,6 @@ struct ProfileView: View {
             Task {
                 await viewModel.fetchLocationsPlacedByUser()
             }
-        }
-        .alert("Set new profile photo?", isPresented: $showingNewProfilePhotoAlert) {
-            Button("Confirm") {
-                Task {
-                    guard self.selectedProfilePhotoData != nil else {
-                        print("Could not save new profile photo, photo data was nil.")
-                        return
-                    }
-                    try await viewModel.onProfilePhotoChange(newProfilePhotoData: self.selectedProfilePhotoData!)
-                }
-            }
-            Button("Cancel", role: .cancel) { }
-        } message: {
-            Text("Previous profile photo will be overwritten.")
         }
     }
 }

@@ -14,6 +14,8 @@ struct FeedPostView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
+            
+            
             HStack() {
                 LocationPhoto(id: location.id)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
