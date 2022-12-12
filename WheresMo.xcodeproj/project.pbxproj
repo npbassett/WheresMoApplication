@@ -35,10 +35,10 @@
 		51633C1029464455005B23C4 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51633C0F29464455005B23C4 /* LocationViewModel.swift */; };
 		51633C1229465F6B005B23C4 /* LocationPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51633C1129465F6B005B23C4 /* LocationPhotoViewModel.swift */; };
 		51633C14294794E4005B23C4 /* ProfilePhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51633C13294794E4005B23C4 /* ProfilePhotoViewModel.swift */; };
+		51633C162947A3D3005B23C4 /* CustomPhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51633C152947A3D3005B23C4 /* CustomPhotoPickerView.swift */; };
 		51EFEC9B2924510900A83A30 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFEC9A2924510900A83A30 /* User.swift */; };
 		51EFEC9F292C689C00A83A30 /* LocationPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFEC9E292C689C00A83A30 /* LocationPhoto.swift */; };
 		51EFECA1292C6FD800A83A30 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 51EFECA0292C6FD800A83A30 /* FirebaseStorage */; };
-		51EFECA3292D603D00A83A30 /* PhotoSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFECA2292D603D00A83A30 /* PhotoSelector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,9 +68,9 @@
 		51633C0F29464455005B23C4 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		51633C1129465F6B005B23C4 /* LocationPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPhotoViewModel.swift; sourceTree = "<group>"; };
 		51633C13294794E4005B23C4 /* ProfilePhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoViewModel.swift; sourceTree = "<group>"; };
+		51633C152947A3D3005B23C4 /* CustomPhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPhotoPickerView.swift; sourceTree = "<group>"; };
 		51EFEC9A2924510900A83A30 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		51EFEC9E292C689C00A83A30 /* LocationPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPhoto.swift; sourceTree = "<group>"; };
-		51EFECA2292D603D00A83A30 /* PhotoSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +130,7 @@
 				512E163C29216217008094A9 /* LocationManager.swift */,
 				512E16422921EB08008094A9 /* LocationDetailView.swift */,
 				512E1636292040E8008094A9 /* LocationEditView.swift */,
-				51EFECA2292D603D00A83A30 /* PhotoSelector.swift */,
+				51633C152947A3D3005B23C4 /* CustomPhotoPickerView.swift */,
 				512E163029201AA3008094A9 /* Location.swift */,
 				51EFEC9A2924510900A83A30 /* User.swift */,
 				512E1623291F10AC008094A9 /* Assets.xcassets */,
@@ -243,6 +243,7 @@
 				512E1622291F10AB008094A9 /* MapView.swift in Sources */,
 				512E165529243BCB008094A9 /* LoginViewModel.swift in Sources */,
 				512F7C3A2935B04D00DD0188 /* ProfileView.swift in Sources */,
+				51633C162947A3D3005B23C4 /* CustomPhotoPickerView.swift in Sources */,
 				51633C1029464455005B23C4 /* LocationViewModel.swift in Sources */,
 				512E162F2920173F008094A9 /* MainViewModel.swift in Sources */,
 				51633C0E2943CF4E005B23C4 /* ProfileViewModel.swift in Sources */,
@@ -251,7 +252,6 @@
 				513A4288293835090060BE74 /* FeedView.swift in Sources */,
 				512E1637292040E8008094A9 /* LocationEditView.swift in Sources */,
 				512E163129201AA3008094A9 /* Location.swift in Sources */,
-				51EFECA3292D603D00A83A30 /* PhotoSelector.swift in Sources */,
 				512E16532922E558008094A9 /* CreateNewAccountView.swift in Sources */,
 				512F7C382935AAF600DD0188 /* MainView.swift in Sources */,
 				51633C1229465F6B005B23C4 /* LocationPhotoViewModel.swift in Sources */,
@@ -389,6 +389,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "View Mo locations near you.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "You must allow access to photos to place a Mo location.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -426,6 +427,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "View Mo locations near you.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "You must allow access to photos to place a Mo location.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

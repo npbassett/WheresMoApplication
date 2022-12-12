@@ -17,7 +17,8 @@ struct ProfilePhoto: View {
     
     @StateObject private var viewModel: ProfilePhotoViewModel
     
-    @State private var selectedProfilePhotoData: Data? = nil
+    @State private var showingPhotoPickerSheet: Bool = false
+    @State private var selectedProfilePhoto: UIImage? = nil
     @State private var showingNewProfilePhotoAlert = false
     
     init(email: String, showUpdateProfilePhotoButton: Bool = false) {
@@ -61,10 +62,19 @@ struct ProfilePhoto: View {
                     VStack {
                         Spacer()
                         
-                        PhotoSelector(label: selectProfilePhotoLabel, selectedPhotoData: $selectedProfilePhotoData)
-                            .onChange(of: selectedProfilePhotoData) { item in
-                                showingNewProfilePhotoAlert = true
-                            }
+                        Button {
+                            showingPhotoPickerSheet.toggle()
+                        } label: {
+                            Image(systemName: "plus")
+                                .font(.title)
+                                .frame(width: 40, height: 40)
+                                .background(.blue)
+                                .foregroundColor(.white)
+                                .clipShape(Circle())
+                        }
+                        .onChange(of: selectedProfilePhoto) { item in
+                            showingNewProfilePhotoAlert = true
+                        }
                     }
                 }
             }
@@ -74,14 +84,18 @@ struct ProfilePhoto: View {
                 await viewModel.fetchProfilePhoto()
             }
         }
+        .sheet(isPresented: $showingPhotoPickerSheet) {
+            CustomPhotoPickerView(selectedImage: $selectedProfilePhoto, date: Binding.constant(nil), latitude: Binding.constant(nil), longitude: Binding.constant(nil))
+        }
         .alert("Set new profile photo?", isPresented: $showingNewProfilePhotoAlert) {
             Button("Confirm") {
                 Task {
-                    guard self.selectedProfilePhotoData != nil else {
+                    let selectedProfilePhotoData = selectedProfilePhoto?.jpegData(compressionQuality: 0.0)
+                    guard selectedProfilePhotoData != nil else {
                         print("Could not save new profile photo, photo data was nil.")
                         return
                     }
-                    try await viewModel.onProfilePhotoChange(newProfilePhotoData: self.selectedProfilePhotoData!)
+                    try await viewModel.onProfilePhotoChange(newProfilePhotoData: selectedProfilePhotoData!)
                 }
             }
             Button("Cancel", role: .cancel) { }

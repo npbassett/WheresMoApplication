@@ -19,12 +19,17 @@ struct LocationEditView: View {
     @State private var description: String
     @State private var coordinateRegion: MKCoordinateRegion
     @State private var coordinate: CLLocationCoordinate2D
-    @State private var selectedPhotoData: Data? = nil
+    @State private var selectedPhoto: UIImage?
+    @State private var metadataDate: Date?
+    @State private var metadataLatitude: Double?
+    @State private var metadataLongitude: Double?
     
+    @State private var showingPhotoPickerSheet = false
     @State private var showingDeleteAlert = false
+    @State private var showingUseMetadataAlert = false
     
     var photoSelectionRequired: Bool {
-        return selectedPhotoData == nil && !navigatedFromDetailView
+        return selectedPhoto == nil && !navigatedFromDetailView
     }
     
     var landmarkIsEmpty: Bool {
@@ -34,10 +39,8 @@ struct LocationEditView: View {
     var body: some View {
         Form {
             Section {
-                if let selectedPhotoData {
-                    let image = UIImage(data: selectedPhotoData)
-                    
-                    Image(uiImage: image!)
+                if let selectedPhoto {
+                    Image(uiImage: selectedPhoto)
                         .resizable()
                         .scaledToFill()
                         .frame(width: 350, height: 350)
@@ -50,7 +53,14 @@ struct LocationEditView: View {
             .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
             
             Section {
-                PhotoSelector(label: AnyView(Label("Select a photo", systemImage: "photo")), selectedPhotoData: $selectedPhotoData)
+                Button {
+                    showingPhotoPickerSheet.toggle()
+                } label: {
+                    Label("Select a photo", systemImage: "photo")
+                }
+                .onChange(of: metadataDate) { _ in
+                    showingUseMetadataAlert.toggle()
+                }
             } footer: {
                 if photoSelectionRequired {
                     (Text(Image(systemName: "exclamationmark.circle")) + Text(" Please select a photo"))
@@ -104,6 +114,22 @@ struct LocationEditView: View {
         } message: {
             Text("Are you sure?")
         }
+        .alert("Found photo metadata.", isPresented: $showingUseMetadataAlert) {
+            Button("Yes") {
+                guard metadataDate != nil else {
+                    return
+                }
+                date = metadataDate!
+                
+                guard metadataLatitude != nil && metadataLongitude != nil else {
+                    return
+                }
+                coordinate = CLLocationCoordinate2D(latitude: metadataLatitude!, longitude: metadataLongitude!)
+            }
+            Button("No", role: .cancel) { }
+        } message: {
+            Text("Would you like to use the metadata to set the date and location of this Mo?")
+        }
         .toolbar {
             if !navigatedFromDetailView {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -117,12 +143,15 @@ struct LocationEditView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     var newLocation = location
+                    newLocation.latitude = coordinate.latitude
+                    newLocation.longitude = coordinate.longitude
                     newLocation.landmark = landmark
                     newLocation.date = date
                     newLocation.description = description
                     
                     Task {
                         await viewModel.saveLocation(location: newLocation)
+                        let selectedPhotoData = selectedPhoto?.jpegData(compressionQuality: 0.0)
                         if selectedPhotoData != nil {
                             await viewModel.saveLocationPhoto(data: selectedPhotoData!, id: newLocation.id)
                         }
@@ -133,6 +162,9 @@ struct LocationEditView: View {
                 }
                 .disabled(photoSelectionRequired || landmarkIsEmpty)
             }
+        }
+        .sheet(isPresented: $showingPhotoPickerSheet) {
+            CustomPhotoPickerView(selectedImage: $selectedPhoto, date: $metadataDate, latitude: $metadataLatitude, longitude: $metadataLongitude)
         }
     }
     
