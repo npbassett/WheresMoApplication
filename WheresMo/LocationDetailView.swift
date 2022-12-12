@@ -18,6 +18,10 @@ struct LocationDetailView: View {
     @StateObject private var viewModel: LocationViewModel
     @State private var coordinateRegion: MKCoordinateRegion
     
+    var showDescription: Bool {
+        return !location.description.isEmpty
+    }
+    
     init(location: Location, userLoggedIn: User, onDeleteLocation: @escaping () -> Void, onSaveLocation: @escaping (Location) -> Void) {
         self.location = location
         self.userLoggedIn = userLoggedIn
@@ -50,7 +54,12 @@ struct LocationDetailView: View {
                         .navigationTitle("Placed By")
                         .navigationBarTitleDisplayMode(.inline)
                 } label: {
-                    Text(location.placedByUser.displayName)
+                    HStack {
+                        ProfilePhoto(email: location.placedByUser.email)
+                            .frame(width: 30, height: 30)
+                        
+                        Text(location.placedByUser.displayName)
+                    }
                 }
             }
             
@@ -58,8 +67,10 @@ struct LocationDetailView: View {
                 Text(location.date.formatted(date: .abbreviated, time: .shortened))
             }
             
-            Section("Description") {
-                Text(location.description)
+            if showDescription {
+                Section("Description") {
+                    Text(location.description)
+                }
             }
             
             Section {
