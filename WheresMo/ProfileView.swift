@@ -21,60 +21,77 @@ struct ProfileView: View {
         self.navigatedFromMainView = navigatedFromMainView
         self.onLogout = onLogout
         self._viewModel = StateObject(wrappedValue: ProfileViewModel(userToShow: userToShow,
-                                                                     userLoggedIn: userLoggedIn,
-                                                                     navigatedFromMainView: navigatedFromMainView))
+            userLoggedIn: userLoggedIn, navigatedFromMainView: navigatedFromMainView))
     }
     
     var body: some View {
         ScrollView {
-            VStack {
-                ProfilePhoto(email: userToShow.email, showUpdateProfilePhotoButton: viewModel.userLoggedInProfile)
-                    .frame(width: 150, height: 150)
-                
-                Text(userToShow.displayName)
-                    .font(.title)
-                    .bold()
-                
-                if viewModel.userLoggedInProfile {
-                    Button {
-                        onLogout()
-                    } label: {
-                        (Text(Image(systemName: "rectangle.portrait.and.arrow.right")) + Text(" Log Out"))
-                            .font(.title3)
-                    }
-                    .buttonStyle(.bordered)
-                    .padding(.bottom)
-                }
-                
-                HStack {
-                    Text("Recent Locations")
-                    
-                    Rectangle()
-                        .foregroundColor(.primary.opacity(0.5))
-                        .frame(height: 0.5)
-                }
-                .padding(.leading)
-                .padding(.trailing)
-                .foregroundColor(.primary.opacity(0.5))
-                
-                LazyVGrid(columns: [GridItem(.flexible(), alignment: .trailing), GridItem(.flexible(), alignment: .leading)]) {
-                    
-                    ForEach(viewModel.locationsPlacedByUser) { location in
+            ZStack {
+                VStack {
+                    HStack {
+                        Spacer()
+                        
                         NavigationLink {
-                            LocationDetailView(location: location,
-                                               userLoggedIn: viewModel.userLoggedIn,
-                                               onDeleteLocation: { viewModel.removeLocationFromList(location: location)},
-                                               onSaveLocation: { location in viewModel.updateLocationList(location: location) })
+                            SettingsView()
                         } label: {
-                            LocationPhoto(id: location.id)
-                                .frame(width: 170, height: 170)
-                                .clipShape(RoundedRectangle(cornerRadius: 5))
+                            Image(systemName: "gearshape")
+                                .font(.title)
+                                .padding(.trailing)
                         }
                     }
+                    
+                    Spacer()
                 }
-                .padding(0)
                 
-                Spacer()
+                VStack {
+                    ProfilePhoto(email: userToShow.email, showUpdateProfilePhotoButton: viewModel.userLoggedInProfile)
+                        .frame(width: 150, height: 150)
+                    
+                    Text(userToShow.displayName)
+                        .font(.title)
+                        .bold()
+                    
+                    if viewModel.userLoggedInProfile {
+                        Button {
+                            onLogout()
+                        } label: {
+                            (Text(Image(systemName: "rectangle.portrait.and.arrow.right")) + Text(" Log Out"))
+                                .font(.title3)
+                        }
+                        .buttonStyle(.bordered)
+                        .padding(.bottom)
+                    }
+                    
+                    HStack {
+                        Text("Recent Locations")
+                        
+                        Rectangle()
+                            .foregroundColor(.primary.opacity(0.5))
+                            .frame(height: 0.5)
+                    }
+                    .padding(.leading)
+                    .padding(.trailing)
+                    .foregroundColor(.primary.opacity(0.5))
+                    
+                    LazyVGrid(columns: [GridItem(.flexible(), alignment: .trailing), GridItem(.flexible(), alignment: .leading)]) {
+                        
+                        ForEach(viewModel.locationsPlacedByUser) { location in
+                            NavigationLink {
+                                LocationDetailView(location: location,
+                                                   userLoggedIn: viewModel.userLoggedIn,
+                                                   onDeleteLocation: { viewModel.removeLocationFromList(location: location)},
+                                                   onSaveLocation: { location in viewModel.updateLocationList(location: location) })
+                            } label: {
+                                LocationPhoto(id: location.id)
+                                    .frame(width: 170, height: 170)
+                                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                            }
+                        }
+                    }
+                    .padding(0)
+                    
+                    Spacer()
+                }
             }
         }
         .onAppear {
