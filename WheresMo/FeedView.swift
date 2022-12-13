@@ -15,7 +15,6 @@ struct FeedView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                
                 HStack {
                     Text("Mo Feed")
                         .font(.largeTitle)
@@ -31,7 +30,6 @@ struct FeedView: View {
                     }
                     .padding()
                 }
-                .padding(.bottom)
                 .padding(.leading)
                 .background(Color(UIColor.secondarySystemBackground))
                 
@@ -44,12 +42,13 @@ struct FeedView: View {
                 }
                 .padding(.leading)
                 .padding(.trailing)
+                .padding(.bottom, 5)
                 .background(Color(UIColor.secondarySystemBackground))
                 .foregroundColor(.primary.opacity(0.5))
                 
-                Form {
-                    ForEach(viewModel.locations, id: \.self.id) { location in
-                        Section {
+                ScrollView {
+                    LazyVStack(alignment: .leading) {
+                        ForEach(viewModel.locations, id: \.self.id) { location in
                             NavigationLink {
                                 LocationDetailView(location: location,
                                                    userLoggedIn: viewModel.userLoggedIn,
@@ -58,6 +57,11 @@ struct FeedView: View {
                                 )
                             } label: {
                                 FeedPostView(location: location)
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color(UIColor.systemBackground))
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                                    .padding(.leading)
+                                    .padding(.trailing)
                                     .onAppear {
                                         if location == viewModel.locations.last {
                                             Task {
@@ -66,9 +70,11 @@ struct FeedView: View {
                                         }
                                     }
                             }
+                            .buttonStyle(PlainButtonStyle())
                         }
                     }
                 }
+                .background(Color(UIColor.secondarySystemBackground))
             }
         }
         .sheet(isPresented: $showingNewLocationSheet) {

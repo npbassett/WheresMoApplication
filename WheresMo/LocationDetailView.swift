@@ -38,8 +38,9 @@ struct LocationDetailView: View {
         Form {
             Section {
                 LocationPhoto(id: location.id)
+                    .aspectRatio(contentMode: .fit)
                     .scaledToFill()
-                    .frame(width: 350, height: 350)
+                    .frame(maxWidth: .infinity)
             }
             .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
             

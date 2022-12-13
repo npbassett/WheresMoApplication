@@ -22,26 +22,26 @@ struct FeedPostView: View {
                 ProfilePhoto(email: location.placedByUser.email)
                     .frame(width:40, height:40)
                 
-                Text(location.placedByUser.displayName).font(.title3).bold()
+                VStack(alignment: .leading) {
+                    Text(location.placedByUser.displayName).font(.title3).bold()
+                    
+                    (Text(Image(systemName: "mappin")) + Text(" ") + Text(location.landmark))
+                        .lineLimit(1)
+                }
+                
+                Spacer()
             }
             
-            HStack {
-                LocationPhoto(id: location.id)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .frame(width: 150, height: 150)
-                
-                VStack(alignment: .leading, spacing: 10) {
-                    (Text(Image(systemName: "mappin")) + Text(" ") + Text(location.landmark))
-                        .lineLimit(2)
-                    
-                    (Text(Image(systemName: "calendar")) + Text(" ") + Text(location.date.formatted(date: .abbreviated, time: .omitted)))
-                        .lineLimit(1)
-                    
-                    if showDescription {
-                        (Text(Image(systemName: "text.alignleft")) + Text(" ") + Text(location.description))
-                            .lineLimit(3)
-                    }
-                }
+            LocationPhoto(id: location.id)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .frame(width: 320, height: 320)
+            
+            (Text(Image(systemName: "calendar")) + Text(" ") + Text(location.date.formatted(date: .abbreviated, time: .omitted)))
+                .lineLimit(1)
+            
+            if showDescription {
+                (Text(Image(systemName: "text.alignleft")) + Text(" ") + Text(location.description))
+                    .lineLimit(3)
             }
             
 // I removed like and comment buttons for now.
@@ -67,6 +67,7 @@ struct FeedPostView: View {
 //            }
 //            .buttonStyle(BorderlessButtonStyle())
         }
+        .padding()
     }
 }
 
