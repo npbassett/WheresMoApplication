@@ -10,6 +10,8 @@ import SwiftUI
 struct FeedView: View {
     @EnvironmentObject var viewModel: MainViewModel
     
+    @State private var showingNewLocationSheet = false
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
@@ -20,6 +22,14 @@ struct FeedView: View {
                         .fontWeight(.bold)
                     
                     Spacer()
+                    
+                    Button {
+                        showingNewLocationSheet.toggle()
+                    } label: {
+                        Image(systemName: "plus")
+                            .font(.title)
+                    }
+                    .padding()
                 }
                 .padding(.bottom)
                 .padding(.leading)
@@ -59,6 +69,19 @@ struct FeedView: View {
                         }
                     }
                 }
+            }
+        }
+        .sheet(isPresented: $showingNewLocationSheet) {
+            let location = Location(placedByUser: viewModel.userLoggedIn, latitude: 0.0, longitude: 0.0)
+            NavigationView {
+                LocationEditView(location: location, navigatedFromDetailView: false)
+                    .environmentObject(LocationViewModel(location: location,
+                                                         userLoggedIn: viewModel.userLoggedIn,
+                                                         // Passing empty closure because new location is not in self.locations,
+                                                         // so it does not need to be removed if deleted.
+                                                         onDeleteLocation: { },
+                                                         onSaveLocation: { location in viewModel.updateLocationList(location: location) })
+                    )
             }
         }
     }
