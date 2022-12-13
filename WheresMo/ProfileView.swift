@@ -31,12 +31,14 @@ struct ProfileView: View {
                     HStack {
                         Spacer()
                         
-                        NavigationLink {
-                            SettingsView()
-                        } label: {
-                            Image(systemName: "gearshape")
-                                .font(.title)
-                                .padding(.trailing)
+                        if navigatedFromMainView && viewModel.userLoggedInProfile {
+                            NavigationLink {
+                                SettingsView()
+                            } label: {
+                                Image(systemName: "gearshape")
+                                    .font(.title)
+                                    .padding(.trailing)
+                            }
                         }
                     }
                     
