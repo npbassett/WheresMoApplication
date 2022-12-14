@@ -16,7 +16,6 @@
 		512E1633292026F8008094A9 /* LocationMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E1632292026F7008094A9 /* LocationMarkerView.swift */; };
 		512E1637292040E8008094A9 /* LocationEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E1636292040E8008094A9 /* LocationEditView.swift */; };
 		512E163929205A54008094A9 /* FileManager-DocumentsDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E163829205A54008094A9 /* FileManager-DocumentsDirectory.swift */; };
-		512E163D29216217008094A9 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E163C29216217008094A9 /* LocationManager.swift */; };
 		512E16432921EB08008094A9 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E16422921EB08008094A9 /* LocationDetailView.swift */; };
 		512E16472922CAD9008094A9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512E16462922CAD9008094A9 /* LoginView.swift */; };
 		512E164A2922D534008094A9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 512E16492922D534008094A9 /* FirebaseAuth */; };
@@ -37,6 +36,7 @@
 		51633C14294794E4005B23C4 /* ProfilePhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51633C13294794E4005B23C4 /* ProfilePhotoViewModel.swift */; };
 		51633C162947A3D3005B23C4 /* CustomPhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51633C152947A3D3005B23C4 /* CustomPhotoPickerView.swift */; };
 		51633C182948263D005B23C4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51633C172948263D005B23C4 /* SettingsView.swift */; };
+		51633C1A29496EEB005B23C4 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51633C1929496EEB005B23C4 /* MapViewModel.swift */; };
 		51EFEC9B2924510900A83A30 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFEC9A2924510900A83A30 /* User.swift */; };
 		51EFEC9F292C689C00A83A30 /* LocationPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFEC9E292C689C00A83A30 /* LocationPhoto.swift */; };
 		51EFECA1292C6FD800A83A30 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 51EFECA0292C6FD800A83A30 /* FirebaseStorage */; };
@@ -54,7 +54,6 @@
 		512E1632292026F7008094A9 /* LocationMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMarkerView.swift; sourceTree = "<group>"; };
 		512E1636292040E8008094A9 /* LocationEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEditView.swift; sourceTree = "<group>"; };
 		512E163829205A54008094A9 /* FileManager-DocumentsDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager-DocumentsDirectory.swift"; sourceTree = "<group>"; };
-		512E163C29216217008094A9 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		512E16422921EB08008094A9 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		512E16462922CAD9008094A9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		512E164D2922D5CF008094A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -71,6 +70,7 @@
 		51633C13294794E4005B23C4 /* ProfilePhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoViewModel.swift; sourceTree = "<group>"; };
 		51633C152947A3D3005B23C4 /* CustomPhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPhotoPickerView.swift; sourceTree = "<group>"; };
 		51633C172948263D005B23C4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		51633C1929496EEB005B23C4 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		51EFEC9A2924510900A83A30 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		51EFEC9E292C689C00A83A30 /* LocationPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPhoto.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,7 +130,7 @@
 				51633C0D2943CF4E005B23C4 /* ProfileViewModel.swift */,
 				512E1632292026F7008094A9 /* LocationMarkerView.swift */,
 				512E162E2920173F008094A9 /* MainViewModel.swift */,
-				512E163C29216217008094A9 /* LocationManager.swift */,
+				51633C1929496EEB005B23C4 /* MapViewModel.swift */,
 				512E16422921EB08008094A9 /* LocationDetailView.swift */,
 				512E1636292040E8008094A9 /* LocationEditView.swift */,
 				51633C152947A3D3005B23C4 /* CustomPhotoPickerView.swift */,
@@ -258,9 +258,9 @@
 				512E16532922E558008094A9 /* CreateNewAccountView.swift in Sources */,
 				51633C182948263D005B23C4 /* SettingsView.swift in Sources */,
 				512F7C382935AAF600DD0188 /* MainView.swift in Sources */,
+				51633C1A29496EEB005B23C4 /* MapViewModel.swift in Sources */,
 				51633C1229465F6B005B23C4 /* LocationPhotoViewModel.swift in Sources */,
 				51633C0C29428FF2005B23C4 /* ProfilePhoto.swift in Sources */,
-				512E163D29216217008094A9 /* LocationManager.swift in Sources */,
 				512E1620291F10AB008094A9 /* WheresMoApp.swift in Sources */,
 				512E163929205A54008094A9 /* FileManager-DocumentsDirectory.swift in Sources */,
 				51633C14294794E4005B23C4 /* ProfilePhotoViewModel.swift in Sources */,

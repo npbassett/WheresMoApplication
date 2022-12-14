@@ -10,13 +10,18 @@ import MapKit
 import SwiftUI
 
 struct MapView: View {
-    @EnvironmentObject var viewModel: MainViewModel
+    var userLoggedIn: User
+
+    @StateObject var viewModel: MapViewModel
     
-    @StateObject var locationManager = LocationManager()
+    init(userLoggedIn: User) {
+        self.userLoggedIn = userLoggedIn
+        self._viewModel = StateObject(wrappedValue: MapViewModel(userLoggedIn: userLoggedIn))
+    }
     
     var body: some View {
         ZStack {
-            Map(coordinateRegion: $locationManager.mapRegion,
+            Map(coordinateRegion: $viewModel.mapRegion,
                 interactionModes: .all,
                 showsUserLocation: true,
                 userTrackingMode: $viewModel.userTrackingMode,
@@ -41,7 +46,7 @@ struct MapView: View {
                     
                     VStack {
                         Button {
-                            if let coordinate = locationManager.getCurrentLocationCoordinate() {
+                            if let coordinate = viewModel.getCurrentLocationCoordinate() {
                                 
                                 viewModel.startEditingLocation(location: Location(placedByUser: viewModel.userLoggedIn,
                                                                                   latitude: coordinate.latitude,
@@ -70,8 +75,8 @@ struct MapView: View {
                         Button {
                             viewModel.startEditingLocation(
                                 location: Location(placedByUser: viewModel.userLoggedIn,
-                                                   latitude: locationManager.mapRegion.center.latitude,
-                                                   longitude: locationManager.mapRegion.center.longitude
+                                                   latitude: viewModel.mapRegion.center.latitude,
+                                                   longitude: viewModel.mapRegion.center.longitude
                                                   )
                             )
                         } label: {
@@ -99,6 +104,23 @@ struct MapView: View {
             } else {
                 VStack {
                     
+                    if viewModel.showingSearchAreaButton {
+                        Button {
+                            Task {
+                                await viewModel.fetchLocationsWithinMapRegion()
+                            }
+                        } label: {
+                            HStack {
+                                Text("Search this area")
+                            }
+                            .padding()
+                            .background(.black.opacity(0.75))
+                            .foregroundColor(.white)
+                            .font(.headline)
+                            .clipShape(Capsule())
+                        }
+                    }
+                    
                     Spacer()
                     
                     HStack {
@@ -107,7 +129,7 @@ struct MapView: View {
                         VStack {
                             Button {
                                 withAnimation {
-                                    locationManager.resetMapRegion()
+                                    viewModel.resetMapRegion()
                                 }
                             } label: {
                                 Image(systemName: "location.fill")
@@ -137,6 +159,7 @@ struct MapView: View {
             }
         }
         .animation(.easeInOut, value: viewModel.isPlacingPin)
+        .animation(.easeInOut(duration: 0.75), value: viewModel.showingSearchAreaButton)
         .sheet(item: $viewModel.selectedPlaceToDetail) { location in
             NavigationView {
                 LocationDetailView(location: location,
@@ -164,7 +187,6 @@ struct MapView: View {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView()
-            .environmentObject(MainViewModel(userLoggedIn: User.exampleUser))
+        MapView(userLoggedIn: User.exampleUser)
     }
 }

@@ -27,8 +27,7 @@ struct MainView: View {
                     Label("Feed", systemImage: "list.dash")
                 }
             
-            MapView()
-                .environmentObject(viewModel)
+            MapView(userLoggedIn: userLoggedIn)
                 .tabItem {
                     Label("Map", systemImage: "map")
                 }
