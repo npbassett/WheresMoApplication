@@ -16,8 +16,8 @@ import SwiftUI
     var userLoggedIn: User
     
     @Published var mapRegion = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(),
-        span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+        center: CLLocationCoordinate2D(latitude: 39.8, longitude: -98.58),
+        span: MKCoordinateSpan(latitudeDelta: 50, longitudeDelta: 50)
     )
     @Published var locations = [Location]()
     @Published var userTrackingMode: MapUserTrackingMode = .follow
@@ -27,6 +27,10 @@ import SwiftUI
     
     private let locationManager = CLLocationManager()
     private var lastSearchedRegion: MKCoordinateRegion?
+    
+    var currentLocation: CLLocationCoordinate2D? {
+        return locationManager.location?.coordinate
+    }
     
     /// When true, a button will be shown in MapView that fetches locations within the current
     /// map region. If the current map region has already been searched, button is not shown.
@@ -57,6 +61,16 @@ import SwiftUI
     
     func getCurrentLocationCoordinate() -> CLLocationCoordinate2D? {
         return mapRegion.center
+    }
+    
+    /// This function moves the map region such that it is centered on the user's current location and
+    /// changes the span to 0.1 degrees in latitude and longitude.
+    func ZoomToUserLocation() {
+        if let currentLocationCoordinate = locationManager.location?.coordinate {
+            mapRegion = MKCoordinateRegion(center: currentLocationCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+        } else {
+            print("Error retrieving current location.")
+        }
     }
     
     /// This function moves the map region such that it is centered on the user's current location.

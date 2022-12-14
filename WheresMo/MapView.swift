@@ -158,6 +158,17 @@ struct MapView: View {
                 }
             }
         }
+        .onAppear {
+            Task {
+                // Need to wait for a bit in order to access user's location.
+                // Hoping to find a better way to do this in the future.
+                try await Task.sleep(for:.seconds(1))
+                withAnimation {
+                    viewModel.ZoomToUserLocation()
+                }
+                await viewModel.fetchLocationsWithinMapRegion()
+            }
+        }
         .animation(.easeInOut, value: viewModel.isPlacingPin)
         .animation(.easeInOut(duration: 0.75), value: viewModel.showingSearchAreaButton)
         .sheet(item: $viewModel.selectedPlaceToDetail) { location in
