@@ -71,6 +71,7 @@
 		51633C152947A3D3005B23C4 /* CustomPhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPhotoPickerView.swift; sourceTree = "<group>"; };
 		51633C172948263D005B23C4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		51633C1929496EEB005B23C4 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		51633C1B294D164B005B23C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		51EFEC9A2924510900A83A30 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		51EFEC9E292C689C00A83A30 /* LocationPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPhoto.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +112,7 @@
 		512E161E291F10AB008094A9 /* WheresMo */ = {
 			isa = PBXGroup;
 			children = (
+				51633C1B294D164B005B23C4 /* Info.plist */,
 				512E161F291F10AB008094A9 /* WheresMoApp.swift */,
 				512F7C372935AAF600DD0188 /* MainView.swift */,
 				513A4287293835090060BE74 /* FeedView.swift */,
@@ -386,12 +388,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = WheresMo/WheresMo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WheresMo/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WheresMo/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "View Mo locations near you.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "You must allow access to photos to place a Mo location.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -424,12 +428,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = WheresMo/WheresMo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WheresMo/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WheresMo/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "View Mo locations near you.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "You must allow access to photos to place a Mo location.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
