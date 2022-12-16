@@ -104,4 +104,14 @@ class LoginViewModel: ObservableObject {
             print("Error signing out: %@", signOutError)
         }
     }
+    
+    func sendResetPasswordEmail(email: String) {
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            if error != nil {
+                print("Could not send password reset link: \(error!.localizedDescription)")
+            } else {
+                print("Sent password reset link!")
+            }
+        }
+    }
 }

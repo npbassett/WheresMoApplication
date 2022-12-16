@@ -11,6 +11,7 @@ import SwiftUI
 struct LoginView: View {
     @EnvironmentObject var loginViewModel: LoginViewModel
     @State private var showingCreateNewAccount = false
+    @State private var showingResetPassword = false
     
     var body: some View {
         ZStack {
@@ -62,27 +63,43 @@ struct LoginView: View {
                                         .fill(.blue)
                                 }
                         }
+                        .alert("Unable to log in.", isPresented: $loginViewModel.showingLoginError) {
+                            Button("OK", role: .cancel) { }
+                        } message: {
+                            Text("Email and/or password is incorrect.")
+                        }
                     }
                     .padding()
                 }
                 
                 Button {
-                    showingCreateNewAccount = true
+                    showingCreateNewAccount.toggle()
                 } label: {
                     Text("Don't have an account? Click here.")
                         .foregroundColor(Color(UIColor.systemBackground))
                         .underline()
                 }
                 
-                Spacer()
-                
+                Button {
+                    showingResetPassword.toggle()
+                } label: {
+                    Text("Forgot Password?")
+                        .foregroundColor(Color(UIColor.systemBackground))
+                        .underline()
+                }
+                .alert("Reset Password", isPresented: $showingResetPassword){
+                    TextField("Email", text: $loginViewModel.email)
+                        .autocorrectionDisabled()
+                        .autocapitalization(.none)
+                    Button("Send") {
+                        loginViewModel.sendResetPasswordEmail(email: loginViewModel.email)
+                    }
+                    Button("Cancel", role: .cancel) { }
+                } message: {
+                    Text("Please enter the email to send the password reset link.")
+                }
             }
             .padding()
-        }
-        .alert("Unable to log in.", isPresented: $loginViewModel.showingLoginError) {
-            Button("OK", role: .cancel) { }
-        } message: {
-            Text("Email and/or password is incorrect.")
         }
         .sheet(isPresented: $showingCreateNewAccount) {
             CreateNewAccountView()
