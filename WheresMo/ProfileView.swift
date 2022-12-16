@@ -85,6 +85,7 @@ struct ProfileView: View {
                                                    onSaveLocation: { location in viewModel.updateLocationList(location: location) })
                             } label: {
                                 LocationPhoto(id: location.id)
+                                    .scaledToFill()
                                     .frame(width: 170, height: 170)
                                     .clipShape(RoundedRectangle(cornerRadius: 5))
                             }

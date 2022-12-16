@@ -33,8 +33,9 @@ struct FeedPostView: View {
             }
             
             LocationPhoto(id: location.id)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .scaledToFill()
                 .frame(width: 320, height: 320)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
             
             (Text(Image(systemName: "calendar")) + Text(" ") + Text(location.date.formatted(date: .abbreviated, time: .omitted)))
                 .lineLimit(1)
