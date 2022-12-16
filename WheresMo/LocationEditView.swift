@@ -7,6 +7,7 @@
 
 import MapKit
 import SwiftUI
+import Kingfisher
 
 struct LocationEditView: View {
     @Environment(\.dismiss) var dismiss
@@ -27,6 +28,7 @@ struct LocationEditView: View {
     @State private var showingPhotoPickerSheet = false
     @State private var showingDeleteAlert = false
     @State private var showingUseMetadataAlert = false
+    @State private var isSavingPhoto = false
     
     var photoSelectionRequired: Bool {
         return selectedPhoto == nil && !navigatedFromDetailView
@@ -37,69 +39,77 @@ struct LocationEditView: View {
     }
     
     var body: some View {
-        Form {
-            Section {
-                if let selectedPhoto {
-                    Image(uiImage: selectedPhoto)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .scaledToFill()
-                        .frame(maxWidth: .infinity)
-                } else {
-                    LocationPhoto(id: location.id)
-                        .aspectRatio(contentMode: .fit)
-                        .scaledToFill()
-                        .frame(maxWidth: .infinity)
+        ZStack {
+            Form {
+                Section {
+                    if let selectedPhoto {
+                        Image(uiImage: selectedPhoto)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .scaledToFill()
+                            .frame(maxWidth: .infinity)
+                    } else {
+                        LocationPhoto(id: location.id)
+                            .aspectRatio(contentMode: .fit)
+                            .scaledToFill()
+                            .frame(maxWidth: .infinity)
+                    }
                 }
-            }
-            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-            
-            Section {
+                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                
+                Section {
+                    Button {
+                        showingPhotoPickerSheet.toggle()
+                    } label: {
+                        Label("Select a photo", systemImage: "photo")
+                    }
+                    .onChange(of: metadataDate) { _ in
+                        showingUseMetadataAlert.toggle()
+                    }
+                } footer: {
+                    if photoSelectionRequired {
+                        (Text(Image(systemName: "exclamationmark.circle")) + Text(" Please select a photo"))
+                            .foregroundColor(.red)
+                    }
+                }
+                
+                Section {
+                    TextField("Enter landmark", text: $landmark)
+                } header: {
+                    Text("Landmark")
+                } footer: {
+                    VStack {
+                        if landmarkIsEmpty {
+                            (Text(Image(systemName: "exclamationmark.circle")) + Text(" Please enter a landmark"))
+                                .foregroundColor(.red)
+                        } else {
+                            Text(Image(systemName: "location.fill")) + Text(" \(coordinate.latitude), \(coordinate.longitude)")
+                        }
+                    }
+                }
+                
+                Section("Date placed") {
+                    DatePicker("Enter the date and time when this Mo was placed", selection: $date)
+                        .labelsHidden()
+                }
+                
+                Section("Description") {
+                    TextEditor(text: $description)
+                        .frame(height: 150)
+                }
+                
                 Button {
-                    showingPhotoPickerSheet.toggle()
+                    showingDeleteAlert = true
                 } label: {
-                    Label("Select a photo", systemImage: "photo")
-                }
-                .onChange(of: metadataDate) { _ in
-                    showingUseMetadataAlert.toggle()
-                }
-            } footer: {
-                if photoSelectionRequired {
-                    (Text(Image(systemName: "exclamationmark.circle")) + Text(" Please select a photo"))
+                    (Text(Image(systemName: "trash")) + Text(" Delete Location"))
                         .foregroundColor(.red)
                 }
             }
+            .blur(radius: isSavingPhoto ? 5 : 0)
             
-            Section {
-                TextField("Enter landmark", text: $landmark)
-            } header: {
-                Text("Landmark")
-            } footer: {
-                VStack {
-                    if landmarkIsEmpty {
-                        (Text(Image(systemName: "exclamationmark.circle")) + Text(" Please enter a landmark"))
-                            .foregroundColor(.red)
-                    } else {
-                        Text(Image(systemName: "location.fill")) + Text(" \(coordinate.latitude), \(coordinate.longitude)")
-                    }
-                }
-            }
-            
-            Section("Date placed") {
-                DatePicker("Enter the date and time when this Mo was placed", selection: $date)
-                    .labelsHidden()
-            }
-            
-            Section("Description") {
-                TextEditor(text: $description)
-                    .frame(height: 150)
-            }
-            
-            Button {
-                showingDeleteAlert = true
-            } label: {
-                (Text(Image(systemName: "trash")) + Text(" Delete Location"))
-                    .foregroundColor(.red)
+            if isSavingPhoto {
+                ProgressView()
+                    .scaleEffect(2)
             }
         }
         .navigationTitle("Edit")
@@ -152,13 +162,20 @@ struct LocationEditView: View {
                     newLocation.description = description
                     
                     Task {
-                        await viewModel.saveLocation(location: newLocation)
                         let selectedPhotoData = selectedPhoto?.jpegData(compressionQuality: 0.0)
                         if selectedPhotoData != nil {
-                            await viewModel.saveLocationPhoto(data: selectedPhotoData!, id: newLocation.id)
+                            // saveLocationPhoto function takes a closure as an argument that runs on completion.
+                            // We want to wait until location photo has been uploaded to firebase before
+                            // saving location so that when new post is created in FeedView, it can fetch
+                            // the location photo from firebase.
+                            isSavingPhoto = true
+                            await viewModel.saveLocationPhoto(data: selectedPhotoData!, id: newLocation.id) {
+                                await viewModel.saveLocation(location: newLocation)
+                                isSavingPhoto = false
+                                dismiss()
+                            }
                         }
                     }
-                    dismiss()
                 } label: {
                     Text("Save")
                 }

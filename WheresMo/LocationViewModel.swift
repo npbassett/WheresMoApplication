@@ -87,13 +87,16 @@ import Kingfisher
     ///     - data: Photo data to be saved.
     ///     - id: UUID identifying the location that the photo is associated with.
     /// - returns: None
-    func saveLocationPhoto(data: Data, id: UUID) async {
+    func saveLocationPhoto(data: Data, id: UUID, onCompletion: @escaping () async -> Void) async {
         let url = "gs://wheresmo-415ab.appspot.com/images/\(id.uuidString).jpg"
         let gsReference = Storage.storage().reference(forURL: url)
         gsReference.putData(data, metadata: nil) { metadata, error in
             guard metadata != nil else {
                 print("Error saving image to Firebase.")
                 return
+            }
+            Task {
+                await onCompletion()
             }
         }
     }

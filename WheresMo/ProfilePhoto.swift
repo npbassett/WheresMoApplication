@@ -95,7 +95,8 @@ struct ProfilePhoto: View {
                         print("Could not save new profile photo, photo data was nil.")
                         return
                     }
-                    try await viewModel.onProfilePhotoChange(newProfilePhotoData: selectedProfilePhotoData!)
+                    await viewModel.saveProfilePhoto(data: selectedProfilePhotoData!)
+//                    try await viewModel.onProfilePhotoChange(newProfilePhotoData: selectedProfilePhotoData!)
                 }
             }
             Button("Cancel", role: .cancel) { }
