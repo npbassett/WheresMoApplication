@@ -75,7 +75,7 @@ import SwiftUI
     
     /// This function moves the map region such that it is centered on the user's current location.
     /// The span of the map region is not changed.
-    func resetMapRegion() {
+    func moveToUserLocation() {
         if let currentLocationCoordinate = locationManager.location?.coordinate {
             mapRegion = MKCoordinateRegion(center: currentLocationCoordinate, span: mapRegion.span)
         } else {

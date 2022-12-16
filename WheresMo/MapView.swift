@@ -129,7 +129,7 @@ struct MapView: View {
                         VStack {
                             Button {
                                 withAnimation {
-                                    viewModel.resetMapRegion()
+                                    viewModel.ZoomToUserLocation()
                                 }
                             } label: {
                                 Image(systemName: "location.fill")
@@ -156,17 +156,6 @@ struct MapView: View {
                         }
                     }
                 }
-            }
-        }
-        .onAppear {
-            Task {
-                // Need to wait for a bit in order to access user's location.
-                // Hoping to find a better way to do this in the future.
-                try await Task.sleep(for:.seconds(1))
-                withAnimation {
-                    viewModel.ZoomToUserLocation()
-                }
-                await viewModel.fetchLocationsWithinMapRegion()
             }
         }
         .animation(.easeInOut, value: viewModel.isPlacingPin)
