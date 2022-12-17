@@ -41,18 +41,23 @@ struct ProfilePhoto: View {
     
     var body: some View {
         ZStack {
-            switch viewModel.profilePhotoLoadingState {
-            case .loading:
-                ProgressView()
-            case .loaded:
-                viewModel.profilePhotoToShow!
-                    .resizable()
-                    .clipShape(Circle())
-            case .failed:
-                Image("Mo_background_removed")
-                    .resizable()
-                    .background(LinearGradient(colors: [.yellow, .red], startPoint: .topLeading, endPoint: .bottomTrailing))
-                    .clipShape(Circle())
+            GeometryReader { geo in
+                switch viewModel.profilePhotoLoadingState {
+                case .loading:
+                    ProgressView()
+                case .loaded:
+                    viewModel.profilePhotoToShow!
+                        .resizable()
+                        .scaledToFill()
+                        .clipShape(Circle())
+                        .frame(width: geo.size.width, height: geo.size.width)
+                case .failed:
+                    Image("Mo_background_removed")
+                        .resizable()
+                        .background(LinearGradient(colors: [.yellow, .red], startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .clipShape(Circle())
+                        .frame(width: geo.size.width, height: geo.size.width)
+                }
             }
             
             if showUpdateProfilePhotoButton {
@@ -96,7 +101,6 @@ struct ProfilePhoto: View {
                         return
                     }
                     await viewModel.saveProfilePhoto(data: selectedProfilePhotoData!)
-//                    try await viewModel.onProfilePhotoChange(newProfilePhotoData: selectedProfilePhotoData!)
                 }
             }
             Button("Cancel", role: .cancel) { }
