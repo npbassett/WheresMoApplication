@@ -9,11 +9,12 @@ import Kingfisher
 import SwiftUI
 
 struct SettingsView: View {
+    @State private var showingClearCacheAlert = false
+    
     var body: some View {
         VStack {
             Button {
-                ImageCache.default.clearMemoryCache()
-                ImageCache.default.clearDiskCache()
+                showingClearCacheAlert.toggle()
             } label: {
                 Text("Clear image cache")
             }
@@ -33,6 +34,16 @@ struct SettingsView: View {
             Text("Copyright 2022, Neil Bassett")
                 .foregroundColor(.secondary)
                 .padding(.bottom)
+        }
+        .alert("Clear image cache", isPresented: $showingClearCacheAlert) {
+            Button("Confirm") {
+                ImageCache.default.clearMemoryCache()
+                ImageCache.default.clearDiskCache()
+            }
+            
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("Are you sure?")
         }
     }
 }
