@@ -12,12 +12,15 @@ struct CreateNewAccountView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var loginViewModel: LoginViewModel
     
+    @FocusState var isInputActive: Bool
+    
     var body: some View {
         NavigationView {
             VStack {
                 Form {
                     Section {
                         TextField("Enter Email", text: $loginViewModel.email)
+                            .focused($isInputActive)
                             .autocorrectionDisabled()
                             .autocapitalization(.none)
                     } header: {
@@ -32,6 +35,7 @@ struct CreateNewAccountView: View {
                     
                     Section {
                         TextField("Enter Display Name", text: $loginViewModel.displayName)
+                            .focused($isInputActive)
                     } header: {
                         Text("Display Name")
                     } footer: {
@@ -46,6 +50,7 @@ struct CreateNewAccountView: View {
                     
                     Section {
                         SecureField("Enter Password", text: $loginViewModel.password)
+                            .focused($isInputActive)
                             .autocorrectionDisabled()
                             .autocapitalization(.none)
                     } header: {
@@ -54,6 +59,7 @@ struct CreateNewAccountView: View {
                     
                     Section {
                         SecureField("Re-enter Password", text: $loginViewModel.passwordReentry)
+                            .focused($isInputActive)
                             .autocorrectionDisabled()
                             .autocapitalization(.none)
                     } header: {
@@ -90,6 +96,13 @@ struct CreateNewAccountView: View {
                         dismiss()
                     } label: {
                         Text("Cancel")
+                    }
+                }
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+
+                    Button("Done") {
+                        isInputActive = false
                     }
                 }
             }

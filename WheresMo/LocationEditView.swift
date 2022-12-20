@@ -30,6 +30,8 @@ struct LocationEditView: View {
     @State private var showingUseMetadataAlert = false
     @State private var isSavingPhoto = false
     
+    @FocusState var isInputActive: Bool
+    
     var photoSelectionRequired: Bool {
         return selectedPhoto == nil && !navigatedFromDetailView
     }
@@ -79,6 +81,7 @@ struct LocationEditView: View {
                 
                 Section {
                     TextField("Enter landmark", text: $landmark)
+                        .focused($isInputActive)
                 } header: {
                     Text("Landmark")
                 } footer: {
@@ -102,6 +105,7 @@ struct LocationEditView: View {
                 
                 Section("Description") {
                     TextEditor(text: $description)
+                        .focused($isInputActive)
                         .frame(height: 150)
                 }
                 
@@ -187,6 +191,13 @@ struct LocationEditView: View {
                     Text("Save")
                 }
                 .disabled(photoSelectionRequired || landmarkIsEmpty || invalidCoordinates)
+            }
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+
+                Button("Done") {
+                    isInputActive = false
+                }
             }
         }
         .sheet(isPresented: $showingPhotoPickerSheet) {

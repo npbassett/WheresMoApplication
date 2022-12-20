@@ -12,6 +12,7 @@ struct LoginView: View {
     @EnvironmentObject var loginViewModel: LoginViewModel
     @State private var showingCreateNewAccount = false
     @State private var showingResetPassword = false
+    @FocusState var isInputActive: Bool
     
     var body: some View {
         ZStack {
@@ -38,6 +39,7 @@ struct LoginView: View {
                         TextField("Email", text: $loginViewModel.email)
                             .autocorrectionDisabled()
                             .autocapitalization(.none)
+                            .focused($isInputActive)
                             .padding()
                             .background(Color(UIColor.tertiarySystemBackground))
                             .cornerRadius(5)
@@ -46,6 +48,7 @@ struct LoginView: View {
                         SecureField("Password", text: $loginViewModel.password)
                             .autocorrectionDisabled()
                             .autocapitalization(.none)
+                            .focused($isInputActive)
                             .padding()
                             .background(Color(UIColor.tertiarySystemBackground))
                             .cornerRadius(5)
@@ -105,6 +108,15 @@ struct LoginView: View {
                 }
             }
             .padding()
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+
+                Button("Done") {
+                    isInputActive = false
+                }
+            }
         }
         .sheet(isPresented: $showingCreateNewAccount) {
             CreateNewAccountView()
