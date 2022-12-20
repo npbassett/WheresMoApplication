@@ -33,6 +33,9 @@ struct SettingsView: View {
             
             Text("Copyright 2022, Neil Bassett")
                 .foregroundColor(.secondary)
+            
+            Text("Mo artwork by Susan Cassada")
+                .foregroundColor(.secondary)
                 .padding(.bottom)
         }
         .alert("Clear image cache", isPresented: $showingClearCacheAlert) {
