@@ -40,6 +40,7 @@ class LoginViewModel: ObservableObject {
         password.count < 8
     }
     
+    /// Uses Firebase to perform user authentication with email/password.
     func login() {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if error == nil {
@@ -70,6 +71,7 @@ class LoginViewModel: ObservableObject {
         }
     }
     
+    /// Creates a new user with a given email + password with Firebase authentication.
     func createNewUser() {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if error == nil {
@@ -83,8 +85,6 @@ class LoginViewModel: ObservableObject {
                             print("Sucessfully saved displayName!")
                         } else {
                             print("Error saving displayName: \(error!.localizedDescription)")
-//                            self.createUserErrorMessage = error!.localizedDescription
-//                            self.showingCreateUserError.toggle()
                         }
                     }
                 }
@@ -101,6 +101,7 @@ class LoginViewModel: ObservableObject {
         }
     }
 
+    /// Logs out from Firebase authentication.
     func logout() {
         do {
             try Auth.auth().signOut()
@@ -111,6 +112,11 @@ class LoginViewModel: ObservableObject {
         }
     }
     
+    /// Sends an email from Firebase to reset the password for the account associated with the given email.
+    ///
+    /// This function should be run after prompting the user to enter the email to send the reset link.
+    ///
+    /// - parameter email: email to send the reset password link.
     func sendResetPasswordEmail(email: String) {
         Auth.auth().sendPasswordReset(withEmail: email) { error in
             if error != nil {
