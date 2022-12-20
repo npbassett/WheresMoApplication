@@ -202,6 +202,6 @@ struct LocationEditView: View {
 struct LocationEditView_Previews: PreviewProvider {
     static var previews: some View {
         LocationEditView(location: Location.exampleLocation, navigatedFromDetailView: false)
-            .environmentObject(MainViewModel(userLoggedIn: User.exampleUser))
+            .environmentObject(LocationViewModel(location: Location.exampleLocation, userLoggedIn: User.exampleUser, onDeleteLocation: { }, onSaveLocation: { _ in }))
     }
 }

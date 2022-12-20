@@ -11,18 +11,9 @@ struct MainView: View {
     var userLoggedIn: User
     var onLogout: () -> Void
     
-    @StateObject private var viewModel: MainViewModel
-    
-    init(userLoggedIn: User, onLogout: @escaping () -> Void) {
-        self.userLoggedIn = userLoggedIn
-        self.onLogout = onLogout
-        self._viewModel = StateObject(wrappedValue: MainViewModel(userLoggedIn: userLoggedIn))
-    }
-    
     var body: some View {
         TabView {
-            FeedView()
-                .environmentObject(viewModel)
+            FeedView(userLoggedIn: userLoggedIn)
                 .tabItem {
                     Label("Feed", systemImage: "list.dash")
                 }
@@ -41,9 +32,6 @@ struct MainView: View {
         }
         .onAppear {
             UITabBar.appearance().backgroundColor = UIColor.systemBackground
-            Task {
-                await viewModel.fetchLocations()
-            }
         }
     }
 }

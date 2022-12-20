@@ -1,5 +1,5 @@
 //
-//  MainViewModel.swift
+//  FeedViewModel.swift
 //  WheresMo
 //
 //  Created by Neil Bassett on 11/12/22.
@@ -12,33 +12,17 @@ import Foundation
 import MapKit
 import SwiftUI
 
-@MainActor class MainViewModel: ObservableObject {
+@MainActor class FeedViewModel: ObservableObject {
     var userLoggedIn: User
     
     @Published var locations = [Location]()
     @Published var userTrackingMode: MapUserTrackingMode = .follow
-    @Published var selectedPlaceToDetail: Location?
-    @Published var selectedPlaceToEdit: Location?
-    @Published var isPlacingPin = false
     @Published var isLoadingLocations = false
     
     private var lastDocumentSnapshot: DocumentSnapshot?
             
     init(userLoggedIn: User) {
         self.userLoggedIn = userLoggedIn
-    }
-    
-    func startPlacingPin() {
-        isPlacingPin = true
-    }
-    
-    func endPlacingPin() {
-        isPlacingPin = false
-    }
-    
-    func startEditingLocation(location: Location) {
-        endPlacingPin()
-        selectedPlaceToEdit = location
     }
     
     /// Fetches locations from Firebase Firestore. Each time this function is called, it appends the fetched locations to
@@ -136,7 +120,7 @@ import SwiftUI
         } else {
             print("Location was not found in locations list so it could not be deleted.")
         }
-        selectedPlaceToEdit = nil
-        selectedPlaceToDetail = nil
+//        selectedPlaceToEdit = nil
+//        selectedPlaceToDetail = nil
     }
 }

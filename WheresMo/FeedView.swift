@@ -8,9 +8,16 @@
 import SwiftUI
 
 struct FeedView: View {
-    @EnvironmentObject var viewModel: MainViewModel
+    var userLoggedIn: User
+    
+    @StateObject private var viewModel: FeedViewModel
     
     @State private var showingNewLocationSheet = false
+    
+    init(userLoggedIn: User) {
+        self.userLoggedIn = userLoggedIn
+        self._viewModel = StateObject(wrappedValue: FeedViewModel(userLoggedIn: userLoggedIn))
+    }
     
     var body: some View {
         NavigationView {
@@ -77,6 +84,11 @@ struct FeedView: View {
                 .background(Color(UIColor.secondarySystemBackground))
             }
         }
+        .onAppear {
+            Task {
+                await viewModel.fetchLocations()
+            }
+        }
         .sheet(isPresented: $showingNewLocationSheet) {
             let location = Location(placedByUser: viewModel.userLoggedIn, latitude: 0.0, longitude: 0.0)
             NavigationView {
@@ -95,7 +107,6 @@ struct FeedView: View {
 
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
-        FeedView()
-            .environmentObject(MainViewModel(userLoggedIn: User.exampleUser))
+        FeedView(userLoggedIn: User.exampleUser)
     }
 }
