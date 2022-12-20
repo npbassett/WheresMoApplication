@@ -79,6 +79,11 @@ struct LoginView: View {
                         .foregroundColor(Color(UIColor.systemBackground))
                         .underline()
                 }
+                .alert("Error creating user", isPresented: $loginViewModel.showingCreateUserError) {
+                    Button("OK") { }
+                } message: {
+                    Text(loginViewModel.createUserErrorMessage)
+                }
                 
                 Button {
                     showingResetPassword.toggle()

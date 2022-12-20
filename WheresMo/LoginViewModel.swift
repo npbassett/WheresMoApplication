@@ -15,6 +15,8 @@ class LoginViewModel: ObservableObject {
     @Published var passwordReentry = ""
     @Published var userLoggedIn: User? = nil
     @Published var showingLoginError = false
+    @Published var showingCreateUserError = false
+    @Published var createUserErrorMessage = ""
     
     var emailInvalid: Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
@@ -81,17 +83,21 @@ class LoginViewModel: ObservableObject {
                             print("Sucessfully saved displayName!")
                         } else {
                             print("Error saving displayName: \(error!.localizedDescription)")
+//                            self.createUserErrorMessage = error!.localizedDescription
+//                            self.showingCreateUserError.toggle()
                         }
                     }
                 }
-                                
-                self.email = ""
-                self.displayName = ""
-                self.password = ""
-                self.passwordReentry = ""
             } else {
                 print("Error creating user: \(error!.localizedDescription)")
+                self.createUserErrorMessage = error!.localizedDescription
+                self.showingCreateUserError.toggle()
             }
+            
+            self.email = ""
+            self.displayName = ""
+            self.password = ""
+            self.passwordReentry = ""
         }
     }
 
