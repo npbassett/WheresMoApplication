@@ -38,6 +38,10 @@ struct LocationEditView: View {
         return landmark.isEmpty
     }
     
+    var invalidCoordinates: Bool {
+        return coordinate.latitude == 0.0 && coordinate.longitude == 0.0
+    }
+    
     var body: some View {
         ZStack {
             Form {
@@ -81,6 +85,9 @@ struct LocationEditView: View {
                     VStack {
                         if landmarkIsEmpty {
                             (Text(Image(systemName: "exclamationmark.circle")) + Text(" Please enter a landmark"))
+                                .foregroundColor(.red)
+                        } else if invalidCoordinates {
+                            (Text(Image(systemName: "exclamationmark.circle")) + Text(" Invalid coordinates!"))
                                 .foregroundColor(.red)
                         } else {
                             Text(Image(systemName: "location.fill")) + Text(" \(coordinate.latitude), \(coordinate.longitude)")
@@ -179,7 +186,7 @@ struct LocationEditView: View {
                 } label: {
                     Text("Save")
                 }
-                .disabled(photoSelectionRequired || landmarkIsEmpty)
+                .disabled(photoSelectionRequired || landmarkIsEmpty || invalidCoordinates)
             }
         }
         .sheet(isPresented: $showingPhotoPickerSheet) {
