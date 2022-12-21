@@ -195,6 +195,11 @@ struct LocationEditView: View {
                                 isSavingPhoto = false
                                 dismiss()
                             }
+                        } else {
+                            // if selectedPhotoData is nil, we don't need to save a photo,
+                            // only the location data.
+                            await viewModel.saveLocation(location: newLocation)
+                            dismiss()
                         }
                     }
                 } label: {
