@@ -45,6 +45,7 @@ struct ProfilePhoto: View {
                 switch viewModel.profilePhotoLoadingState {
                 case .loading:
                     ProgressView()
+                        .frame(width: geo.size.width, height: geo.size.width)
                 case .loaded:
                     viewModel.profilePhotoToShow!
                         .resizable()
