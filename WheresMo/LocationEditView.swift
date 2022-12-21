@@ -78,6 +78,32 @@ struct LocationEditView: View {
                             .foregroundColor(.red)
                     }
                 }
+                .alert("Found photo metadata.", isPresented: $showingUseMetadataAlert) {
+                    if metadataDate != nil && metadataLatitude != nil && metadataLongitude != nil {
+                        Button("Use Date/Time + Coordinates") {
+                            date = metadataDate!
+                            coordinate = CLLocationCoordinate2D(latitude: metadataLatitude!, longitude: metadataLongitude!)
+                        }
+                    }
+                    
+                    
+                    if metadataDate != nil {
+                        Button("Use Date/Time") {
+                            date = metadataDate!
+                        }
+                    }
+                    
+                    if metadataLatitude != nil && metadataLongitude != nil {
+                        Button("Use Coordinates") {
+                            coordinate = CLLocationCoordinate2D(latitude: metadataLatitude!, longitude: metadataLongitude!)
+                        }
+                    }
+                    
+                    
+                    Button("None", role: .cancel) { }
+                } message: {
+                    Text("Which data fields would you like to use?")
+                }
                 
                 Section {
                     TextField("Enter landmark", text: $landmark)
@@ -85,15 +111,15 @@ struct LocationEditView: View {
                 } header: {
                     Text("Landmark")
                 } footer: {
-                    VStack {
-                        if landmarkIsEmpty {
+                    VStack(alignment: .leading) {
+                        Text(Image(systemName: "location.fill")) + Text(" \(coordinate.latitude), \(coordinate.longitude)")
+                        
+                        if invalidCoordinates {
+                            (Text(Image(systemName: "exclamationmark.circle")) + Text(" If you are not using location from photo metadata, use map to place a new Mo!"))
+                                .foregroundColor(.red)
+                        } else if landmarkIsEmpty {
                             (Text(Image(systemName: "exclamationmark.circle")) + Text(" Please enter a landmark"))
                                 .foregroundColor(.red)
-                        } else if invalidCoordinates {
-                            (Text(Image(systemName: "exclamationmark.circle")) + Text(" Invalid coordinates!"))
-                                .foregroundColor(.red)
-                        } else {
-                            Text(Image(systemName: "location.fill")) + Text(" \(coordinate.latitude), \(coordinate.longitude)")
                         }
                     }
                 }
@@ -136,22 +162,6 @@ struct LocationEditView: View {
             Button("Cancel", role: .cancel) { }
         } message: {
             Text("Are you sure?")
-        }
-        .alert("Found photo metadata.", isPresented: $showingUseMetadataAlert) {
-            Button("Yes") {
-                guard metadataDate != nil else {
-                    return
-                }
-                date = metadataDate!
-                
-                guard metadataLatitude != nil && metadataLongitude != nil else {
-                    return
-                }
-                coordinate = CLLocationCoordinate2D(latitude: metadataLatitude!, longitude: metadataLongitude!)
-            }
-            Button("No", role: .cancel) { }
-        } message: {
-            Text("Would you like to use the metadata to set the date and location of this Mo?")
         }
         .toolbar {
             if !navigatedFromDetailView {
