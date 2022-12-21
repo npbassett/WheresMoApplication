@@ -37,6 +37,7 @@
 		51633C162947A3D3005B23C4 /* CustomPhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51633C152947A3D3005B23C4 /* CustomPhotoPickerView.swift */; };
 		51633C182948263D005B23C4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51633C172948263D005B23C4 /* SettingsView.swift */; };
 		51633C1A29496EEB005B23C4 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51633C1929496EEB005B23C4 /* MapViewModel.swift */; };
+		51633C1D29527AC8005B23C4 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51633C1C29527AC8005B23C4 /* LocationManager.swift */; };
 		51EFEC9B2924510900A83A30 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFEC9A2924510900A83A30 /* User.swift */; };
 		51EFEC9F292C689C00A83A30 /* LocationPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EFEC9E292C689C00A83A30 /* LocationPhoto.swift */; };
 		51EFECA1292C6FD800A83A30 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 51EFECA0292C6FD800A83A30 /* FirebaseStorage */; };
@@ -72,6 +73,7 @@
 		51633C172948263D005B23C4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		51633C1929496EEB005B23C4 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		51633C1B294D164B005B23C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		51633C1C29527AC8005B23C4 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		51EFEC9A2924510900A83A30 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		51EFEC9E292C689C00A83A30 /* LocationPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPhoto.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -132,6 +134,7 @@
 				512E1632292026F7008094A9 /* LocationMarkerView.swift */,
 				512E162E2920173F008094A9 /* FeedViewModel.swift */,
 				51633C1929496EEB005B23C4 /* MapViewModel.swift */,
+				51633C1C29527AC8005B23C4 /* LocationManager.swift */,
 				512E16422921EB08008094A9 /* LocationDetailView.swift */,
 				512E1636292040E8008094A9 /* LocationEditView.swift */,
 				51633C0F29464455005B23C4 /* LocationViewModel.swift */,
@@ -255,6 +258,7 @@
 				51EFEC9F292C689C00A83A30 /* LocationPhoto.swift in Sources */,
 				512E16432921EB08008094A9 /* LocationDetailView.swift in Sources */,
 				513A4288293835090060BE74 /* FeedView.swift in Sources */,
+				51633C1D29527AC8005B23C4 /* LocationManager.swift in Sources */,
 				512E1637292040E8008094A9 /* LocationEditView.swift in Sources */,
 				512E163129201AA3008094A9 /* Location.swift in Sources */,
 				512E16532922E558008094A9 /* CreateNewAccountView.swift in Sources */,

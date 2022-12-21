@@ -24,12 +24,13 @@ import SwiftUI
     @Published var selectedPlaceToDetail: Location?
     @Published var selectedPlaceToEdit: Location?
     @Published var isPlacingPin = false
-    
-    private let locationManager = CLLocationManager()
+    @Published var showingLocationServicesAlert = false
+    @Published var locationManager = LocationManager()
+        
     private var lastSearchedRegion: MKCoordinateRegion?
     
     var currentLocation: CLLocationCoordinate2D? {
-        return locationManager.location?.coordinate
+        return locationManager.manager.location?.coordinate
     }
     
     /// When true, a button will be shown in MapView that fetches locations within the current
@@ -44,6 +45,7 @@ import SwiftUI
     
     init(userLoggedIn: User) {
         self.userLoggedIn = userLoggedIn
+        self.locationManager = locationManager
     }
     
     func startPlacingPin() {
@@ -60,26 +62,33 @@ import SwiftUI
     }
     
     func getCurrentLocationCoordinate() -> CLLocationCoordinate2D? {
-        return mapRegion.center
+        if locationManager.manager.location != nil {
+            return locationManager.manager.location!.coordinate
+        } else {
+            showingLocationServicesAlert.toggle()
+            return nil
+        }
     }
     
     /// This function moves the map region such that it is centered on the user's current location and
     /// changes the span to 0.1 degrees in latitude and longitude.
     func ZoomToUserLocation() {
-        if let currentLocationCoordinate = locationManager.location?.coordinate {
+        if let currentLocationCoordinate = locationManager.manager.location?.coordinate {
             mapRegion = MKCoordinateRegion(center: currentLocationCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
         } else {
             print("Error retrieving current location.")
+            showingLocationServicesAlert.toggle()
         }
     }
     
     /// This function moves the map region such that it is centered on the user's current location.
     /// The span of the map region is not changed.
     func moveToUserLocation() {
-        if let currentLocationCoordinate = locationManager.location?.coordinate {
+        if let currentLocationCoordinate = locationManager.manager.location?.coordinate {
             mapRegion = MKCoordinateRegion(center: currentLocationCoordinate, span: mapRegion.span)
         } else {
             print("Error retrieving current location.")
+            showingLocationServicesAlert.toggle()
         }
     }
     

@@ -51,8 +51,6 @@ struct MapView: View {
                                 viewModel.startEditingLocation(location: Location(placedByUser: viewModel.userLoggedIn,
                                                                                   latitude: coordinate.latitude,
                                                                                   longitude: coordinate.longitude))
-                            } else {
-                                print("Could not access current location.")
                             }
                         } label: {
                             HStack {
@@ -157,6 +155,11 @@ struct MapView: View {
                     }
                 }
             }
+        }
+        .alert("Could not retrieve current location.", isPresented: $viewModel.showingLocationServicesAlert) {
+            Button("OK") { }
+        } message: {
+            Text("Please enable location access in Settings > WheresMo > Location.")
         }
         .animation(.easeInOut, value: viewModel.isPlacingPin)
         .animation(.easeInOut(duration: 0.75), value: viewModel.showingSearchAreaButton)
